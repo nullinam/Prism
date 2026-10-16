@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.0.38 — Consistent dark tool modules and aligned plans
+
+- Fixed contrast and surface colors for file selection, privacy details, form labels, recovery, feedback, previews, and editor modules in dark and system themes.
+- Kept pricing cards on one shared grid with matching widths and action alignment.
+
+
 ## 0.0.37 — Dark workspace contrast refinement
 
 - Increased contrast on headings, form labels, recovery panels, feedback actions, and status text inside dark tool modules.

@@ -257,5 +257,106 @@
 
 .v2-status.limited{background:#fff4dc;color:#856018;border-color:#f0dfb8}.theme-dark .v2-status.limited{background:#362d1c;color:#f2d48e;border-color:#5b4a28}.tool-state.limited{color:#856018}.theme-dark .tool-state.limited{color:#f2d48e}
 
+/* Keep the workspace dark palette consistent in every tool module. */
+.app-shell.theme-dark .tool-page-heading h1,
+.app-shell.theme-dark .tool-page-heading .kicker,
+.app-shell.theme-dark .file-privacy-panel strong,
+.app-shell.theme-dark .runner-file>strong,
+.app-shell.theme-dark .runner-file-list>header strong,
+.app-shell.theme-dark .runner-file-row strong,
+.app-shell.theme-dark .runner-field,
+.app-shell.theme-dark .runner-feedback h2,
+.app-shell.theme-dark .runner-feedback label,
+.app-shell.theme-dark .runner-recovery label,
+.app-shell.theme-dark .runner-safety-notice strong,
+.app-shell.theme-dark .runner-preview-window h2,
+.app-shell.theme-dark .runner-preview-card footer strong,
+.app-shell.theme-dark .crop-editor>header strong,
+.app-shell.theme-dark .results-panel h2,
+.app-shell.theme-dark .runner-result h2,
+.app-shell.theme-dark .text-actions,
+.app-shell.theme-dark .text-work-area,
+.app-shell.theme-dark .file-picker strong,
+.app-shell.theme-dark .drop-card strong{color:#F5F5F5!important}
+.app-shell.theme-dark .file-privacy-panel,
+.app-shell.theme-dark .runner-file,
+.app-shell.theme-dark .runner-file-list,
+.app-shell.theme-dark .runner-safety-notice,
+.app-shell.theme-dark .runner-recovery,
+.app-shell.theme-dark .runner-feedback,
+.app-shell.theme-dark .runner-preview-window,
+.app-shell.theme-dark .runner-result,
+.app-shell.theme-dark .results-panel,
+.app-shell.theme-dark .crop-editor,
+.app-shell.theme-dark .text-work-area,
+.app-shell.theme-dark .text-options input{background:#242424!important;border-color:#484848!important;color:#F5F5F5!important}
+.app-shell.theme-dark .file-privacy-panel p,
+.app-shell.theme-dark .runner-file>span,
+.app-shell.theme-dark .runner-file small,
+.app-shell.theme-dark .runner-file-list small,
+.app-shell.theme-dark .runner-feedback p,
+.app-shell.theme-dark .runner-feedback>div,
+.app-shell.theme-dark .runner-recovery span,
+.app-shell.theme-dark .crop-editor>header span,
+.app-shell.theme-dark .crop-editor>p,
+.app-shell.theme-dark .text-actions span{color:#B7B7B7!important}
+.app-shell.theme-dark .file-privacy-panel a,
+.app-shell.theme-dark .runner-recovery button,
+.app-shell.theme-dark .runner-file-list>header button{color:#C4E88C!important}
+.app-shell.theme-dark .runner-file-row{background:#1D1D1D!important;border-color:#484848!important}
+.app-shell.theme-dark .runner-preview-canvas,.app-shell.theme-dark .crop-editor-canvas{background:#171717!important}
+.app-shell.theme-dark input,.app-shell.theme-dark textarea,.app-shell.theme-dark select{background-color:#242424!important;border-color:#484848!important;color:#F5F5F5!important;caret-color:#C4E88C!important;color-scheme:dark}
+.app-shell.theme-dark input::placeholder,.app-shell.theme-dark textarea::placeholder{color:#858585!important;opacity:1}
+
+@media(prefers-color-scheme:dark){
+  .app-shell.theme-system .tool-page-heading h1,
+  .app-shell.theme-system .tool-page-heading .kicker,
+  .app-shell.theme-system .file-privacy-panel strong,
+  .app-shell.theme-system .runner-file>strong,
+  .app-shell.theme-system .runner-file-list>header strong,
+  .app-shell.theme-system .runner-file-row strong,
+  .app-shell.theme-system .runner-field,
+  .app-shell.theme-system .runner-feedback h2,
+  .app-shell.theme-system .runner-feedback label,
+  .app-shell.theme-system .runner-recovery label,
+  .app-shell.theme-system .runner-safety-notice strong,
+  .app-shell.theme-system .runner-preview-window h2,
+  .app-shell.theme-system .runner-preview-card footer strong,
+  .app-shell.theme-system .crop-editor>header strong,
+  .app-shell.theme-system .file-picker strong,
+  .app-shell.theme-system .drop-card strong{color:#F5F5F5!important}
+  .app-shell.theme-system .file-privacy-panel,
+  .app-shell.theme-system .runner-file,
+  .app-shell.theme-system .runner-file-list,
+  .app-shell.theme-system .runner-safety-notice,
+  .app-shell.theme-system .runner-recovery,
+  .app-shell.theme-system .runner-feedback,
+  .app-shell.theme-system .runner-preview-window,
+  .app-shell.theme-system .runner-result,
+  .app-shell.theme-system .results-panel,
+  .app-shell.theme-system .crop-editor,
+  .app-shell.theme-system .text-work-area,
+  .app-shell.theme-system .text-options input{background:#242424!important;border-color:#484848!important;color:#F5F5F5!important}
+  .app-shell.theme-system .file-privacy-panel p,
+  .app-shell.theme-system .runner-file>span,
+  .app-shell.theme-system .runner-file small,
+  .app-shell.theme-system .runner-file-list small,
+  .app-shell.theme-system .runner-feedback p,
+  .app-shell.theme-system .runner-feedback>div,
+  .app-shell.theme-system .runner-recovery span,
+  .app-shell.theme-system .crop-editor>header span,
+  .app-shell.theme-system .crop-editor>p{color:#B7B7B7!important}
+  .app-shell.theme-system .runner-file-row{background:#1D1D1D!important;border-color:#484848!important}
+  .app-shell.theme-system .runner-preview-canvas,.app-shell.theme-system .crop-editor-canvas{background:#171717!important}
+  .app-shell.theme-system input,.app-shell.theme-system textarea,.app-shell.theme-system select{background-color:#242424!important;border-color:#484848!important;color:#F5F5F5!important;caret-color:#C4E88C!important;color-scheme:dark}
+  .app-shell.theme-system input::placeholder,.app-shell.theme-system textarea::placeholder{color:#858585!important;opacity:1}
+}
+
+/* Price cards share one grid width and their action rows align at the bottom. */
+.v2-pricing-heading,.v2-plan-grid,.v2-pricing-note{width:min(1168px,100%);box-sizing:border-box}
+.v2-plan-grid{grid-template-columns:repeat(2,minmax(0,1fr));align-items:stretch}
+.v2-plan-card{width:100%;min-width:0;min-height:318px;box-sizing:border-box}
+@media(max-width:650px){.v2-plan-grid{grid-template-columns:minmax(0,1fr)}.v2-plan-card{min-height:0}}
+
 
 /* Additional user-adjustable workspace presentation settings. */
