@@ -4,11 +4,12 @@ PRISM is a privacy-first toolkit. This project contains the Vercel browser-trial
 
 ## Website
 
-- `src/catalog.ts` is the source of truth for the 150 tool entries, their categories, readiness, and browser-trial caps.
-- The directory supports search and category filters. Cards disclose the trial cap and distinguish ready tools from tools still in development.
-- Currently available browser tools: image-dimension inspection and five text utilities. The remaining entries are catalogued but not yet runnable.
-- Browser limits for ready tools are enforced locally: 10 images at up to 20 MiB each for dimension inspection; up to 20,000 input characters for text tools.
-- No file-upload endpoint, analytics, or account service is configured. The browser tools process inputs in the browser.
+- `src/catalog.ts` is the source of truth for all 150 tools, their categories, current status, and browser-trial caps.
+- The website supports search and category filters. Tool cards show the trial cap and whether the workflow is available or in development.
+- 146 tools currently have browser workflows. PDF compression, PDF unlocking, PDF protection, and PDF image extraction are marked in development until their processing engines are implemented.
+- File tools enforce browser caps in the tool runner. Image workflows allow up to 10 files at 20 MiB each; PDF workflows allow up to 2 PDFs with a 10 MiB total and 100 pages; text input is capped at 20,000 characters.
+- No file-upload endpoint, analytics, or account service is configured. Supported inputs are processed in the browser, and source files are left unchanged.
+- Run `npm run audit:tools` to check that catalog IDs are unique and complete, every entry has its required metadata, and each tool has an explicit runner route.
 
 ## Vercel setup
 
@@ -21,7 +22,7 @@ npm install
 npm run dev
 ```
 
-Create a production build with `npm run build`.
+Create a production build with `npm run build`, then run the catalog consistency audit with `npm run audit:tools`.
 
 ## App roadmap
 
