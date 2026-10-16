@@ -24,3 +24,4 @@ Where a tool accepts multiple files, the visible settings apply to the batch. Th
 ## Not a verified capability
 
 A catalog route and successful compilation only establish that the UI and handler exist. They do not prove output correctness for every input. Consult [tool QA](tool-qa.md) for verified coverage and known limitations.
+

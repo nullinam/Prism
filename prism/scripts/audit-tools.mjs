@@ -43,3 +43,4 @@ if (failures.length) {
 } else {
   console.log(`PRISM catalog audit passed: ${catalog.length} unique entries; ${availabilityText}. Route references are present; behavioral QA is tracked separately.`);
 }
+

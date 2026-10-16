@@ -37,10 +37,11 @@ Use the `prism` directory as the Vercel project root. Vite is the framework, `np
 - Selected files are read through browser APIs and processed in the page.
 - Enabled task recovery saves inputs and settings in this browser's IndexedDB. Disable it or clear the recovered task from the tool page to remove that draft. Browser storage can be cleared through browser settings as well.
 - Appearance choices, recent tool names, and feedback drafts use local storage; recent history never stores selected file names or paths. Trial counters may use session storage.
+- Favorites and named per-tool presets use local storage in this browser. Presets can contain typed text and output settings, so the interface warns users not to save secrets or personal data in them.
 - The site currently has no configured analytics SDK, ad tracker, PRISM account service, or file-upload route. Vercel and the browser still make ordinary requests to load the site; the host may receive connection/request data.
 - Feedback text stays local until the user explicitly opens GitHub to submit it. Do not put private data into issue reports.
 
-Read [privacy.html](public/privacy.html), [supported formats and limits](docs/tool-catalog.md), [security reporting](SECURITY.md), [troubleshooting](docs/troubleshooting.md), and [third-party notices](THIRD_PARTY_NOTICES.md).
+Read [privacy.html](public/privacy.html), [supported formats and limits](docs/tool-catalog.md), [public roadmap](docs/roadmap.md), [release notes](CHANGELOG.md), [security reporting](SECURITY.md), [troubleshooting](docs/troubleshooting.md), and [third-party notices](THIRD_PARTY_NOTICES.md).
 
 ## Accessibility and customization
 
@@ -56,4 +57,5 @@ Open a GitHub issue at <https://github.com/nullinam/Prism/issues>. Include the t
 
 ## Release version
 
-The web/app version currently follows the pushed commit count: `0.0.41` is intended to match 41 commits reachable from the repository's starting history after this release is pushed. Keep `package.json`, `src/version.ts`, and the release notes aligned. Update the count only after confirming the target branch history; do not count local, unpushed commits.
+The web/app version currently follows the pushed commit count: `0.0.42` is intended to match 42 commits reachable from the repository's starting history after this release is pushed. Keep `package.json`, `src/version.ts`, and the release notes aligned. Update the count only after confirming the target branch history; do not count local, unpushed commits.
+

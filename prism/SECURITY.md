@@ -15,3 +15,4 @@ The maintainers will acknowledge reports when practical, assess impact, and coor
 ## Privacy
 
 Do not attach real personal files, passwords, tokens, or secrets. The browser tools are intended to process supported inputs locally, but a vulnerability report should describe the issue without exposing private content.
+

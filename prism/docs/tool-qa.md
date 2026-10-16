@@ -41,3 +41,4 @@ Catalog, build, dependency, and QPDF engine checks passed as recorded below. A s
 ## Next QA gate
 
 Run a browser fixture matrix for each available tool ID: normal input, invalid input, trial-limit boundary, preview, saved output, and output correctness. Include large/corrupt files, unusual filenames, multi-file batches, and cancellation. For PDF tools, test unencrypted and encrypted PDFs, correct and wrong passwords, file-size comparisons, JPEG and non-JPEG image objects, and output re-open tests. Record fixture names and outcomes here. Keep “verified” counts separate from route availability.
+

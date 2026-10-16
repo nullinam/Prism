@@ -152,3 +152,4 @@ export const tools: Tool[] = [
   {"id":149,"name":"Unit price comparison","category":"Utilities","trialLimit":"25 runs per session","status":"ready","beginner":"compare price per unit.","advanced":"different package sizes, quantity, currency, unit conversion and discount/loyalty price.","example":"compare two detergent bottles by price per liter.","preview":"normalized price and best-value indicator."},
   {"id":150,"name":"Text counter","category":"Utilities","trialLimit":"25 runs per session","status":"ready","beginner":"count characters, words, lines and paragraphs.","advanced":"count bytes, sentences, unique words, whitespace, selection-only text and platform-specific length.","example":"check a post’s word and character totals.","preview":"live count panel."},
 ];
+

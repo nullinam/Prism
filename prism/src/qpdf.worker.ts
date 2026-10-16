@@ -62,3 +62,4 @@ workerScope.onmessage = async (event: MessageEvent<Job>) => {
     qpdf = null;
   }
 };
+

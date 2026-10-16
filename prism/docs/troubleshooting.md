@@ -22,3 +22,4 @@ Private browsing modes, storage quotas, browser policy, or device space can bloc
 ## Report a problem
 
 Open [GitHub Issues](https://github.com/nullinam/Prism/issues/new) and include tool name/ID, browser and OS, input type/size, exact steps, and expected versus actual result. Use a synthetic file or sanitized text. Never share passwords, private documents, personal information, or file contents you are not authorized to disclose.
+

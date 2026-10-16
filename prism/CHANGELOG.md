@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.0.42 — Faster discovery and repeat work
+
+- Search now matches tool examples, descriptions, and supported workflow details.
+- Added local favorites, per-tool saved presets, and clearer capability notes on tool pages.
+- Added public roadmap and release-note links, and described preset storage in the interface.
+
 ## 0.0.41 — Centered privacy and pricing sections
 
 - Centered the privacy and pricing sections within the page on wide screens.
@@ -56,3 +62,4 @@ This release does not mean all catalog entries passed end-to-end QA. See `docs/t
 ## 0.0.34 — Workspace font fallback
 
 - Fixed the system font fallback chain so devices without the selected typeface keep a clean sans-serif UI.
+
