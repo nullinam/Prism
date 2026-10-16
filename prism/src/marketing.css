@@ -303,6 +303,10 @@
 .app-shell.theme-dark .file-privacy-panel a,
 .app-shell.theme-dark .runner-recovery button,
 .app-shell.theme-dark .runner-file-list>header button{color:#C4E88C!important}
+.app-shell.theme-dark .button-light,
+.app-shell.theme-dark .runner-file .button-light,
+.app-shell.theme-dark .runner-feedback .button-light,
+.app-shell.theme-dark .runner-preview-window .button-light{color:#F5F5F5!important}
 .app-shell.theme-dark .runner-file-row{background:#1D1D1D!important;border-color:#484848!important}
 .app-shell.theme-dark .runner-preview-canvas,.app-shell.theme-dark .crop-editor-canvas{background:#171717!important}
 .app-shell.theme-dark input,.app-shell.theme-dark textarea,.app-shell.theme-dark select{background-color:#242424!important;border-color:#484848!important;color:#F5F5F5!important;caret-color:#C4E88C!important;color-scheme:dark}
@@ -347,6 +351,10 @@
   .app-shell.theme-system .crop-editor>header span,
   .app-shell.theme-system .crop-editor>p{color:#B7B7B7!important}
   .app-shell.theme-system .runner-file-row{background:#1D1D1D!important;border-color:#484848!important}
+  .app-shell.theme-system .button-light,
+  .app-shell.theme-system .runner-file .button-light,
+  .app-shell.theme-system .runner-feedback .button-light,
+  .app-shell.theme-system .runner-preview-window .button-light{color:#F5F5F5!important}
   .app-shell.theme-system .runner-preview-canvas,.app-shell.theme-system .crop-editor-canvas{background:#171717!important}
   .app-shell.theme-system input,.app-shell.theme-system textarea,.app-shell.theme-system select{background-color:#242424!important;border-color:#484848!important;color:#F5F5F5!important;caret-color:#C4E88C!important;color-scheme:dark}
   .app-shell.theme-system input::placeholder,.app-shell.theme-system textarea::placeholder{color:#858585!important;opacity:1}

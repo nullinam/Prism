@@ -56,4 +56,4 @@ Open a GitHub issue at <https://github.com/nullinam/Prism/issues>. Include the t
 
 ## Release version
 
-The web/app version currently follows the pushed commit count: `0.0.38` is intended to match 38 commits reachable from the repository's starting history after this release is pushed. Keep `package.json`, `src/version.ts`, and the release notes aligned. Update the count only after confirming the target branch history; do not count local, unpushed commits.
+The web/app version currently follows the pushed commit count: `0.0.39` is intended to match 39 commits reachable from the repository's starting history after this release is pushed. Keep `package.json`, `src/version.ts`, and the release notes aligned. Update the count only after confirming the target branch history; do not count local, unpushed commits.

@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.0.39 — Dark file-picker button contrast
+
+- Kept secondary file and feedback actions readable on dark surfaces.
+
+
 ## 0.0.38 — Consistent dark tool modules and aligned plans
 
 - Fixed contrast and surface colors for file selection, privacy details, form labels, recovery, feedback, previews, and editor modules in dark and system themes.
