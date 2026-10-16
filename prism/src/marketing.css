@@ -93,6 +93,87 @@
 @media(max-width:650px){.site-v2-header{padding-inline:15px}.site-v2-header nav{display:none}.v2-pricing{padding:64px 18px}.v2-plan-grid{grid-template-columns:1fr}.v2-plan-card{min-height:0;padding:23px}.v2-plan-card ul{margin:18px 0 22px}.v2-pricing-heading h2{font-size:40px}}
 @media(prefers-reduced-motion:reduce){.site-v2 .v2-orbit{animation:none!important}.site-v2,.site-v2 *{scroll-behavior:auto!important;transition-duration:.01ms!important}}
 
+/* Neutral surface palette for the existing selectable light and dark themes. */
+.theme-light.site-v2{
+  color-scheme:light;
+  --page:#F5F5F4;
+  --sidebar:#EEEEEC;
+  --surface:#FFFFFF;
+  --raised:#FAFAF9;
+  --hover:#F0F0EF;
+  --ink:#171717;
+  --muted:#5F5F5F;
+  --quiet:#858585;
+  --hairline:#E2E2E0;
+  --strong-border:#C9C9C6;
+  background:var(--page);
+  color:var(--ink);
+}
+.theme-light .site-v2-header{background:color-mix(in srgb,var(--sidebar) 92%,transparent);border-color:var(--hairline)}
+.theme-light .v2-hero,.theme-light .v2-tools,.theme-light .v2-apps,.theme-light .v2-final-cta{background:var(--page)}
+.theme-light .v2-glass-card,.theme-light .v2-tool-card,.theme-light .v2-platform-card,.theme-light .v2-plan-card{background:var(--surface);border-color:var(--hairline);color:var(--ink)}
+.theme-light .v2-card-tools>div,.theme-light .v2-search,.theme-light .v2-filters button,.theme-light .settings-trigger,.theme-light .v2-privacy-center,.theme-light .v2-plan-card.featured{background:var(--raised);border-color:var(--hairline);color:var(--ink)}
+.theme-light .v2-tool-action,.theme-light .v2-platform-download,.theme-light .v2-button.secondary{background:var(--raised);border-color:var(--strong-border);color:var(--ink)}
+.theme-light .v2-tool-action:hover,.theme-light .v2-platform-download:hover,.theme-light .settings-trigger:hover,.theme-light .v2-filters button:hover{background:var(--hover);border-color:var(--strong-border)}
+.theme-light .v2-pricing{background:linear-gradient(180deg,var(--sidebar),var(--page))}
+.theme-light .v2-footer{background:var(--sidebar);border-color:var(--hairline);color:var(--muted)}
+.theme-light .v2-hero-copy>p,.theme-light .v2-section-head>p,.theme-light .v2-apps-heading>p,.theme-light .v2-privacy-copy>p,.theme-light .v2-pricing-heading>p,.theme-light .v2-plan-summary,.theme-light .v2-tool-category{color:var(--muted)}
+.theme-light .v2-hero h1,.theme-light .v2-tool-card h3,.theme-light .v2-platform-card h3,.theme-light .v2-section-head h2,.theme-light .v2-apps-heading h2,.theme-light .v2-pricing-heading h2{color:var(--ink)}
+.theme-light .v2-results,.theme-light .v2-limit small,.theme-light .v2-plan-label,.theme-light .v2-pricing-note,.theme-light .v2-footer>span{color:var(--quiet)}
+.theme-light .v2-limit{border-color:var(--hairline)}
+.theme-light .v2-limit>span{color:var(--muted)}
+.theme-light .v2-pricing-heading h2 em,.theme-light .v2-hero h1 em{color:#66864a}
+.theme-light .prism-dialog{background:var(--surface);border-color:var(--hairline);color:var(--ink)}
+.theme-light .dialog-intro,.theme-light .settings-grid label,.theme-light .settings-switch small,.theme-light .design-foot{color:var(--muted)}
+.theme-light .settings-version,.theme-light .design-description,.theme-light .settings-grid select,.theme-light .dialog-close,.theme-light .design-tabs{background:var(--raised);border-color:var(--hairline);color:var(--ink)}
+.theme-light .settings-version strong,.theme-light .design-description p,.theme-light .prism-dialog h2,.theme-light .settings-switch strong{color:var(--ink)}
+.theme-light .design-tabs button{color:var(--muted)}
+.theme-light .design-tabs button.selected{background:var(--surface);color:var(--ink)}
+.theme-light .design-options li{color:var(--muted)}
+.theme-light .design-cap{background:var(--raised);color:var(--muted)}
+.theme-light .design-cap strong{color:var(--ink)}
+
+.theme-dark.site-v2{
+  color-scheme:dark;
+  --page:#111111;
+  --sidebar:#171717;
+  --surface:#1D1D1D;
+  --raised:#242424;
+  --hover:#2B2B2B;
+  --ink:#F5F5F5;
+  --muted:#B7B7B7;
+  --quiet:#858585;
+  --hairline:#343434;
+  --strong-border:#484848;
+  background:var(--page);
+  color:var(--ink);
+}
+.theme-dark .site-v2-header{background:color-mix(in srgb,var(--sidebar) 92%,transparent);border-color:var(--hairline)}
+.theme-dark .v2-hero,.theme-dark .v2-tools,.theme-dark .v2-apps,.theme-dark .v2-final-cta{background:var(--page)}
+.theme-dark .v2-glass-card,.theme-dark .v2-tool-card,.theme-dark .v2-platform-card,.theme-dark .v2-plan-card{background:var(--surface);border-color:var(--hairline);color:var(--ink)}
+.theme-dark .v2-card-tools>div,.theme-dark .v2-search,.theme-dark .v2-filters button,.theme-dark .settings-trigger,.theme-dark .v2-privacy-center,.theme-dark .v2-plan-card.featured{background:var(--raised);border-color:var(--hairline);color:var(--ink)}
+.theme-dark .v2-tool-action,.theme-dark .v2-platform-download,.theme-dark .v2-button.secondary{background:var(--raised);border-color:var(--strong-border);color:var(--ink)}
+.theme-dark .v2-tool-action:hover,.theme-dark .v2-platform-download:hover,.theme-dark .settings-trigger:hover,.theme-dark .v2-filters button:hover{background:var(--hover);border-color:var(--strong-border);color:var(--ink)}
+.theme-dark .v2-filters button.selected{background:var(--accent);border-color:var(--accent);color:#171717}
+.theme-dark .v2-pricing{background:linear-gradient(180deg,var(--sidebar),var(--page))}
+.theme-dark .v2-footer{background:var(--sidebar);border-color:var(--hairline);color:var(--muted)}
+.theme-dark .site-v2-header nav,.theme-dark .v2-footer>div a,.theme-dark .v2-footer>div button{color:var(--muted)}
+.theme-dark .v2-hero-copy>p,.theme-dark .v2-section-head>p,.theme-dark .v2-apps-heading>p,.theme-dark .v2-privacy-copy>p,.theme-dark .v2-pricing-heading>p,.theme-dark .v2-plan-summary,.theme-dark .v2-tool-category{color:var(--muted)}
+.theme-dark .v2-hero h1,.theme-dark .v2-tool-card h3,.theme-dark .v2-platform-card h3,.theme-dark .v2-section-head h2,.theme-dark .v2-apps-heading h2,.theme-dark .v2-pricing-heading h2{color:var(--ink)}
+.theme-dark .v2-results,.theme-dark .v2-limit small,.theme-dark .v2-plan-label,.theme-dark .v2-pricing-note,.theme-dark .v2-footer>span{color:var(--quiet)}
+.theme-dark .v2-limit{border-color:var(--hairline)}
+.theme-dark .v2-limit>span{color:var(--muted)}
+.theme-dark .v2-pricing-heading h2 em,.theme-dark .v2-hero h1 em{color:#c4e88c}
+.theme-dark .prism-dialog{background:var(--surface);border-color:var(--hairline);color:var(--ink)}
+.theme-dark .dialog-intro,.theme-dark .settings-grid label,.theme-dark .settings-switch small,.theme-dark .design-foot{color:var(--muted)}
+.theme-dark .settings-version,.theme-dark .design-description,.theme-dark .settings-grid select,.theme-dark .dialog-close,.theme-dark .design-tabs{background:var(--raised);border-color:var(--hairline);color:var(--ink)}
+.theme-dark .settings-version strong,.theme-dark .design-description p,.theme-dark .prism-dialog h2,.theme-dark .settings-switch strong{color:var(--ink)}
+.theme-dark .design-tabs button{color:var(--muted)}
+.theme-dark .design-tabs button.selected{background:var(--surface);color:var(--ink)}
+.theme-dark .design-options li{color:var(--muted)}
+.theme-dark .design-cap{background:var(--raised);color:var(--muted)}
+.theme-dark .design-cap strong{color:var(--ink)}
+
 /* Shared mark and wordmark used by the website and installed workspace. */
 .prism-mark{background:transparent;color:#111311;border-radius:0;overflow:visible}
 .prism-mark svg{width:100%;height:100%;overflow:visible}
