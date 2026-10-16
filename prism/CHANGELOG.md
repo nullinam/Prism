@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.0.35 — More readable workspace and local PDF workflows
+
+- Added full workspace category navigation, local recent-tools history, and a working platform-appropriate Ctrl/Command+K search shortcut.
+- Added a visual crop frame that can be dragged and resized, with numeric crop fields and ratio presets kept in sync.
+- Expanded site-wide customization with line spacing, card style, sidebar width, page width, and focus-outline settings; increased default page text and control sizes.
+- Added local QPDF WebAssembly worker workflows for lossless PDF stream optimization, known-password unlocking, AES-256 protection, and direct embedded-JPEG extraction.
+- Kept password fields out of recovery storage, cleared them after processing, made PDF worker jobs cancellable, and documented each engine limit.
+- Added QPDF license notices and updated the public catalog count to 150 launchable workflows. The 150 workflows have not all passed individual end-to-end fixture QA.
+
 ## 0.0.33 — Reliability, accessibility, and trust improvements
 
 - Added a selected-file drop zone with explicit formats/caps, thumbnails/icons, file type/size, reorder/remove/clear, and additive selection.

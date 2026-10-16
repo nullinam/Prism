@@ -1,7 +1,7 @@
 {
   "name": "prism",
   "private": true,
-  "version": "0.0.34",
+  "version": "0.0.35",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -12,6 +12,7 @@
     "generate-icons": "node scripts/generate-icons.mjs"
   },
   "dependencies": {
+    "@neslinesli93/qpdf-wasm": "^0.3.0",
     "@tauri-apps/api": "^2",
     "@tauri-apps/plugin-dialog": "^2.8.3",
     "@zxing/browser": "^0.2.1",

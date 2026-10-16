@@ -4,12 +4,12 @@ PRISM is a privacy-first file and productivity toolkit. The repository contains 
 
 ## Current release status
 
-- **Catalog:** 150 entries; 146 marked ready or limited; 4 PDF entries marked in development.
-- **QA:** Route presence and production compilation pass. The project does not claim that all 146 available workflows passed individual end-to-end fixtures; see [tool QA](prism/docs/tool-qa.md).
+- **Catalog:** 150 launchable browser workflows. Tool pages state supported formats and engine limits.
+- **QA:** Catalog and route audits do not prove that all 150 workflows passed individual end-to-end fixtures; see [tool QA](prism/docs/tool-qa.md).
 - **Browser features:** Per-tool limits and accepted formats, local file queue with drag/drop, preview-before-save flows, contextual safety notices, opt-in local task recovery, and a local feedback draft.
 - **Task recovery:** When enabled, selected files and settings are stored in the browser's IndexedDB. Reloading stops active JavaScript work; PRISM restores the draft so a user can run it again. It cannot continue computation while the page is closed.
 - **Apps:** Download links stay disabled until real release artifacts exist. Windows is first; macOS and Linux follow, with Android and iOS planned.
-- **Version:** `0.0.34` is intended to match the count of commits reachable from the default branch after this release lands.
+- **Version:** `0.0.35` is intended to match the count of commits reachable from the default branch after this release lands.
 
 ## Privacy and trust
 

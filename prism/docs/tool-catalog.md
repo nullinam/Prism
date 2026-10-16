@@ -6,7 +6,7 @@ This document describes the public browser trial. A tool may impose a narrower r
 | --- | --- | --- | --- |
 | Images | PNG, JPG/JPEG, WebP, GIF, BMP | Up to 10 files, 20 MiB per file, 200 MiB aggregate; 40 megapixels per decoded image | Animated GIFs are decoded as a still image in canvas workflows. Re-encoding may alter color profile, transparency, or animation. |
 | Images to PDF | PNG, JPG/JPEG, WebP, GIF, BMP | Up to 10 images, 20 MiB each, 100 MiB aggregate | Output is a separate PDF copy. |
-| PDF | PDF | Up to 2 PDFs, 10 MiB aggregate, 100 pages | Four listed operations remain in development: compression, unlocking, protection, and image extraction. |
+| PDF | PDF | Up to 2 PDFs, 10 MiB aggregate, 100 pages | Compression runs lossless stream optimization and only saves a smaller result. Unlocking requires a known password. Protection uses AES-256. Image extraction exports directly embedded JPEG images only. These QPDF WebAssembly operations run locally in a worker. |
 | Documents | TXT, CSV, JSON, XML, Markdown | Up to 2 files, 5 MiB aggregate; pasted text up to 20,000 characters | Browser conversion cannot guarantee fidelity for complex Office layouts. |
 | Data | CSV, JSON, TXT where supported | Up to 2 files, 5 MiB aggregate; 5,000 rows | Validate delimiter, encoding, and schema after conversion. |
 | Files | File types accepted by the named operation | Up to 10 files, 20 MiB per file, 50 MiB aggregate | ZIP extraction additionally allows at most 500 entries, 50 MiB per expanded entry, and 100 MiB total expanded data. Folder selection is not supported. Operations produce copies; the browser sandbox prevents changing original paths. |

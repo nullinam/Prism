@@ -4,8 +4,8 @@ PRISM is a browser-first toolbox for common image, PDF, document, text, data, st
 
 ## Product status
 
-- The catalog contains 150 entries: 146 ready or limited browser workflows and 4 PDF tools marked in development.
-- “Available” means a tool has a browser workflow, not that every edge case has passed end-to-end QA. See [tool QA](docs/tool-qa.md).
+- The catalog contains 150 launchable browser workflows. Several tools have explicit format or engine limits; see the catalog and per-tool notices.
+- “Available” means a tool has a launchable browser workflow. It does not mean every file format or edge case has passed end-to-end QA. See [tool QA](docs/tool-qa.md).
 - The trial imposes per-tool input, size, and run limits. The interface presents the relevant cap before selection.
 - Desktop/mobile downloads are roadmap placeholders until real release artifacts are built, signed where supported, and linked.
 - Browser task recovery stores selected inputs and settings in IndexedDB when enabled. A reload interrupts JavaScript processing; the page restores the draft so the user can run it again. It cannot continue CPU work in the background.
@@ -36,7 +36,7 @@ Use the `prism` directory as the Vercel project root. Vite is the framework, `np
 
 - Selected files are read through browser APIs and processed in the page.
 - Enabled task recovery saves inputs and settings in this browser's IndexedDB. Disable it or clear the recovered task from the tool page to remove that draft. Browser storage can be cleared through browser settings as well.
-- Appearance choices and feedback drafts use local storage; trial counters may use session storage.
+- Appearance choices, recent tool names, and feedback drafts use local storage; recent history never stores selected file names or paths. Trial counters may use session storage.
 - The site currently has no configured analytics SDK, ad tracker, PRISM account service, or file-upload route. Vercel and the browser still make ordinary requests to load the site; the host may receive connection/request data.
 - Feedback text stays local until the user explicitly opens GitHub to submit it. Do not put private data into issue reports.
 
@@ -56,4 +56,4 @@ Open a GitHub issue at <https://github.com/nullinam/Prism/issues>. Include the t
 
 ## Release version
 
-The web/app version currently follows the pushed commit count: `0.0.34` corresponds to 34 commits reachable from the repository's starting history after this release is pushed. Keep `package.json`, `src/version.ts`, and the release notes aligned. Update the count only after confirming the target branch history; do not count local, unpushed commits.
+The web/app version currently follows the pushed commit count: `0.0.35` is intended to match 35 commits reachable from the repository's starting history after this release is pushed. Keep `package.json`, `src/version.ts`, and the release notes aligned. Update the count only after confirming the target branch history; do not count local, unpushed commits.

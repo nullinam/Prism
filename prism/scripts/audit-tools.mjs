@@ -30,7 +30,7 @@ for (let id = 1; id <= catalog.length; id += 1) if (!seenIds.has(id)) failures.p
 const available = catalog.filter((tool) => tool.status === "ready" || tool.status === "limited");
 const development = catalog.filter((tool) => tool.status === "in-progress" || tool.status === "planned");
 const availabilityText = `currently lists ${available.length} available tools and ${development.length} in development`;
-if (available.length !== 146 || development.length !== 4) failures.push(`Expected 146 available tools and 4 in development; ${availabilityText}.`);
+if (available.length !== 150 || development.length !== 0) failures.push(`Expected 150 available tools and none in development; ${availabilityText}.`);
 if (development.some((tool) => !runnerSource.includes(`tool.id===${tool.id}`))) failures.push("Every in-development tool must have an explicit guarded runner route.");
 for (const phrase of ["Explore 150 practical tools", "Browse all 150", "150 tools in the catalog", "all 150 tools have a local trial workflow", "150 private, on-device tools"]) {
   if ([...publicSources, catalogSource, runnerSource].some((source) => source.includes(phrase))) failures.push(`Remove stale availability claim: ${phrase}`);
