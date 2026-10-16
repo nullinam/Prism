@@ -1,32 +1,59 @@
 # PRISM
 
-PRISM is a privacy-first toolkit. This project contains the Vercel browser-trial website and the shared React interface used by the Tauri desktop shell.
+PRISM is a browser-first toolbox for common image, PDF, document, text, data, study, work, and utility tasks. The Vercel site is a limited trial and product overview. Its supported tool workflows run in the user's browser; the website does not send selected file contents to a PRISM processing server. See [the privacy and network note](public/privacy.html) for scope and limitations.
 
-## Website
+## Product status
 
-- `src/catalog.ts` is the source of truth for the catalog, tool availability, categories, and browser-trial caps. It currently lists 146 available tools and 4 PDF tools in development.
-- The website supports search and category filters. Tool cards show the trial cap and whether the workflow is available or in development.
-- 146 tools currently have browser workflows. PDF compression, PDF unlocking, PDF protection, and PDF image extraction remain marked in development until reliable local processing engines are implemented.
-- File tools enforce browser caps in the tool runner. Image workflows allow up to 10 files at 20 MiB each and decode at most 40 megapixels per image; PDF workflows allow up to 2 PDFs with a 10 MiB total and 100 pages; text input is capped at 20,000 characters.
-- The browser runner processes supported file contents locally and the repository has no file-upload endpoint, analytics SDK, ad tracker, account service, third-party script, or externally hosted font. The website is hosted on Vercel, which may process standard connection/request information to serve and operate the site; this is separate from selected file contents.
-- The site stores appearance preferences in browser local storage and some trial counters in session storage. These values are not sent to a PRISM endpoint by the app.
-- Read [How PRISM handles files](https://prism-khaki-one.vercel.app/privacy.html) for the user-facing privacy and network activity note. The deployed Content Security Policy restricts scripts and network connections to the site origin.
-- Run `npm run audit:tools` for the catalog consistency audit. It checks IDs, metadata, availability totals, and explicit processing routes. A route reference is not a substitute for end-to-end behavioral QA; see `docs/tool-qa.md` for the tested coverage and known limits.
+- The catalog contains 150 entries: 146 ready or limited browser workflows and 4 PDF tools marked in development.
+- “Available” means a tool has a browser workflow, not that every edge case has passed end-to-end QA. See [tool QA](docs/tool-qa.md).
+- The trial imposes per-tool input, size, and run limits. The interface presents the relevant cap before selection.
+- Desktop/mobile downloads are roadmap placeholders until real release artifacts are built, signed where supported, and linked.
+- Browser task recovery stores selected inputs and settings in IndexedDB when enabled. A reload interrupts JavaScript processing; the page restores the draft so the user can run it again. It cannot continue CPU work in the background.
 
-## Vercel setup
+## Getting started
 
-Set the Vercel project's **Root Directory** to `prism`. The detected framework is Vite, the build command is `npm run build`, and the output directory is `dist`. No serverless functions are needed for this static site. `vercel.json` adds baseline response security headers.
-
-## Local development
+Requirements: a supported Node.js runtime and npm. The lockfile is committed.
 
 ```powershell
-npm install
+npm ci
 npm run dev
 ```
 
-Create a production build with `npm run build`, then run the catalog consistency audit with `npm run audit:tools`.
+Open the local URL printed by Vite. To create the production static bundle:
 
-## App roadmap
+```powershell
+npm run build
+npm run preview
+```
 
-Windows and macOS desktop builds follow the Vercel website, then Android and iOS. App download buttons remain disabled until signed installers are available.
+Run the catalog consistency audit with `npm run audit:tools`. This checks catalog/route metadata; it is not a substitute for an end-to-end fixture run.
 
+## Deploying to Vercel
+
+Use the `prism` directory as the Vercel project root. Vite is the framework, `npm run build` is the build command, and `dist` is the output directory. No serverless file-processing functions are required. The deployment configuration adds response headers including a same-origin Content Security Policy. Confirm headers and privacy wording again whenever scripts, analytics, fonts, payment links, or remote services are added.
+
+## Privacy and storage
+
+- Selected files are read through browser APIs and processed in the page.
+- Enabled task recovery saves inputs and settings in this browser's IndexedDB. Disable it or clear the recovered task from the tool page to remove that draft. Browser storage can be cleared through browser settings as well.
+- Appearance choices and feedback drafts use local storage; trial counters may use session storage.
+- The site currently has no configured analytics SDK, ad tracker, PRISM account service, or file-upload route. Vercel and the browser still make ordinary requests to load the site; the host may receive connection/request data.
+- Feedback text stays local until the user explicitly opens GitHub to submit it. Do not put private data into issue reports.
+
+Read [privacy.html](public/privacy.html), [supported formats and limits](docs/tool-catalog.md), [security reporting](SECURITY.md), [troubleshooting](docs/troubleshooting.md), and [third-party notices](THIRD_PARTY_NOTICES.md).
+
+## Accessibility and customization
+
+The site defaults to light appearance and offers dark/system appearance, accent colors, font family, text scale, density, animation style/on-off, corner style, and high-contrast controls. Tool forms use keyboard focus styling and readable input text/carets. The interface respects reduced-motion preferences. Report accessibility issues through GitHub Issues, including browser and assistive technology details where relevant.
+
+## License
+
+The project is distributed under the MIT License in [`../LICENSE`](../LICENSE). Third-party packages retain their own licenses; see [third-party notices](THIRD_PARTY_NOTICES.md) and package metadata. Verify upstream license terms before adding or redistributing new components.
+
+## Contributing and support
+
+Open a GitHub issue at <https://github.com/nullinam/Prism/issues>. Include the tool name/ID, browser and OS, steps to reproduce, and expected versus observed behavior. Use synthetic examples; never upload confidential inputs. Security reports should follow [SECURITY.md](SECURITY.md).
+
+## Release version
+
+The web/app version currently follows the pushed commit count: `0.0.33` corresponds to 33 commits reachable from the repository's starting history after this release is pushed. Keep `package.json`, `src/version.ts`, and the release notes aligned. Update the count only after confirming the target branch history; do not count local, unpushed commits.
