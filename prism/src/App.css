@@ -50,8 +50,8 @@
 @media(max-width:650px){.runner-file-row{flex-wrap:wrap}.runner-file-row>strong{flex-basis:calc(100% - 100px)}.runner-feedback>div{align-items:flex-start;flex-direction:column}}
 
 /* Apply the saved site-wide preferences in the workspace as well as the landing page. */
-.app-shell{background:#F5F5F4;color:#171717;font-family:var(--prism-font,"Segoe UI",system-ui,sans-serif)}
-.app-shell.font-manrope{--prism-font:"Segoe UI Variable"}.app-shell.font-inter{--prism-font:Arial}.app-shell.font-system{--prism-font:system-ui}
+.app-shell{background:#F5F5F4;color:#171717;font-family:var(--prism-font, "Segoe UI Variable", "Segoe UI", system-ui, sans-serif)}
+.app-shell.font-manrope{--prism-font:"Manrope", "Segoe UI Variable", "Segoe UI", system-ui, sans-serif}.app-shell.font-inter{--prism-font:Inter, "Segoe UI", system-ui, sans-serif}.app-shell.font-system{--prism-font:system-ui, sans-serif}
 .app-shell.size-compact{font-size:14px}.app-shell.size-comfortable{font-size:16px}.app-shell.size-large{font-size:18px}
 .app-shell.density-compact .tool-grid{gap:12px}.app-shell.density-comfortable .tool-grid{gap:18px}
 .app-shell.motion-soft *{scroll-behavior:smooth}.app-shell.reduce-motion *{animation:none!important;transition:none!important;scroll-behavior:auto!important}

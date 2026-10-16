@@ -10,3 +10,7 @@
 - Expanded project, privacy, security, troubleshooting, catalog, and third-party notices documentation.
 
 This release does not mean all catalog entries passed end-to-end QA. See `docs/tool-qa.md`.
+
+## 0.0.34 — Workspace font fallback
+
+- Fixed the system font fallback chain so devices without the selected typeface keep a clean sans-serif UI.

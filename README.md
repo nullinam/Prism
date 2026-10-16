@@ -9,7 +9,7 @@ PRISM is a privacy-first file and productivity toolkit. The repository contains 
 - **Browser features:** Per-tool limits and accepted formats, local file queue with drag/drop, preview-before-save flows, contextual safety notices, opt-in local task recovery, and a local feedback draft.
 - **Task recovery:** When enabled, selected files and settings are stored in the browser's IndexedDB. Reloading stops active JavaScript work; PRISM restores the draft so a user can run it again. It cannot continue computation while the page is closed.
 - **Apps:** Download links stay disabled until real release artifacts exist. Windows is first; macOS and Linux follow, with Android and iOS planned.
-- **Version:** `0.0.33` is intended to match the count of commits reachable from the default branch after this release lands.
+- **Version:** `0.0.34` is intended to match the count of commits reachable from the default branch after this release lands.
 
 ## Privacy and trust
 
