@@ -5,6 +5,7 @@ PRISM is a browser-first toolbox for common image, PDF, document, text, data, st
 ## Product status
 
 - The catalog contains 150 launchable browser workflows. Several tools have explicit format or engine limits; see the catalog and per-tool notices.
+- Tool lists are alphabetical when no search is entered. Search accepts task descriptions such as “make a photo smaller”; matching runs locally against tool names, examples, and descriptions.
 - “Available” means a tool has a launchable browser workflow. It does not mean every file format or edge case has passed end-to-end QA. See [tool QA](docs/tool-qa.md).
 - The trial imposes per-tool input, size, and run limits. The interface presents the relevant cap before selection.
 - Desktop/mobile downloads are roadmap placeholders until real release artifacts are built, signed where supported, and linked.
@@ -26,7 +27,7 @@ npm run build
 npm run preview
 ```
 
-Run the catalog consistency audit with `npm run audit:tools`. This checks catalog/route metadata; it is not a substitute for an end-to-end fixture run.
+Run `npm run test:search` for local alphabetical and plain-language search assertions, and `npm run audit:tools` for catalog/route metadata. Neither command is a substitute for an end-to-end fixture run.
 
 ## Deploying to Vercel
 

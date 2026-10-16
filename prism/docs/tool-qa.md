@@ -6,6 +6,28 @@ The website lists 150 launchable workflows. “Available” means a route is imp
 
 `npm run audit:tools` checks catalog IDs, metadata, route references, and the 150/0 availability count. It does not execute tools or verify output correctness.
 
+## Current worktree verification (2026-10-17)
+
+The uncommitted worktree changes add A–Z ordering, local sentence-based intent search, HTML input acceptance for the HTML-to-Markdown tool, a corrected URL-encode route, and explicit time validation for the Time Duration and Work Hours Calculator tools. On 2026-10-17, `npm run test:search`, `npm run build`, and `npm run audit:tools` passed after these edits. The search assertions cover 150-entry alphabetical ordering and three plain-language queries.
+
+### Public browser workflow checks (2026-10-17)
+
+Target: `https://prism-khaki-one.vercel.app/` (public production URL used as the staging target). Inputs were synthetic; no user files or feedback were submitted.
+
+| Workflow | Input | Observed result | Coverage |
+| --- | --- | --- | --- |
+| Crop image | Synthetic 1×1 PNG | File appeared in the selected-file list and crop editor; processing produced a 1-image preview and save card. | Processing and preview verified; download-to-disk not checked. |
+| Text to Base64 | `PRISM workflow check` | Preview contained `UFJJU00gd29ya2Zsb3cgY2hlY2s=`. | Processing and preview verified. |
+| Basic calculator | `2 + 2` | Preview returned `2 + 2 = 4`. | Processing and preview verified. |
+| Unit converter | `10`, `km` → `mi` | Preview returned `6.21 mi`. | Processing and preview verified. |
+| Work hours calculator | 09:00–17:00, 30-minute break, rate 20 | Preview returned 7 h 30 m, 7.50 hours, and estimated pay 150.00. | Processing and preview verified. |
+
+An exploratory generic-input sweep opened tools in Text, Data, Calculators, Study, Work, and Utilities. It was not a correctness pass: generic values do not satisfy every tool's input contract, and some runs showed empty results or invalid values. Do not count these exploratory attempts as passed tools. A malformed time value produced `NaN` in the public 0.0.43 build; the local source now validates the clock format and reports an actionable error, but that fix is not deployed or browser-verified yet.
+
+The public catalog still needs individual, tool-specific fixtures for every tool. In particular, image tools beyond Crop Image, all PDF workflows, document/file workflows, QR reading, output download/reopen, batch behavior, limit boundaries, cancellation, and network-request inspection remain unverified. The full 150-tool end-to-end matrix is incomplete; route availability must not be reported as QA completion.
+
+The per-tool tracker is [tool-qa-matrix.csv](tool-qa-matrix.csv): 5 tools have processing/preview evidence, but none has a verified save-to-disk result. The remaining 145 tools have no valid tool-specific end-to-end assertion recorded.
+
 ## Previously recorded verification (0.0.42 baseline; not rerun for 0.0.43)
 
 The checks below were recorded for the earlier baseline. They have not been rerun against the current release candidate, including the new feedback/activity functions and UI. A successful compile or catalog audit is not behavioral evidence for all tools.

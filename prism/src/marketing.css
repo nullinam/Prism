@@ -18,6 +18,7 @@
 .v2-tool-action:hover{background:#eaf3df;color:#304423}
 .v2-filters button:hover{transform:translateY(-1px);border-color:#b9c8b2}
 .v2-search:focus-within{border-color:#8eae65;box-shadow:0 0 0 4px #a2c87325}
+.v2-search-note{margin:-5px 0 10px;color:var(--muted);font-size:12px;line-height:1.45}
 .site-v2 :focus-visible{outline:3px solid #97bd62;outline-offset:3px}
 .v2-pricing{padding:92px 26px 88px;background:linear-gradient(180deg,#eef3e9 0%,#f6f8f3 100%)}
 .v2-pricing-heading{max-width:1168px;margin:0 auto 30px}
