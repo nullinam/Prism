@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.0.37 — Dark workspace contrast refinement
+
+- Increased contrast on headings, form labels, recovery panels, feedback actions, and status text inside dark tool modules.
+
 ## 0.0.36 — Consistent dark theme across PRISM
 
 - Applied the neutral dark palette across workspace navigation, tool cards, file selection, editors, previews, notices, and controls.

@@ -97,6 +97,11 @@
 .app-shell.theme-dark .button-light:hover{background:var(--hover)}
 .app-shell.theme-dark :focus-visible{outline-color:#c4e88c}
 .app-shell.theme-dark.high-contrast :focus-visible{outline-color:#ffdf00!important}
+.app-shell.theme-dark h1,.app-shell.theme-dark h2,.app-shell.theme-dark h3,.app-shell.theme-dark h4,.app-shell.theme-dark label,.app-shell.theme-dark strong{color:var(--ink)}
+.app-shell.theme-dark .runner-feedback h2,.app-shell.theme-dark .runner-feedback label,.app-shell.theme-dark .runner-safety-notice strong,.app-shell.theme-dark .runner-recovery label,.app-shell.theme-dark .runner-field,.app-shell.theme-dark .runner-preview-window h2,.app-shell.theme-dark .runner-preview-card footer strong{color:var(--ink)}
+.app-shell.theme-dark .runner-recovery button,.app-shell.theme-dark .runner-file-list>header button{color:#c4e88c}
+.app-shell.theme-dark .runner-feedback button,.app-shell.theme-dark .runner-feedback a{color:var(--ink)}
+.app-shell.theme-dark .runner-actions .local-processing-status{color:#c4e88c!important}
 @media(max-width:650px){.app-shell.theme-dark .app-sidebar{background:var(--sidebar);border-color:var(--hairline)}}
 @media(prefers-color-scheme:dark){
   .app-shell.theme-system{--page:#111111;--sidebar:#171717;--surface:#1D1D1D;--raised:#242424;--hover:#2B2B2B;--ink:#F5F5F5;--muted:#B7B7B7;--quiet:#858585;--hairline:#343434;--strong-border:#484848;color-scheme:dark;background:var(--page);color:var(--ink)}
@@ -111,6 +116,9 @@
   .app-shell.theme-system .crop-editor-canvas{background:var(--page)}
   .app-shell.theme-system .button-dark{background:#f5f5f5;color:#171717}
   .app-shell.theme-system .button-light{background:var(--raised);border-color:var(--strong-border);color:var(--ink)}
+  .app-shell.theme-system h1,.app-shell.theme-system h2,.app-shell.theme-system h3,.app-shell.theme-system h4,.app-shell.theme-system label,.app-shell.theme-system strong{color:var(--ink)}
+  .app-shell.theme-system .runner-recovery button,.app-shell.theme-system .runner-file-list>header button{color:#c4e88c}
+  .app-shell.theme-system .runner-feedback button,.app-shell.theme-system .runner-feedback a{color:var(--ink)}
 }
 
 /* Apply the saved site-wide preferences in the workspace as well as the landing page. */
