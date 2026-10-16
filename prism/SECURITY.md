@@ -4,7 +4,7 @@ PRISM accepts responsible reports about vulnerabilities in the browser trial, de
 
 ## Report
 
-Use the repository's private vulnerability reporting feature if GitHub enables it for this repository. Otherwise contact the maintainers through the repository owner profile and ask for a private channel before sharing exploit details. Do not publish an unpatched vulnerability in a public issue.
+Use GitHub's **Report a vulnerability** action on the repository Security tab after the repository owner enables and verifies private vulnerability reporting. Until that private route is confirmed, use the repository owner profile to request a private contact route; do not send exploit details, credentials, or personal data through a public issue. Do not publish an unpatched vulnerability in a public issue.
 
 Include affected URL/version or commit, browser/OS, impact, and reproducible steps. Use test data only. Do not access, modify, or retain another person's data.
 

@@ -9,11 +9,11 @@ PRISM is a privacy-first file and productivity toolkit. The repository contains 
 - **Browser features:** Per-tool limits and accepted formats, example-aware search, local favorites and presets, local file queues, preview-before-save flows, contextual safety notices, opt-in task recovery, and local feedback drafts.
 - **Task recovery:** When enabled, selected files and settings are stored in the browser's IndexedDB. Reloading stops active JavaScript work; PRISM restores the draft so a user can run it again. It cannot continue computation while the page is closed.
 - **Apps:** Download links stay disabled until real release artifacts exist. Windows is first; macOS and Linux follow, with Android and iOS planned.
-- **Version:** `0.0.42` is intended to match the count of commits reachable from the default branch after this release lands.
+- **Version:** `0.0.43` is intended to match the commit count after this release commit lands on `main`.
 
 ## Privacy and trust
 
-Read [PRISM's privacy and network activity note](prism/public/privacy.html). It explains local file handling, browser storage, hosting requests, feedback handoff to GitHub, and how to inspect network activity. Appearance preferences, favorites, presets, and feedback drafts use local storage; task recovery uses IndexedDB only when enabled. Browser trial features do not use an analytics SDK, ad tracker, account service, or PRISM file upload endpoint.
+Read [PRISM's privacy and network activity note](prism/public/privacy.html). It explains local file handling, browser storage, hosting requests, opt-in activity sharing, submitted feedback, and how to inspect network activity. Appearance preferences, favorites, presets, and feedback drafts use local storage; task recovery uses IndexedDB only when enabled. PRISM has no file-processing upload endpoint or third-party analytics/ad tracker. Optional first-party activity and explicit feedback use small Vercel Functions and Upstash storage when configured.
 
 Do not describe the site as collecting no data: the host can receive standard request information. Update the privacy notice before introducing analytics, crash reporting, external fonts, payments, APIs, or other third-party services.
 
@@ -22,7 +22,7 @@ Do not describe the site as collecting no data: the host can receive standard re
 - **React + TypeScript + Vite:** website and shared interface.
 - **Tauri 2:** native desktop wrapper; Rust command code and platform packaging live in `prism/src-tauri/`.
 - **Browser processing:** supported routes use browser APIs and local libraries; they create separate outputs and leave original files unchanged.
-- **Vercel:** static website deployment from the `prism/` project root; no serverless file-processing endpoint is required.
+- **Vercel:** Vite static site from the `prism/` project root plus metadata-only functions at `/api/activity`, `/api/feedback`, and protected `/api/admin`. Functions do not receive files.
 
 ## Development
 
@@ -51,7 +51,7 @@ The audit confirms catalog IDs, metadata, totals, and runner route references. I
 
 ## Vercel deployment
 
-Configure the Vercel project root as `prism`, framework as Vite, build command as `npm run build`, and output directory as `dist`. `prism/vercel.json` sets response security headers including a same-origin Content Security Policy. Confirm deployed response headers and privacy wording after changing network behavior or dependencies.
+Configure the Vercel project root as `prism`, framework as Vite, build command as `npm run build`, and output directory as `dist`. `prism/vercel.json` sets response security headers including a same-origin Content Security Policy. To store reporting data, connect Upstash Redis and set `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN`, and a private `PRISM_ADMIN_TOKEN` in Vercel Project Settings → Environment Variables. Keep these server-only; never use `VITE_` or `NEXT_PUBLIC_` prefixes. See [reporting setup](prism/docs/telemetry-feedback.md). A GitHub push deploys production only if this Vercel project is already connected to the `main` branch; confirm the resulting deployment and configured variables in Vercel.
 
 ## Documentation and policies
 
@@ -60,6 +60,7 @@ Configure the Vercel project root as `prism`, framework as Vite, build command a
 - [Tool catalog, formats, and limits](prism/docs/tool-catalog.md)
 - [Public roadmap](prism/docs/roadmap.md)
 - [Tool QA and known limits](prism/docs/tool-qa.md)
+- [Telemetry and feedback storage setup](prism/docs/telemetry-feedback.md)
 - [Troubleshooting](prism/docs/troubleshooting.md)
 - [Security reporting](prism/SECURITY.md)
 - [Third-party notices](prism/THIRD_PARTY_NOTICES.md)
@@ -68,5 +69,9 @@ Configure the Vercel project root as `prism`, framework as Vite, build command a
 
 ## Feedback and security reports
 
-Open a [GitHub issue](https://github.com/nullinam/Prism/issues). Include a tool name/ID, browser and OS, steps, and expected versus actual behavior. Use synthetic examples only; do not attach private files, passwords, or personal information. For security reports, follow [SECURITY.md](prism/SECURITY.md) and do not publish exploit details before coordination.
+Use the optional feedback form on a tool page to send a rating and optional short note to PRISM; it includes that tool and app context and never accepts file attachments. Use synthetic examples only and do not include passwords or personal information. For security reports, follow [SECURITY.md](prism/SECURITY.md) and do not publish exploit details before coordination.
+
+## Release readiness
+
+This is a browser-trial release candidate, not a verified final release for all platforms. The catalog has 150 launchable workflows, but the full per-tool input/output matrix remains incomplete. Windows, macOS, Linux, Android, and iOS download artifacts are not published. Before calling PRISM final, complete the tool QA matrix, verify file privacy in browser Network tools, configure and verify Vercel/Upstash reporting, enable GitHub private vulnerability reporting, and build/sign and verify the platform installers. See [known QA gaps](prism/docs/tool-qa.md) and the [roadmap](prism/docs/roadmap.md).
 

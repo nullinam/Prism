@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow"><title>PRISM activity & feedback</title>
+  <link rel="stylesheet" href="/admin.css"><script src="/admin.js" defer></script>
+</head>
+<body>
+  <main class="shell">
+    <header><a href="/">◢ PRISM</a><span>PRIVATE REPORTING</span></header>
+    <section class="intro"><p class="eyebrow">OWNER DASHBOARD</p><h1>Tool activity<br>and feedback.</h1><p>Only approved, anonymous tool metadata and feedback are shown here. Selected files and file details are never collected.</p></section>
+    <form id="auth-form"><label for="token">Admin token</label><div><input id="token" type="password" autocomplete="current-password" required placeholder="Enter PRISM_ADMIN_TOKEN"><button>View report</button></div><small>The token is held in this tab's session storage and sent only to PRISM's same-origin report endpoint.</small></form>
+    <p id="status" role="status" aria-live="polite"></p>
+    <div id="report" hidden>
+      <p id="updated" class="updated"></p>
+      <section><h2>Activity</h2><div id="activity-summary" class="stats"></div><div class="table-wrap"><table><thead><tr><th>When</th><th>Platform</th><th>Tool</th><th>Action</th><th>Version</th></tr></thead><tbody id="activity-rows"></tbody></table></div></section>
+      <section><h2>Submitted feedback</h2><div id="feedback-summary" class="stats"></div><div class="table-wrap"><table><thead><tr><th>When</th><th>Platform</th><th>Tool</th><th>Rating</th><th>Optional note</th></tr></thead><tbody id="feedback-rows"></tbody></table></div></section>
+      <button id="forget" class="secondary" type="button">Forget token and close report</button>
+    </div>
+    <footer>PRISM stores only the latest 2,000 usage events and 500 submitted feedback entries. The dashboard is private and requires a server-side admin token.</footer>
+  </main>
+</body>
+</html>

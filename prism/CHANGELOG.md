@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.0.43 — Optional feedback and privacy-safe reporting
+
+- Added optional, off-by-default activity sharing with tool/platform/action metadata only.
+- Added a brief rating form with an optional note; skipping submits nothing and notes are screened for obvious spam.
+- Added metadata-only Vercel endpoints and a token-protected report; Redis storage remains disabled until configured in Vercel.
+- Updated privacy, deployment, environment, release-readiness, and security-reporting documentation.
+
 ## 0.0.42 — Faster discovery and repeat work
 
 - Search now matches tool examples, descriptions, and supported workflow details.

@@ -6,9 +6,9 @@ The website lists 150 launchable workflows. “Available” means a route is imp
 
 `npm run audit:tools` checks catalog IDs, metadata, route references, and the 150/0 availability count. It does not execute tools or verify output correctness.
 
-## Verification performed for this release
+## Previously recorded verification (0.0.42 baseline; not rerun for 0.0.43)
 
-Catalog, build, dependency, and QPDF engine checks passed as recorded below. A successful compile or catalog audit is not behavioral evidence for all tools.
+The checks below were recorded for the earlier baseline. They have not been rerun against the current release candidate, including the new feedback/activity functions and UI. A successful compile or catalog audit is not behavioral evidence for all tools.
 
 | Area | Result | Evidence |
 | --- | --- | --- |
@@ -19,6 +19,7 @@ Catalog, build, dependency, and QPDF engine checks passed as recorded below. A s
 | PDF browser Worker integration | Build pass; live browser check pending | TypeScript/Vite bundle the Worker and local WASM URL. Verify interaction in the deployed site before release. |
 | Visual crop interaction | Pending | Browser pointer and numeric-control verification |
 | Full 150-tool output matrix | Not yet run | Requires individual inputs and output assertions for every tool ID. |
+| Feedback/activity API integration | Not verified for 0.0.43 | Confirm Upstash configuration, successful storage, unavailable-storage errors, spam rejection, rate limits, and the private admin token after deployment. |
 
 ## PDF engine behavior and limits
 
