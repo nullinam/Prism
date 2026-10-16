@@ -4,12 +4,12 @@ PRISM is a privacy-first toolkit. This project contains the Vercel browser-trial
 
 ## Website
 
-- `src/catalog.ts` is the source of truth for all 150 tools, their categories, current status, and browser-trial caps.
+- `src/catalog.ts` is the source of truth for the catalog, tool availability, categories, and browser-trial caps. It currently lists 146 available tools and 4 PDF tools in development.
 - The website supports search and category filters. Tool cards show the trial cap and whether the workflow is available or in development.
-- 146 tools currently have browser workflows. PDF compression, PDF unlocking, PDF protection, and PDF image extraction are marked in development until their processing engines are implemented.
-- File tools enforce browser caps in the tool runner. Image workflows allow up to 10 files at 20 MiB each; PDF workflows allow up to 2 PDFs with a 10 MiB total and 100 pages; text input is capped at 20,000 characters.
+- 146 tools currently have browser workflows. PDF compression, PDF unlocking, PDF protection, and PDF image extraction remain marked in development until reliable local processing engines are implemented.
+- File tools enforce browser caps in the tool runner. Image workflows allow up to 10 files at 20 MiB each and decode at most 40 megapixels per image; PDF workflows allow up to 2 PDFs with a 10 MiB total and 100 pages; text input is capped at 20,000 characters.
 - No file-upload endpoint, analytics, or account service is configured. Supported inputs are processed in the browser, and source files are left unchanged.
-- Run `npm run audit:tools` to check that catalog IDs are unique and complete, every entry has its required metadata, and each tool has an explicit runner route.
+- Run `npm run audit:tools` for the catalog consistency audit. It checks IDs, metadata, availability totals, and explicit processing routes. A route reference is not a substitute for end-to-end behavioral QA; see `docs/tool-qa.md` for the tested coverage and known limits.
 
 ## Vercel setup
 
