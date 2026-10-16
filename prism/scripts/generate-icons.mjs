@@ -13,13 +13,6 @@ function insideRoundedSquare(x, y, size) {
   return (x - cx) ** 2 + (y - cy) ** 2 <= radius ** 2;
 }
 
-function segmentDistance(x, y, ax, ay, bx, by) {
-  const dx = bx - ax;
-  const dy = by - ay;
-  const t = Math.max(0, Math.min(1, ((x - ax) * dx + (y - ay) * dy) / (dx * dx + dy * dy)));
-  return Math.hypot(x - (ax + t * dx), y - (ay + t * dy));
-}
-
 function crc32(data) {
   let crc = 0xffffffff;
   for (const byte of data) {
