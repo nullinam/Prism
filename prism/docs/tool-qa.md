@@ -6,9 +6,9 @@ The website lists 150 launchable workflows. “Available” means a route is imp
 
 `npm run audit:tools` checks catalog IDs, metadata, route references, and the 150/0 availability count. It does not execute tools or verify output correctness.
 
-## Current worktree verification (2026-10-17)
+## Current release verification (2026-10-17)
 
-The uncommitted worktree changes add A–Z ordering, local sentence-based intent search, HTML input acceptance for the HTML-to-Markdown tool, a corrected URL-encode route, and explicit time validation for the Time Duration and Work Hours Calculator tools. On 2026-10-17, `npm run test:search`, `npm run build`, and `npm run audit:tools` passed after these edits. The search assertions cover 150-entry alphabetical ordering and three plain-language queries.
+The pushed release adds A–Z ordering, local sentence-based intent search, HTML input acceptance for the HTML-to-Markdown tool, a corrected URL-encode route, and explicit time validation for the Time Duration and Work Hours Calculator tools. A follow-up improves direction-aware ranking for PDF-to-image, image-to-PDF, PDF merge, and image resizing requests. On 2026-10-17, `npm run test:search`, `npm run build`, and `npm run audit:tools` passed. Search assertions cover 150-entry alphabetical ordering, three plain-language queries, and correct PDF conversion direction.
 
 ### Public browser workflow checks (2026-10-17)
 
@@ -22,7 +22,7 @@ Target: `https://prism-khaki-one.vercel.app/` (public production URL used as the
 | Unit converter | `10`, `km` → `mi` | Preview returned `6.21 mi`. | Processing and preview verified. |
 | Work hours calculator | 09:00–17:00, 30-minute break, rate 20 | Preview returned 7 h 30 m, 7.50 hours, and estimated pay 150.00. | Processing and preview verified. |
 
-An exploratory generic-input sweep opened tools in Text, Data, Calculators, Study, Work, and Utilities. It was not a correctness pass: generic values do not satisfy every tool's input contract, and some runs showed empty results or invalid values. Do not count these exploratory attempts as passed tools. A malformed time value produced `NaN` in the public 0.0.43 build; the local source now validates the clock format and reports an actionable error, but that fix is not deployed or browser-verified yet.
+An exploratory generic-input sweep opened tools in Text, Data, Calculators, Study, Work, and Utilities. It was not a correctness pass: generic values do not satisfy every tool's input contract, and some runs showed empty results or invalid values. Do not count these exploratory attempts as passed tools. A malformed time value produced `NaN` in the public 0.0.43 build; the pushed source now validates the clock format and reports an actionable error, but the fix still needs a browser check with malformed input.
 
 The public catalog still needs individual, tool-specific fixtures for every tool. In particular, image tools beyond Crop Image, all PDF workflows, document/file workflows, QR reading, output download/reopen, batch behavior, limit boundaries, cancellation, and network-request inspection remain unverified. The full 150-tool end-to-end matrix is incomplete; route availability must not be reported as QA completion.
 
@@ -64,4 +64,5 @@ The checks below were recorded for the earlier baseline. They have not been reru
 ## Next QA gate
 
 Run a browser fixture matrix for each available tool ID: normal input, invalid input, trial-limit boundary, preview, saved output, and output correctness. Include large/corrupt files, unusual filenames, multi-file batches, and cancellation. For PDF tools, test unencrypted and encrypted PDFs, correct and wrong passwords, file-size comparisons, JPEG and non-JPEG image objects, and output re-open tests. Record fixture names and outcomes here. Keep “verified” counts separate from route availability.
+
 

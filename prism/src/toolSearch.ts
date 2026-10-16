@@ -65,6 +65,26 @@ export function searchTools(items: Tool[], query: string): Tool[] {
   const input = words(query).filter((word) => !STOP_WORDS.has(word));
   if (input.length === 0) return sorted;
 
+  const normalizedQuery = words(query).join(" ");
+  const intentBoost = new Map<string, number>();
+  const boost = (name: string, score: number) => intentBoost.set(name, Math.max(intentBoost.get(name) ?? 0, score));
+  if (/\b(?:pdf|pdfs)\b.*\b(?:image|images|photo|photos|picture|pictures)\b/.test(normalizedQuery)
+      && /\b(?:to|into|as|extract|export)\b/.test(normalizedQuery)) {
+    boost("Extract PDF images", 100);
+  }
+  if (/\b(?:image|images|photo|photos|picture|pictures)\b.*\b(?:pdf|pdfs)\b/.test(normalizedQuery)
+      && /\b(?:to|into|as|convert|turn)\b/.test(normalizedQuery)) {
+    boost("Convert images to PDF", 100);
+  }
+  if (/\b(?:combine|merge|join)\b/.test(normalizedQuery) && /\bpdfs?\b/.test(normalizedQuery)) {
+    boost("Merge PDFs", 100);
+  }
+  if (/\b(?:smaller|shrink|reduce|compress)\b/.test(normalizedQuery)
+      && /\b(?:image|images|photo|photos|picture|pictures)\b/.test(normalizedQuery)) {
+    boost("Compress image", 100);
+    boost("Resize image", 95);
+  }
+
   const expanded = new Set(input);
   for (const word of input) {
     for (const related of RELATED_TERMS[word] ?? []) expanded.add(related);
@@ -76,16 +96,21 @@ export function searchTools(items: Tool[], query: string): Tool[] {
   const ranked = sorted.map((tool, index) => {
     const titleWords = new Set(words(tool.name));
     const detailWords = new Set(words(`${tool.category} ${tool.example} ${tool.beginner} ${tool.advanced} ${tool.preview}`));
-    let score = 0;
+    let score = intentBoost.get(tool.name) ?? 0;
     for (const word of expanded) {
       if (titleWords.has(word)) score += input.includes(word) ? 8 : 3;
       else if (detailWords.has(word)) score += input.includes(word) ? 2 : 1;
     }
-    const normalizedQuery = input.join(" ");
-    if (normalizedQuery.length > 2 && words(tool.name).join(" ").includes(normalizedQuery)) score += 10;
+    const phrase = input.join(" ");
+    if (phrase.length > 2 && words(tool.name).join(" ").includes(phrase)) score += 10;
     return { tool, index, score };
-  }).filter((entry) => entry.score > 0);
+  });
 
-  ranked.sort((left, right) => right.score - left.score || left.index - right.index);
-  return ranked.map(({ tool }) => tool);
+  const topScore = Math.max(0, ...ranked.map(({ score }) => score));
+  const hasSpecificIntent = intentBoost.size > 0;
+  const matches = ranked.filter(({ score }) => score > 0 && (!hasSpecificIntent || score >= topScore * 0.25));
+
+  matches.sort((left, right) => right.score - left.score || left.index - right.index);
+  return matches.map(({ tool }) => tool);
 }
+

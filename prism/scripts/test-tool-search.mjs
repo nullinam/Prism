@@ -22,4 +22,9 @@ for (const [query, expected] of [
   assert(expected.some((name) => names.includes(name)), `Intent query “${query}” should surface one of: ${expected.join(", ")}. Got: ${names.join(", ")}`);
 }
 
-console.log("Tool search checks passed: 150 A–Z entries and 3 plain-language task queries.");
+const pdfToImages = searchTools(catalog, "I want to turn a PDF into images").map((tool) => tool.name);
+assert.equal(pdfToImages[0], "Extract PDF images", `PDF-to-image intent should rank the directionally correct tool first. Got: ${pdfToImages.slice(0, 5).join(", ")}`);
+assert(!pdfToImages.includes("Convert images to PDF"), "PDF-to-image intent should not recommend the reverse conversion.");
+
+console.log("Tool search checks passed: 150 A–Z entries, 3 task queries, and PDF conversion direction.");
+
