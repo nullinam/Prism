@@ -93,3 +93,12 @@
 @media(max-width:650px){.site-v2-header{padding-inline:15px}.site-v2-header nav{display:none}.v2-pricing{padding:64px 18px}.v2-plan-grid{grid-template-columns:1fr}.v2-plan-card{min-height:0;padding:23px}.v2-plan-card ul{margin:18px 0 22px}.v2-pricing-heading h2{font-size:40px}}
 @media(prefers-reduced-motion:reduce){.site-v2 .v2-orbit{animation:none!important}.site-v2,.site-v2 *{scroll-behavior:auto!important;transition-duration:.01ms!important}}
 
+/* Shared mark and wordmark used by the website and installed workspace. */
+.prism-mark{background:transparent;color:#111311;border-radius:0;overflow:visible}
+.prism-mark svg{width:100%;height:100%;overflow:visible}
+.brand>span:not(.prism-mark){font-family:"Segoe UI Variable Display","Aptos Display","Manrope","Segoe UI",sans-serif;font-weight:750;letter-spacing:-.075em}
+.site-v2-header .brand,.v2-footer .brand{letter-spacing:0}
+.theme-dark .prism-mark{color:#f0f4ee}
+.app-brand .prism-mark{color:#111311}
+@media(prefers-color-scheme:dark){.theme-system .prism-mark{color:#f0f4ee}}
+

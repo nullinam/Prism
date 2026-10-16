@@ -39,34 +39,32 @@ function chunk(type, data) {
 }
 
 function makePng(size) {
-  const scale = 3;
+  const scale = size > 310 ? 2 : 3;
   const high = size * scale;
   const colors = {
-    bg: [24, 33, 30, 255],
-    green: [199, 243, 106, 255],
-    blue: [167, 199, 255, 255],
-    peach: [255, 198, 151, 255],
-    edge: [224, 250, 182, 255],
+    bg: [255, 255, 255, 255],
+    mark: [17, 19, 17, 255],
   };
-  const lines = [
-    { a: [95, 50], b: [180, 128], color: colors.edge },
-    { a: [180, 128], b: [95, 206], color: colors.edge },
-    { a: [95, 206], b: [95, 50], color: colors.edge },
-    { a: [28, 128], b: [95, 128], color: colors.green },
-    { a: [180, 128], b: [231, 77], color: colors.blue },
-    { a: [180, 128], b: [239, 128], color: colors.green },
-    { a: [180, 128], b: [231, 179], color: colors.peach },
-  ].map((line) => ({ ...line, a: line.a.map((n) => (n / 256) * high), b: line.b.map((n) => (n / 256) * high) }));
-  const stroke = (high / 256) * 9;
+  const polygons = [
+    [[121, 72], [69, 148], [121, 191]],
+    [[135, 72], [187, 148], [135, 191]],
+  ].map((points) => points.map(([x, y]) => [x / 256 * high, y / 256 * high]));
+  const contains = (x, y, polygon) => {
+    let inside = false;
+    for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
+      const [xi, yi] = polygon[i];
+      const [xj, yj] = polygon[j];
+      if ((yi > y) !== (yj > y) && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi) inside = !inside;
+    }
+    return inside;
+  };
   const highPixels = Buffer.alloc(high * high * 4);
   for (let y = 0; y < high; y++) {
     for (let x = 0; x < high; x++) {
       const offset = (y * high + x) * 4;
       if (insideRoundedSquare((x + 0.5) / high * 256, (y + 0.5) / high * 256, 256)) {
         highPixels.set(colors.bg, offset);
-        for (const line of lines) {
-          if (segmentDistance(x + 0.5, y + 0.5, ...line.a, ...line.b) <= stroke / 2) highPixels.set(line.color, offset);
-        }
+        if (polygons.some((polygon) => contains(x + 0.5, y + 0.5, polygon))) highPixels.set(colors.mark, offset);
       }
     }
   }
@@ -111,16 +109,45 @@ function makeIco(frames) {
   return Buffer.concat([header, ...frames.map(({ png }) => png)]);
 }
 
+function makeIcns(frames) {
+  const chunks = frames.map(({ type, png }) => {
+    const header = Buffer.alloc(8);
+    header.write(type, 0, 4, "ascii");
+    header.writeUInt32BE(png.length + 8, 4);
+    return Buffer.concat([header, png]);
+  });
+  const body = Buffer.concat(chunks);
+  const header = Buffer.alloc(8);
+  header.write("icns", 0, 4, "ascii");
+  header.writeUInt32BE(body.length + 8, 4);
+  return Buffer.concat([header, body]);
+}
+
 const icon32 = makePng(32);
 const icon128 = makePng(128);
 const icon256 = makePng(256);
 const iconFrames = await Promise.all([16, 24, 32, 48, 64, 128, 256].map(async (size) => ({ size, png: makePng(size) })));
+const squareFrames = [30, 44, 71, 89, 107, 142, 150, 284, 310].map((size) => ({ size, png: makePng(size) }));
+const macFrames = [
+  { type: "icp4", png: makePng(16) },
+  { type: "icp5", png: makePng(32) },
+  { type: "icp6", png: makePng(64) },
+  { type: "ic07", png: makePng(128) },
+  { type: "ic08", png: icon256 },
+  { type: "ic09", png: makePng(512) },
+  { type: "ic10", png: makePng(1024) },
+];
 await Promise.all([
   writeFile(path.join(root, "32x32.png"), icon32),
   writeFile(path.join(root, "128x128.png"), icon128),
   writeFile(path.join(root, "128x128@2x.png"), icon256),
   writeFile(path.join(root, "icon.png"), icon256),
   writeFile(path.join(root, "icon.ico"), makeIco(iconFrames)),
-  ...[30, 44, 71, 89, 107, 142, 150, 284, 310].map((size) => writeFile(path.join(root, `Square${size}x${size}.png`), makePng(size))),
+  writeFile(path.join(root, "icon.icns"), makeIcns(macFrames)),
+  ...squareFrames.flatMap(({ size, png }) => [
+    writeFile(path.join(root, `Square${size}x${size}.png`), png),
+    writeFile(path.join(root, `Square${size}x${size}Logo.png`), png),
+  ]),
   writeFile(path.join(root, "StoreLogo.png"), makePng(50)),
 ]);
+

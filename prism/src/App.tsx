@@ -28,12 +28,8 @@ const WEB_MAX_FILE_BYTES = 20 * 1024 * 1024;
 function PrismMark({ small = false }: { small?: boolean }) {
   return (
     <span className={`prism-mark${small ? " prism-mark-small" : ""}`} aria-hidden="true">
-      <svg viewBox="0 0 30 30">
-        <path className="mark-edge" d="M11 5.5 21.5 15 11 24.5z" />
-        <path className="mark-beam mark-lime" d="M4 15h7" />
-        <path className="mark-beam mark-blue" d="M21.5 15h1.8l3.7-5" />
-        <path className="mark-beam mark-lime" d="M21.5 15H27" />
-        <path className="mark-beam mark-peach" d="M21.5 15h1.8l3.7 5" />
+      <svg viewBox="0 0 114 114">
+        <path fill="currentColor" d="M54 32 31 66 54 84zM60 32l23 34-23 18z" />
       </svg>
     </span>
   );
