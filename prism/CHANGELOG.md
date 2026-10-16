@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.0.36 — Consistent dark theme across PRISM
+
+- Applied the neutral dark palette across workspace navigation, tool cards, file selection, editors, previews, notices, and controls.
+- Restyled search fields and focus states for readable text, caret, shortcut keys, and clear focus contrast.
+- Matched marketing sections, pricing cards, settings dialogs, and the automatic system-dark theme to the same surface tokens.
+- Kept the pricing cards on a shared grid width with consistent stretch and sizing.
+
 ## 0.0.35 — More readable workspace and local PDF workflows
 
 - Added full workspace category navigation, local recent-tools history, and a working platform-appropriate Ctrl/Command+K search shortcut.

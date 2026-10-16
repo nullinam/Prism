@@ -49,6 +49,70 @@
 @media(prefers-reduced-motion:reduce){.runner-file-row,.runner-preview-window,.runner-preview-card,.runner-preview-canvas img{animation:none!important;transition:none!important}}
 @media(max-width:650px){.runner-file-row{flex-wrap:wrap}.runner-file-row>strong{flex-basis:calc(100% - 100px)}.runner-feedback>div{align-items:flex-start;flex-direction:column}}
 
+/* One neutral dark palette for the entire installed workspace and every tool module. */
+.app-shell.theme-dark{
+  --page:#111111;--sidebar:#171717;--surface:#1D1D1D;--raised:#242424;--hover:#2B2B2B;
+  --ink:#F5F5F5;--muted:#B7B7B7;--quiet:#858585;--hairline:#343434;--strong-border:#484848;
+  color-scheme:dark;background:var(--page);color:var(--ink)
+}
+.app-shell.theme-dark .app-sidebar{background:var(--sidebar);border-color:var(--hairline)}
+.app-shell.theme-dark .workspace-header{background:var(--surface);border-color:var(--hairline);color:var(--ink)}
+.app-shell.theme-dark .sidebar-label,.app-shell.theme-dark .sidebar-item small,.app-shell.theme-dark .tool-section-title p,.app-shell.theme-dark .tool-section-title>span,.app-shell.theme-dark .tool-card>small,.app-shell.theme-dark .drop-card small,.app-shell.theme-dark .file-picker small,.app-shell.theme-dark .tool-page-heading p,.app-shell.theme-dark .workspace-footnote,.app-shell.theme-dark .welcome-row p{color:var(--muted)}
+.app-shell.theme-dark .sidebar-item{color:var(--muted)}
+.app-shell.theme-dark .sidebar-item>span{color:var(--quiet)}
+.app-shell.theme-dark .sidebar-item.active{background:var(--hover);color:var(--ink)}
+.app-shell.theme-dark .sidebar-item.active>span{color:#c4e88c}
+.app-shell.theme-dark .privacy-badge,.app-shell.theme-dark .welcome-mark,.app-shell.theme-dark .tool-card,.app-shell.theme-dark .results-panel,.app-shell.theme-dark .runner-result,.app-shell.theme-dark .runner-file-list,.app-shell.theme-dark .runner-preview-card{background:var(--surface);border-color:var(--hairline);color:var(--ink)}
+.app-shell.theme-dark .drop-card,.app-shell.theme-dark .file-picker{background:var(--raised);border-color:var(--strong-border);color:var(--ink)}
+.app-shell.theme-dark .drop-card:hover,.app-shell.theme-dark .file-picker:hover{background:var(--hover);border-color:#747d69}
+.app-shell.theme-dark .drop-card-icon,.app-shell.theme-dark .file-picker-icon,.app-shell.theme-dark .result-type{background:var(--hover);border-color:var(--hairline);color:#c4e88c}
+.app-shell.theme-dark .tool-card:hover{background:var(--raised);border-color:var(--strong-border);box-shadow:0 12px 28px #0005}
+.app-shell.theme-dark .tool-card>strong,.app-shell.theme-dark .tool-section-title h2,.app-shell.theme-dark .welcome-row h1,.app-shell.theme-dark .tool-page-heading h1{color:var(--ink)}
+.app-shell.theme-dark .tint-0,.app-shell.theme-dark .tint-1,.app-shell.theme-dark .tint-2,.app-shell.theme-dark .tint-3{background:var(--hover);color:#c4e88c}
+.app-shell.theme-dark .search{background:var(--raised);border-color:var(--strong-border);color:var(--muted);transition:border-color .18s,box-shadow .18s,background .18s}
+.app-shell.theme-dark .search:focus-within{background:var(--surface);border-color:#9dbd72;box-shadow:0 0 0 3px #c4e88c2b}
+.app-shell.theme-dark .workspace-header .search input,.app-shell.theme-dark .search input{background:transparent!important;color:var(--ink)!important;caret-color:#c4e88c;color-scheme:dark;font-size:15px}
+.app-shell.theme-dark .search input::placeholder{color:var(--quiet)}
+.app-shell.theme-dark .search kbd{background:var(--surface);border-color:var(--strong-border);color:var(--muted)}
+.app-shell.theme-dark .breadcrumb,.app-shell.theme-dark .workspace-content{color:var(--ink)}
+.app-shell.theme-dark .breadcrumb span{color:var(--quiet)}
+.app-shell.theme-dark .results-head,.app-shell.theme-dark .result-row{border-color:var(--hairline)}
+.app-shell.theme-dark .results-head span,.app-shell.theme-dark .results-head button,.app-shell.theme-dark .result-name small,.app-shell.theme-dark .result-dimensions{color:var(--muted)}
+.app-shell.theme-dark .runner-result pre,.app-shell.theme-dark .runner-preview-canvas pre{background:var(--raised);color:var(--ink)}
+.app-shell.theme-dark .runner-preview-window{background:var(--raised);border-color:var(--hairline);color:var(--ink)}
+.app-shell.theme-dark .runner-preview-card footer small{color:var(--muted)}
+.app-shell.theme-dark .runner-file-row{background:var(--raised);color:var(--ink)}
+.app-shell.theme-dark .runner-file-row button{background:var(--surface);border-color:var(--strong-border);color:var(--muted)}
+.app-shell.theme-dark .runner-field{color:var(--ink)}
+.app-shell.theme-dark .runner-field input,.app-shell.theme-dark .runner-field textarea,.app-shell.theme-dark .runner-field select,.app-shell.theme-dark input,.app-shell.theme-dark textarea,.app-shell.theme-dark select{background-color:var(--raised);border-color:var(--strong-border);color:var(--ink);caret-color:var(--ink);color-scheme:dark}
+.app-shell.theme-dark input::placeholder,.app-shell.theme-dark textarea::placeholder{color:var(--quiet)}
+.app-shell.theme-dark .runner-safety-notice,.app-shell.theme-dark .runner-recovery,.app-shell.theme-dark .runner-feedback,.app-shell.theme-dark .crop-editor{background:var(--raised);border-color:var(--strong-border);color:var(--ink)}
+.app-shell.theme-dark .runner-feedback p,.app-shell.theme-dark .runner-feedback>div,.app-shell.theme-dark .runner-recovery span,.app-shell.theme-dark .crop-editor>header span,.app-shell.theme-dark .crop-editor>p{color:var(--muted)}
+.app-shell.theme-dark .crop-editor-canvas{background:var(--page)}
+.app-shell.theme-dark .limits-note{background:#292518;border-color:#5b4a28;color:#f2d48e}
+.app-shell.theme-dark .inline-message{background:#30231e;border-color:#654335;color:#f0b99a}
+.app-shell.theme-dark .button-dark{background:#f5f5f5;color:#171717}
+.app-shell.theme-dark .button-dark:hover{background:#dededc}
+.app-shell.theme-dark .button-light{background:var(--raised);border-color:var(--strong-border);color:var(--ink)}
+.app-shell.theme-dark .button-light:hover{background:var(--hover)}
+.app-shell.theme-dark :focus-visible{outline-color:#c4e88c}
+.app-shell.theme-dark.high-contrast :focus-visible{outline-color:#ffdf00!important}
+@media(max-width:650px){.app-shell.theme-dark .app-sidebar{background:var(--sidebar);border-color:var(--hairline)}}
+@media(prefers-color-scheme:dark){
+  .app-shell.theme-system{--page:#111111;--sidebar:#171717;--surface:#1D1D1D;--raised:#242424;--hover:#2B2B2B;--ink:#F5F5F5;--muted:#B7B7B7;--quiet:#858585;--hairline:#343434;--strong-border:#484848;color-scheme:dark;background:var(--page);color:var(--ink)}
+  .app-shell.theme-system .app-sidebar{background:var(--sidebar);border-color:var(--hairline)}
+  .app-shell.theme-system .workspace-header,.app-shell.theme-system .tool-card,.app-shell.theme-system .results-panel,.app-shell.theme-system .runner-result,.app-shell.theme-system .runner-file-list,.app-shell.theme-system .runner-preview-card{background:var(--surface);border-color:var(--hairline);color:var(--ink)}
+  .app-shell.theme-system .search,.app-shell.theme-system .drop-card,.app-shell.theme-system .file-picker,.app-shell.theme-system .runner-preview-window{background:var(--raised);border-color:var(--strong-border);color:var(--ink)}
+  .app-shell.theme-system .search input,.app-shell.theme-system .runner-field input,.app-shell.theme-system .runner-field textarea,.app-shell.theme-system .runner-field select,.app-shell.theme-system input,.app-shell.theme-system textarea,.app-shell.theme-system select{background-color:var(--raised);border-color:var(--strong-border);color:var(--ink);caret-color:var(--ink);color-scheme:dark}
+  .app-shell.theme-system .search:focus-within{border-color:#9dbd72;box-shadow:0 0 0 3px #c4e88c2b}
+  .app-shell.theme-system .sidebar-item,.app-shell.theme-system .breadcrumb,.app-shell.theme-system .workspace-content,.app-shell.theme-system .welcome-row h1,.app-shell.theme-system .tool-page-heading h1,.app-shell.theme-system .tool-card>strong{color:var(--ink)}
+  .app-shell.theme-system .sidebar-item:not(.active),.app-shell.theme-system .sidebar-label,.app-shell.theme-system .workspace-content p,.app-shell.theme-system .workspace-content small,.app-shell.theme-system .tool-card>small{color:var(--muted)}
+  .app-shell.theme-system .runner-safety-notice,.app-shell.theme-system .runner-recovery,.app-shell.theme-system .runner-feedback,.app-shell.theme-system .crop-editor{background:var(--raised);border-color:var(--strong-border);color:var(--ink)}
+  .app-shell.theme-system .crop-editor-canvas{background:var(--page)}
+  .app-shell.theme-system .button-dark{background:#f5f5f5;color:#171717}
+  .app-shell.theme-system .button-light{background:var(--raised);border-color:var(--strong-border);color:var(--ink)}
+}
+
 /* Apply the saved site-wide preferences in the workspace as well as the landing page. */
 .app-shell{background:#F5F5F4;color:#171717;font-family:var(--prism-font, "Segoe UI Variable", "Segoe UI", system-ui, sans-serif)}
 .app-shell.font-manrope{--prism-font:"Manrope", "Segoe UI Variable", "Segoe UI", system-ui, sans-serif}.app-shell.font-inter{--prism-font:Inter, "Segoe UI", system-ui, sans-serif}.app-shell.font-system{--prism-font:system-ui, sans-serif}
