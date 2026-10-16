@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.0.41 — Centered privacy and pricing sections
+
+- Centered the privacy and pricing sections within the page on wide screens.
+- Kept pricing cards aligned to the same centered grid.
+
+
 ## 0.0.40 — Readable dark tool status
 
 - Improved ready-state contrast across workspace tool cards in dark and system themes.

@@ -363,6 +363,7 @@
 }
 
 /* Price cards share one grid width and their action rows align at the bottom. */
+.v2-privacy,.v2-pricing{margin-inline:auto}
 .v2-pricing-heading,.v2-plan-grid,.v2-pricing-note{width:min(1168px,100%);box-sizing:border-box}
 .v2-plan-grid{grid-template-columns:repeat(2,minmax(0,1fr));align-items:stretch}
 .v2-plan-card{width:100%;min-width:0;min-height:318px;box-sizing:border-box}
