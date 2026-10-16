@@ -3,6 +3,7 @@ import { invoke } from "@tauri-apps/api/core";
 import { open } from "@tauri-apps/plugin-dialog";
 import "./App.css";
 import { tools, type Tool } from "./catalog";
+import { ToolRunner } from "./ToolRunner";
 
 type ImageInfo = {
   name: string;
@@ -75,7 +76,7 @@ function MarketingSite({ onOpen }: { onOpen: (tool?: string) => void }) {
         <div className="v2-hero-art"><div className="v2-orbit orbit-a"/><div className="v2-orbit orbit-b"/><div className="v2-glass-card"><div className="v2-card-top"><PrismMark small/><span>PRISM TOOLBOX</span><i>LOCAL</i></div><div className="v2-card-title">A little less<br/>file busywork.</div><div className="v2-card-tools"><div><span>▧</span> Images <b>15</b></div><div><span>▤</span> PDF <b>15</b></div><div><span>▱</span> Documents <b>15</b></div><div><span>✳</span> Everyday <b>105</b></div></div><div className="v2-card-foot"><span><i/> {readyCount} tools available now</span><span>150 total</span></div></div><div className="v2-float-badge">Files stay here <span>↗</span></div></div>
       </section>
       <div className="v2-trust"><span><b>01</b> Pick a tool</span><i/><span><b>02</b> Work in your browser</span><i/><span><b>03</b> Save your result</span><i/><span><b>04</b> Your file stays yours</span></div>
-      <section className="v2-tools" id="tools"><div className="v2-section-head"><div><span className="v2-overline">THE PRISM TOOLBOX</span><h2>Find your next<br/>small win.</h2></div><p>Every tool shows its browser trial cap up front. Tools marked “In development” are listed in the roadmap but aren’t available to run yet.</p></div>
+      <section className="v2-tools" id="tools"><div className="v2-section-head"><div><span className="v2-overline">THE PRISM TOOLBOX</span><h2>Find your next<br/>small win.</h2></div><p>Every tool shows its browser trial cap up front. All 150 tools open in the local trial. Each tool shows its current cap and processes selected content on your device.</p></div>
         <div className="v2-controls"><label className="v2-search"><span>⌕</span><input value={query} onChange={e=>{setQuery(e.target.value);setShowAll(false);}} placeholder="Search 150 tools" aria-label="Search all PRISM tools"/><kbd>150</kbd></label><div className="v2-filters" role="group" aria-label="Filter tools by category">{categories.map(item=><button key={item} className={category===item?"selected":""} onClick={()=>{setCategory(item);setShowAll(false);}}>{item}</button>)}</div></div>
         <div className="v2-results"><span>{filtered.length} tools</span><span>{readyCount} available in this trial</span></div>
         <div className="v2-tool-grid">{visible.map(tool=><article className="v2-tool-card" key={tool.id}><div className="v2-tool-card-top"><span className="v2-tool-number">{String(tool.id).padStart(3,"0")}</span><span className={`v2-status ${tool.status}`}>{tool.status === "ready" ? "READY TO TRY" : "IN DEVELOPMENT"}</span></div><div className="v2-tool-icon">{tool.category === "Images" ? "▧" : tool.category === "PDF" ? "▤" : tool.category === "Documents" ? "▱" : tool.category === "Calculators" ? "∑" : "✳"}</div><h3>{tool.name}</h3><span className="v2-tool-category">{tool.category}</span><div className="v2-limit"><small>{tool.status === "ready" ? "BROWSER TRIAL LIMIT" : "PLANNED TRIAL CAP"}</small><span>{tool.trialLimit}</span></div><button className="v2-tool-action" onClick={()=>tool.status === "ready" ? onOpen(tool.name) : (setSelectedTool(tool), setMode("beginner"))}>{tool.status === "ready" ? "Try this tool" : "Explore design"} <span>↗</span></button></article>)}</div>
@@ -103,14 +104,14 @@ function Workspace({ onHome, onTool, activeTool }: { onHome: () => void; onTool:
       <button className="sidebar-item" onClick={() => onTool("Recent files")}><span>◷</span> Recent files</button>
       <div className="sidebar-label">Toolbox</div>
       <button className={`sidebar-item ${activeTool ? "active" : ""}`} onClick={() => onTool("Browse image tools")}><span>▧</span> Images</button>
-      <button className="sidebar-item" onClick={() => onTool("PDF tools")}><span>▤</span> PDF tools <small>SOON</small></button>
-      <button className="sidebar-item" onClick={() => onTool("Document tools")}><span>▱</span> Documents <small>SOON</small></button>
-      <button className="sidebar-item" onClick={() => onTool("Everyday tools")}><span>✳</span> Everyday <small>SOON</small></button>
+      <button className="sidebar-item" onClick={() => onTool("PDF tools")}><span>▤</span> PDF tools</button>
+      <button className="sidebar-item" onClick={() => onTool("Document tools")}><span>▱</span> Documents</button>
+      <button className="sidebar-item" onClick={() => onTool("Everyday tools")}><span>✳</span> Everyday</button>
       <div className="sidebar-bottom"><div className="privacy-badge"><i /> Files stay on this device</div><button onClick={onHome}>About PRISM ↗</button></div>
     </aside>
     <main className="workspace-main">
       <header className="workspace-header"><div className="breadcrumb">PRISM <span>/</span> {activeTool ?? "Workspace"}</div><label className="search"><span>⌕</span><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search all tools" aria-label="Search tools" /><kbd>⌘ K</kbd></label><div className="local-status"><i /> Local processing</div></header>
-      {activeTool === "Inspect dimensions" ? <ImageInspector /> : activeTool && ["Change text case", "Clean extra spaces and blank lines", "Remove duplicate lines", "Sort lines", "Find and replace text"].includes(activeTool) ? <TextUtility tool={activeTool} /> : activeTool && tools.find(tool => tool.name === activeTool)?.status === "planned" ? <PlannedTool name={activeTool} onBack={() => onTool("")} /> : activeTool ? <ToolPicker tools={filteredTools} onTool={openTool} activeTool={activeTool} /> : <HomeWorkspace onTool={openTool} />}
+      {(activeTool === "Inspect dimensions" || activeTool === "Inspect image dimensions") ? <ImageInspector /> : activeTool && ["Change text case", "Clean extra spaces and blank lines", "Remove duplicate lines", "Sort lines", "Find and replace text"].includes(activeTool) ? <TextUtility tool={activeTool} /> : activeTool && tools.find(tool => tool.name === activeTool) ? <ToolRunner tool={tools.find(tool => tool.name === activeTool)!} onBack={() => onTool("")} /> : activeTool ? <ToolPicker tools={filteredTools} onTool={openTool} activeTool={activeTool} /> : <HomeWorkspace onTool={openTool} />}
     </main>
   </div>;
 }
@@ -121,12 +122,12 @@ function HomeWorkspace({ onTool }: { onTool: (tool: string) => void }) {
     <button className="drop-card" onClick={() => onTool("Browse image tools")}><span className="drop-card-icon">＋</span><strong>Choose a tool to begin</strong><small>Start with images, PDFs, documents, or everyday utilities</small></button>
     <div className="tool-section-title"><div><h2>Explore all 150 tools</h2><p>Search or browse the PRISM catalog</p></div><span>{tools.filter(t => t.status === "ready").length} ready · {tools.length} listed</span></div>
     <div className="tool-grid">{tools.map((tool, index) => <ToolCard key={tool.id} tool={tool} index={index} onClick={() => onTool(tool.name)} />)}</div>
-    <div className="workspace-footnote"><span>✳</span> Six tools are ready for evaluation. The rest of this 50-tool catalog are staged for upcoming implementation.</div>
+    <div className="workspace-footnote"><span>✳</span> All 150 catalog tools have a local trial workflow. File tools process selected files in your browser; saved work stays in this browser.</div>
   </div>;
 }
 
 function ToolCard({ tool, index, onClick }: { tool: Tool; index: number; onClick: () => void }) {
-  return <button className="tool-card" onClick={onClick}><span className={`tool-icon tint-${index % 4}`}>{["▧", "▤", "▱", "✳"][index % 4]}</span><strong>{tool.name}</strong><small>{tool.category} · {tool.status === "ready" ? "Ready to use" : "Planned"}</small><span className={`tool-state ${tool.status}`}>{tool.status === "ready" ? "READY" : "SOON"}</span></button>;
+  return <button className="tool-card" onClick={onClick}><span className={`tool-icon tint-${index % 4}`}>{["▧", "▤", "▱", "✳"][index % 4]}</span><strong>{tool.name}</strong><small>{tool.category} · Ready to use</small><span className={`tool-state ${tool.status}`}>READY</span></button>;
 }
 
 function ToolPicker({ tools: visibleTools, onTool, activeTool }: { tools: Tool[]; onTool: (tool: string) => void; activeTool: string }) {
@@ -134,7 +135,7 @@ function ToolPicker({ tools: visibleTools, onTool, activeTool }: { tools: Tool[]
   const selected = categories[activeTool];
   const items = selected ? visibleTools.filter(t => selected.includes(t.category)) : visibleTools;
   const title = ["Browse image tools", "PDF tools", "Document tools", "Everyday tools"].includes(activeTool) ? activeTool.replace("Browse ", "") : activeTool;
-  return <div className="workspace-content"><div className="tool-page-heading"><span className="kicker">{items.length} TOOLS · LOCAL FIRST</span><h1>{title}</h1><p>Browse the first 50 tools from the PRISM roadmap. Ready tools work locally; planned tools are labeled clearly.</p></div><div className="tool-grid">{items.map((tool, index) => <ToolCard key={tool.id} tool={tool} index={index} onClick={() => onTool(tool.name)} />)}</div></div>;
+  return <div className="workspace-content"><div className="tool-page-heading"><span className="kicker">{items.length} TOOLS · LOCAL FIRST</span><h1>{title}</h1><p>Browse the 150-tool PRISM catalog. Trial caps apply to each tool and work is processed locally.</p></div><div className="tool-grid">{items.map((tool, index) => <ToolCard key={tool.id} tool={tool} index={index} onClick={() => onTool(tool.name)} />)}</div></div>;
 }
 
 function TextUtility({ tool }: { tool: string }) {
@@ -151,10 +152,6 @@ function TextUtility({ tool }: { tool: string }) {
   return <div className="workspace-content tool-workspace"><div className="tool-page-heading"><span className="kicker">TEXT TOOL · LOCAL</span><h1>{tool}</h1><p>Text is processed on this device. Browser trial limit: 20,000 input characters.</p></div>{tool === "Find and replace text" && <div className="text-options"><input aria-label="Find" placeholder="Find" value={find} onChange={e=>setFind(e.target.value)} /><input aria-label="Replace with" placeholder="Replace with" value={replace} onChange={e=>setReplace(e.target.value)} /></div>}<textarea className="text-work-area" maxLength={20000} value={text} onChange={e=>setText(e.target.value)} placeholder="Paste or type up to 20,000 characters…" /><div className="text-actions"><button className="button button-dark" onClick={run}>Apply tool</button><span>{text.length.toLocaleString()} / 20,000 characters</span></div>{output && <><textarea className="text-work-area" readOnly value={output} aria-label="Result" /><button className="button button-light" onClick={()=>navigator.clipboard.writeText(output)}>Copy result</button></>}</div>;
 }
 
-function PlannedTool({ name, onBack }: { name: string; onBack: () => void }) {
-  const tool = tools.find(item => item.name === name)!;
-  return <div className="workspace-content"><div className="tool-page-heading"><button className="back-link" onClick={onBack}>← Back to catalog</button><span className="kicker">{tool.category.toUpperCase()} · TOOL {String(tool.id).padStart(2, "0")}</span><h1>{tool.name}</h1><p>This tool is part of PRISM’s first 50-tool plan. It’s catalogued for evaluation, but its local processing flow is not implemented yet.</p></div><div className="limits-note"><span>◷</span> Planned · No files will be selected or changed from this screen.</div></div>;
-}
 function ImageInspector() {
   const input = useRef<HTMLInputElement>(null);
   const [rows, setRows] = useState<ImageRow[]>([]);
@@ -258,5 +255,3 @@ async function readImageHeader(file: File): Promise<{ width: number; height: num
 }
 
 export default App;
-
-
