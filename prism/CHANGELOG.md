@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.0.40 — Readable dark tool status
+
+- Improved ready-state contrast across workspace tool cards in dark and system themes.
+
+
 ## 0.0.39 — Dark file-picker button contrast
 
 - Kept secondary file and feedback actions readable on dark surfaces.

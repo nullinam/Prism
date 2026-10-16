@@ -309,6 +309,7 @@
 .app-shell.theme-dark .runner-preview-window .button-light{color:#F5F5F5!important}
 .app-shell.theme-dark .runner-file-row{background:#1D1D1D!important;border-color:#484848!important}
 .app-shell.theme-dark .runner-preview-canvas,.app-shell.theme-dark .crop-editor-canvas{background:#171717!important}
+.app-shell.theme-dark .tool-state{color:#C4E88C!important}
 .app-shell.theme-dark input,.app-shell.theme-dark textarea,.app-shell.theme-dark select{background-color:#242424!important;border-color:#484848!important;color:#F5F5F5!important;caret-color:#C4E88C!important;color-scheme:dark}
 .app-shell.theme-dark input::placeholder,.app-shell.theme-dark textarea::placeholder{color:#858585!important;opacity:1}
 
@@ -356,6 +357,7 @@
   .app-shell.theme-system .runner-feedback .button-light,
   .app-shell.theme-system .runner-preview-window .button-light{color:#F5F5F5!important}
   .app-shell.theme-system .runner-preview-canvas,.app-shell.theme-system .crop-editor-canvas{background:#171717!important}
+  .app-shell.theme-system .tool-state{color:#C4E88C!important}
   .app-shell.theme-system input,.app-shell.theme-system textarea,.app-shell.theme-system select{background-color:#242424!important;border-color:#484848!important;color:#F5F5F5!important;caret-color:#C4E88C!important;color-scheme:dark}
   .app-shell.theme-system input::placeholder,.app-shell.theme-system textarea::placeholder{color:#858585!important;opacity:1}
 }
