@@ -1,1 +1,57 @@
-YªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×¾}N‹Z–‹­¦ëeŠw¬ÔŒAI%M4Ñ•±•µ•ÑÉä…¹™••‘‰…¬4(4)Q¡¥Ì‘½Õµ•¹Ğ‘•ÍÉ¥‰•ÌÑ¡”±¥¡Ñİ•¥¡ĞY•É•°É•Á½ÉÑ¥¹œ™•…ÑÕÉ”…¹„±¥•¹Ğ½¹ÑÉ…Ğ™½È™ÕÑÕÉ”AI%M4Á±…Ñ™½ÉµÌ¸AI%M4¥ÌÕÉÉ•¹Ñ±ä…Ù…¥±…‰±”½¸Ñ¡”İ•ˆ¸]¥¹‘½İÌ…ÁÁ±¥…Ñ¥½¸¥ÌÁ±…¹¹•°‰ÕĞ¹¼]¥¹‘½İÌ½È½Ñ¡•ÈÁ±…Ñ™½É´…ÁÀ¥Ì…Ù…¥±…‰±”Ñ¼‘½İ¹±½…¸Q¡”É•Á½Í¥Ñ½Éä½¹Ñ…¥¹ÌÍ¡…É•Q…ÕÉ¤‘•Í­Ñ½À½‘”…¹]¥¹‘½İÌÁ…­…¥¹œ½¹™¥ÕÉ…Ñ¥½¸ìÑ¡…ĞÍ½ÕÉ”½‘”¥Ì¹½Ğ„É•±•…Í•ÁÉ½‘ÕĞ¸µ…=L°¹‘É½¥°¥=L°…¹1¥¹Õà…ÁÁÌ…É”¹½ĞÕÉÉ•¹Ñ±ä½™™•É•¸¼¹½Ğ‘•ÍÉ¥‰”Ñ•±•µ•ÑÉä…Ì…Ñ¥Ù”½¸„Á±…Ñ™½É´Õ¹Ñ¥°¥ÑÌ±¥•¹Ğ…ÑÕ…±±äÍ•¹‘ÌÑ¡”‘½Õµ•¹Ñ••Ù•¹Ğ¸4(4(ŒŒ]¡…Ğ¥ÌÍÑ½É•4(4)Q½½°…Ñ¥Ù¥Ñä¥Ì½ÁÑ¥½¹…°…¹‘¥Í…‰±•‰ä‘•™…Õ±Ğ¸]¡•¸•¹…‰±•°AI%M4…•ÁÑÌ½¹±äÑ¡•Í”™¥•±‘ÌèÁ±…Ñ™½É´°…ÁÀÙ•ÉÍ¥½¸°Ñ½½°%½¹…µ”°…Ñ¥½¸€¡½Á•¹•‘€°ÍÑ…ÉÑ•‘€°½µÁ±•Ñ•‘€°…¹•±±•‘€°½È™…¥±•‘€¤°…¹Í•ÉÙ•ÈÑ¥µ•ÍÑ…µÀ¸%Ğ­••ÁÌÑ¡”±…Ñ•ÍĞ€È°ÀÀÀ•Ù•¹ÑÌ¸4(4)••‘‰…¬¥Ì„Í•Á…É…Ñ”°ÕÍ•ÈµÑÉ¥•É•…Ñ¥½¸¸Q¡”ÕÍ•È¡½½Í•Ì„€ÇŠLÔÉ…Ñ¥¹œì„¹½Ñ”ÕÀÑ¼€ÔÀÀ¡…É…Ñ•ÉÌ¥Ì½ÁÑ¥½¹…°¸Q¡”™½É´¥Ì½±±…ÁÍ•Õ¹Ñ¥°½Á•¹•…¹¥¹±Õ‘•Ì€¨©M­¥À¨¨¸M­¥ÁÁ¥¹œÍ•¹‘Ì¹½Ñ¡¥¹œ¸=¹±ä•áÁ±¥¥ĞÍÕ‰µ¥ÍÍ¥½¹ÌÑ¡…ĞÁ…ÍÌ½¹Í•ÉÙ…Ñ¥Ù”ÍÁ…´¡•­Ì…É”É•Ñ…¥¹•°…ÁÁ•…ĞÑ¡”±…Ñ•ÍĞ€ÔÀÀÉ•½É‘Ì¸¹•…Ñ¥Ù”É…Ñ¥¹œ½ÈÉ¥Ñ¥¥Í´¥Ì¹½ĞÍÁ…´‰ä¥ÑÍ•±˜¸4(4)9•¥Ñ¡•È•¹‘Á½¥¹Ğ…•ÁÑÌ½ÈÉ•½É‘Ì™¥±•¹…µ•Ì°Á…Ñ¡Ì°™¥±”Í¥é•Ì°™¥±”½¹Ñ•¹ÑÌ°Ñ½½°¥¹ÁÕÑÌ°Á…ÍÍİ½É‘Ì°½È•¹•É…Ñ•½ÕÑÁÕÑÌ¸Q¡”Í•ÉÙ•ÈÕÍ•Ì„­•å•¡…Í ½˜Ñ¡”É•ÅÕ•ÍĞ%@™½ÈÉ…Ñ”±¥µ¥Ñ¥¹œ€ Ì™••‘‰…¬ÍÕ‰µ¥ÍÍ¥½¹Ì½¡½ÕÈì€ØÀÀ…Ñ¥Ù¥Ñä•Ù•¹ÑÌ½¡½ÕÈ¤¸%Ğ‘½•Ì¹¿¾}¶‰ËkºwµçM¡•µ„Ù…±¥‘…Ñ¥½¸…ÁÁ±äÑ¼Ñ¡”ÁÕ‰±¥Œ¥¹•ÍÑ¥½¸•¹‘Á½¥¹Ğ¸4(4(ŒŒ••‘‰…¬½¹ÑÉ…Ğ4(4)A=MP€½…Á¤½™••‘‰…­€…•ÁÑÌÁ±…Ñ™½Éµ€°…ÁÁY•ÉÍ¥½¹€°Ñ½½±%‘€°Ñ½½±9…µ•€°É…Ñ¥¹€°½ÁÑ¥½¹…°½µµ•¹Ñ€°…¹„ÍÁ…´¡½¹•åÁ½Ğ™¥•±¸	½‘ä±¥µ¥Ğè€à-¸I…Ñ¥¹œµÕÍĞ‰”€ÇŠLÔ¸½µµ•¹Ğµ…á¥µÕ´è€ÔÀÀ¡…É…Ñ•ÉÌ¸••‘‰…¬¥ÌÍ•¹Ğ½¹±ä…™Ñ•ÈÁÉ•ÍÍ¥¹œMÕ‰µ¥Ğì±•…Ù¥¹œÑ¡”¹½Ñ”‰±…¹¬¥ÌÙ…±¥¸M­¥À½…¹•°‘½•Ì¹½ĞÍÕ‰µ¥Ğ¸±•…ÈÑ¡”±½…±±äÍ…Ù•‘É…™Ğ¥˜Ñ¡”ÕÍ•ÈÉ•ÅÕ•ÍÑÌ¥Ğ½È…™Ñ•ÈÍÕ•ÍÍ™Õ°ÍÕ‰µ¥ÍÍ¥½¸¸4(4(ŒŒ1¥µ¥ÑÌ…¹™ÕÑÕÉ”ÍÑ½É…”4(4)I•‘¥Ì±¥ÍÑÌÍÕ¥ĞÑ¡”™¥ÉÍĞÉ•±•…Í”ÌÍµ…±°°…ÁÁ••Ù•¹Ğ±½œ…¹É…Ñ”µ±¥µ¥Ğ½Õ¹Ñ•ÉÌ¸Q¡•ä…É”¹½Ğ„™Õ±°…¹…±åÑ¥Ìİ…É•¡½ÕÍ”¸%˜AI%M4¹••‘Ì±½¹•ÈÉ•Ñ•¹Ñ¥½¸°ÕÍ•È…½Õ¹ÑÌ°‘•±•Ñ¥½¸É•ÅÕ•ÍÑÌ°©½¥¹Ì°½È±…É•ÈµÍ…±”É•Á½ÉÑ¥¹œ°µ¥É…Ñ”Ñ¼„µ…¹…•A½ÍÑÉ•Ì‘…Ñ…‰…Í”…¹‘½Õµ•¹ĞÑ¡”É•Ñ•¹Ñ¥½¸…¹…•ÍÌÁ½±¥ä‰•™½É”½±±•Ñ¥¹œµ½É”‘…Ñ„¸-••ÀÑ¡”…‘µ¥¸É•Á½ÉĞÉ•…µ½¹±ä…¹ÁÉ¥Ù…Ñ”¸4(4(ŒŒAÉ¥Ù…äÉ•Ù¥•Ü¡•­±¥ÍĞ™½È™ÕÑÕÉ”±¥•¹ÑÌ4(4(´½¹™¥É´…Ñ¥Ù¥ÑäÍÑ…ÉÑÌ‘¥Í…‰±•…¹Ñ¡”ÕÍ•È…¸ÑÕÉ¸¥Ğ½™˜±…Ñ•È¸4(´%¹ÍÁ•Ğ¹•Ñİ½É¬É•ÅÕ•ÍÑÌÑ¼Ù•É¥™äÁ…å±½…‘Ì½¹Ñ…¥¸½¹±äÑ¡”Í¡•µ„…‰½Ù”¸4(´MÕ‰µ¥Ğ‰±…¹¬µ¹½Ñ”™••‘‰…¬…¹Ù•É¥™äÉ…Ñ¥¹œµ½¹±äÍÕ‰µ¥ÍÍ¥½¸İ½É­Ì¸4(´M­¥À™••‘‰…¬…¹Ù•É¥™ä¹¼É•ÅÕ•ÍĞ½ÕÉÌ¸4(´UÍ”„Íå¹Ñ¡•Ñ¥ŒÑ•ÍĞ™¥±”…¹Ù•É¥™ä¥Ğ¹•Ù•È…ÁÁ•…ÉÌ¥¸…¹äÉ•ÅÕ•ÍĞ°±½œ°½ÈÍÑ½É•É•½É¸4(´¡•¬É•Ñ•¹Ñ¥½¸…ÁÌ…¹•¹ÍÕÉ”€½…Á¤½…‘µ¥¹€É•©•ÑÌµ¥ÍÍ¥¹œ½È¥¹½ÉÉ•ĞÑ½­•¹Ì¸4(´UÁ‘…Ñ”Ñ¡”ÁÉ¥Ù…äÁ…”‰•™½É”¥¹ÑÉ½‘Õ¥¹œ¹•Ü™¥•±‘Ì°Í•ÉÙ¥•Ì°½ÈÉ•Ñ•¹Ñ¥½¸Á•É¥½‘Ì¸4(
+# PRISM telemetry and feedback
+
+This document describes the lightweight Vercel reporting feature and a client contract for future PRISM platforms. PRISM is currently available on the web. A Windows application is planned, but no Windows or other platform app is available to download. The repository contains shared Tauri desktop code and Windows packaging configuration; that source code is not a released product. macOS, Android, iOS, and Linux apps are not currently offered. Do not describe telemetry as active on a platform until its client actually sends the documented event.
+
+## What is stored
+
+Tool activity is optional and disabled by default. When enabled, PRISM accepts only these fields: platform, app version, tool ID/name, action (`opened`, `started`, `completed`, `cancelled`, or `failed`), and server timestamp. It keeps the latest 2,000 events.
+
+Feedback is a separate, user-triggered action. The user chooses a 1â€“5 rating; a note up to 500 characters is optional. The form is collapsed until opened and includes **Skip**. Skipping sends nothing. Only explicit submissions that pass conservative spam checks are retained, capped at the latest 500 records. A negative rating or criticism is not spam by itself.
+
+Neither endpoint accepts or records filenames, paths, file sizes, file contents, tool inputs, passwords, or generated outputs. The server uses a keyed hash of the request IP for rate limiting (3 feedback submissions/hour; 600 activity events/hour). It does not add the raw IP to stored records. The hosting provider may process normal connection data to serve a request.
+
+## Vercel storage setup
+
+1. In the Vercel project for PRISM, add an Upstash Redis database through Marketplace. Review its current plan and billing before provisioning.
+2. Connect it to the PRISM Vercel project and add the environment variables `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN` to Production and Preview as appropriate.
+3. Generate a long, random `PRISM_ADMIN_TOKEN` and add it as a server-side Vercel environment variable. Do not place it in source, Vite variables (`VITE_*`), a URL, or client bundle.
+4. Redeploy after setting variables. Verify that `/api/activity` and `/api/feedback` report storage unavailable until the Redis variables are set.
+5. Open `/admin.html` and enter the admin token to see aggregates and the latest records. The token remains in that tab's session storage; choose **Forget token and close report** when done. The report endpoint requires the token on every request and is not public.
+
+No feature can retain production submissions until the Vercel project has a storage connection and these variables. Feedback must never claim success when storage is unavailable.
+
+## Client event contract
+
+Clients send a small JSON `POST` to `https://prism-khaki-one.vercel.app/api/activity` only after the user enables anonymous tool activity. Example:
+
+```json
+{
+  "platform": "windows",
+  "appVersion": "0.0.43",
+  "toolId": 1,
+  "toolName": "Crop image",
+  "action": "completed"
+}
+```
+
+Allowed platform values are `web`, `windows`, `macos`, `linux`, `android`, and `ios`. The web client detects the current platform, and the API validates the enum. Native clients should provide the platform from their build/runtime, use the same consent preference across launches, and keep the feature off until the user opts in. Send only lifecycle actions; do not send filenames, file counts, exact sizes, inputs, error messages that may contain user data, or content-derived information. Event delivery is best effort and must never block a tool or change its result.
+
+Native requests may omit the browser `Origin` header. Do not add a long-lived app secret to a client binary. Rate limits and strict schema validation apply to the public ingestion endpoint.
+
+## Feedback contract
+
+`POST /api/feedback` accepts `platform`, `appVersion`, `toolId`, `toolName`, `rating`, optional `comment`, and a spam honeypot field. Body limit: 8 KB. Rating must be 1â€“5. Comment maximum: 500 characters. Feedback is sent only after pressing Submit; leaving the note blank is valid. Skip/cancel does not submit. Clear the locally saved draft if the user requests it or after successful submission.
+
+## Limits and future storage
+
+Redis lists suit the first release's small, capped event log and rate-limit counters. They are not a full analytics warehouse. If PRISM needs longer retention, user accounts, deletion requests, joins, or larger-scale reporting, migrate to a managed Postgres database and document the retention and access policy before collecting more data. Keep the admin report read-only and private.
+
+## Privacy review checklist for future clients
+
+- Confirm activity starts disabled and the user can turn it off later.
+- Inspect network requests to verify payloads contain only the schema above.
+- Submit blank-note feedback and verify rating-only submission works.
+- Skip feedback and verify no request occurs.
+- Use a synthetic test file and verify it never appears in any request, log, or stored record.
+- Check retention caps and ensure `/api/admin` rejects missing or incorrect tokens.
+- Update the privacy page before introducing new fields, services, or retention periods.

@@ -1,1 +1,78 @@
-YªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×|N‹Z–‹­¦ëeŠw¬ÔŒ¡…¹•±½œ4(4(ŒŒU¹É•±•…Í•ƒŠP]•ˆ…Ù…¥±…‰¥±¥Ñä…¹Á±…Ñ™½É´ÍÑ…ÑÕÌ4(4(´I•Á±…•Õ¹…Ù…¥±…‰±”Á±…Ñ™½É´‘½İ¹±½……É‘Ìİ¥Ñ Ñ¡”ÕÉÉ•¹Ğİ•ˆµ…Ù…¥±…‰¥±¥Ñäµ•ÍÍ…”¸4(´±…É¥™¥•Ñ¡…Ğ]¥¹‘½İÌ¥ÌÁ±…¹¹•…¹Ñ¡…Ğ¹¼‘•Í­Ñ½À½Èµ½‰¥±”…ÁÀ‘½İ¹±½…‘Ì…É”…Ù…¥±…‰±”¸4(´UÁ‘…Ñ•‰É½İÍ•ÈÑ½½°Õ¥‘…¹”…¹Á±…Ñ™½É´‘½Õµ•¹Ñ…Ñ¥½¸Ñ¼É•µ½Ù”¥µÁ±¥•]¥¹‘½İÌ…Ù…¥±…‰¥±¥Ñä¸4(4(ŒŒ€À¸À¸ĞÌƒŠP=ÁÑ¥½¹…°™••‘‰…¬…¹ÁÉ¥Ù…äµÍ…™”É•Á½ÉÑ¥¹œ4(4(´‘‘•½ÁÑ¥½¹…°°½™˜µ‰äµ‘•™…Õ±Ğ…Ñ¥Ù¥ÑäÍ¡…É¥¹œİ¥Ñ Ñ½½°½Á±…Ñ™½É´½…Ñ¥½¸µ•Ñ…‘…Ñ„½¹±ä¸4(´‘‘•„‰É¥•˜É…Ñ¥¹œ™½É´İ¥Ñ …¸½ÁÑ¥½¹…°¹½Ñ”ìÍ­¥ÁÁ¥¹œÍÕ‰µ¥ÑÌ¹½Ñ¡¥¹œ…¹¹½Ñ•Ì…É”ÍÉ••¹•™½È½‰Ù¥½ÕÌÍÁ…´¸4(´‘‘•µ•Ñ…‘…Ñ„µ½¹±äY•É•°•¹‘Á½¥¹ÑÌ…¹„Ñ½­•¸µÁÉ½Ñ•Ñ•É•Á½ÉĞìI•‘¥ÌÍÑ½É…”É•µ…¥¹Ì‘¥Í…‰±•Õ¹Ñ¥°½¹™¥ÕÉ•¥¸Y•É•°¸4(´UÁ‘…Ñ•ÁÉ¥Ù…ä°‘•Á±½åµ•¹Ğ°•¹Ù¥É½¹µ•¹Ğ°É•±•…Í”µÉ•…‘¥¹•ÍÌ°…¹Í•ÕÉ¥ÑäµÉ•Á½ÉÑ¥¹œ‘½Õµ•¹Ñ…Ñ¥½¸¸4(4(ŒŒ€À¸À¸ĞÈƒŠP…ÍÑ•È‘¥Í½Ù•Éä…¹É•Á•…Ğİ½É¬4(4(´M•…É ¹½Üµ…Ñ¡•ÌÑ½½°•á…µÁ±•Ì°‘•ÍÉ¥ÁÑ¥½¹Ì°…¹ÍÕÁÁ½ÉÑ•İ½É­™±½Ü‘•Ñ…¥±Ì¸4(´‘‘•±½…°™…Ù½É¥Ñ•Ì°Á•ÈµÑ½½°Í…Ù•ÁÉ•Í•ÑÌ°…¹±•…É•È…Á…‰¥±¥Ñä¹½Ñ•Ì½¸Ñ½½°Á…•Ì¸4(´‘‘•ÁÕ‰±¥ŒÉ½…‘µ…À…¹É•±•…Í”µ¹½Ñ”±¥¹­Ì°…¹‘•ÍÉ¥‰•ÁÉ•Í•ĞÍÑ½É…”¥¸Ñ¡”¥¹Ñ•É™…”¸4(4(ŒŒ€À¸À¸ĞÄƒŠP•¹Ñ•É•ÁÉ¥Ù…ä…¹ÁÉ¥¥¹œÍ•Ñ¥½¹Ì4(4(´•¹Ñ•É•Ñ¡”ÁÉ¥Ù…ä…¹ÁÉ¥¥¹œÍ•Ñ¥½¹Ìİ¥Ñ¡¥¸Ñ¡”Á…”½¸İ¥‘”ÍÉ••¹Ì¸4(´-•ÁĞÁÉ¥¥¹œ…É‘Ì…±¥¹•Ñ¼Ñ¡”Í…µ”•¹Ñ•É•É¥¸4(4(4(ŒŒ€À¸À¸ĞÀƒŠPI•…‘…‰±”‘…É¬Ñ½½°ÍÑ…ÑÕÌ4(4(´%µÁÉ½Ù•É•…‘äµÍÑ…Ñ”½¹ÑÉ…ÍĞ…É½ÍÌİ½É­ÍÁ…”Ñ½½°…É‘Ì¥¸‘…É¬…¹ƒ|¶‰ËkºwµçL™½È±½ÍÍ±•ÍÌAÍÑÉ•…´½ÁÑ¥µ¥é…Ñ¥½¸°­¹½İ¸µÁ…ÍÍİ½ÉÕ¹±½­¥¹œ°L´ÈÔØÁÉ½Ñ•Ñ¥½¸°…¹‘¥É•Ğ•µ‰•‘‘•µ)A•áÑÉ…Ñ¥½¸¸(´-•ÁĞÁ…ÍÍİ½É™¥•±‘Ì½ÕĞ½˜É•½Ù•ÉäÍÑ½É…”°±•…É•Ñ¡•´…™Ñ•ÈÁÉ½•ÍÍ¥¹œ°µ…‘”Aİ½É­•È©½‰Ì…¹•±±…‰±”°…¹‘½Õµ•¹Ñ••… •¹¥¹”±¥µ¥Ğ¸(´‘‘•EA±¥•¹Í”¹½Ñ¥•Ì…¹ÕÁ‘…Ñ•Ñ¡”ÁÕ‰±¥Œ…Ñ…±½œ½Õ¹ĞÑ¼€ÄÔÀ±…Õ¹¡…‰±”İ½É­™±½İÌ¸Q¡”€ÄÔÀİ½É­™±½İÌ¡…Ù”¹½Ğ…±°Á…ÍÍ•¥¹‘¥Ù¥‘Õ…°•¹µÑ¼µ•¹™¥áÑÕÉ”E¸((ŒŒ€À¸À¸ÌÌƒŠPI•±¥…‰¥±¥Ñä°…•ÍÍ¥‰¥±¥Ñä°…¹ÑÉÕÍĞ¥µÁÉ½Ù•µ•¹ÑÌ((´‘‘•„Í•±•Ñ•µ™¥±”‘É½Àé½¹”İ¥Ñ •áÁ±¥¥Ğ™½Éµ…ÑÌ½…ÁÌ°Ñ¡Õµ‰¹…¥±Ì½¥½¹Ì°™¥±”ÑåÁ”½Í¥é”°É•½É‘•È½É•µ½Ù”½±•…È°…¹…‘‘¥Ñ¥Ù”Í•±•Ñ¥½¸¸(´‘‘•½¹Ñ•áÑÕ…°ÁÉ¥Ù…ä½Í…™•Ñä¹½Ñ¥•Ì°¥¹±Õ‘¥¹œ…­¹½İ±•‘µ•¹Ğ…Ñ•Ì™½È•¹•É…Ñ•Á…ÍÍİ½É½Á…ÍÍÁ¡É…Í”…¹EHµ‘•½‘¥¹œİ½É­™±½İÌ¸(´‘‘•½ÁĞµ¥¸±½…°‘É…™ĞÉ•½Ù•ÉäÑ¡É½Õ %¹‘•á•‘¸Á…”É•±½…¥¹Ñ•ÉÉÕÁÑÌ½µÁÕÑ…Ñ¥½¸ì¥¹ÁÕÑÌ½Í•ÑÑ¥¹Ì…É”É•ÍÑ½É•™½ÈÉ•ÉÕ¹¹¥¹œ¸(´‘‘•½½Á•É…Ñ¥Ù”…¹•±±…Ñ¥½¸¡•­Á½¥¹ÑÌ°±…É•È½¹ÑÉ½°Ñ•áĞ°•áÁ±¥¥Ğ¥¹ÁÕĞ½…É•Ğ½±½ÉÌ°ÍÑÉ½¹•È­•å‰½…É™½ÕÌ°…¹¡¥ µ½¹ÑÉ…ÍĞÁÉ•™•É•¹”¸(´‘‘•±½…±±äÍ…Ù•™••‘‰…¬‘É…™ÑÌİ¥Ñ …¸•áÁ±¥¥Ğ¥Ñ!ÕˆÍÕ‰µ¥ÍÍ¥½¸±¥¹¬¸(´áÁ…¹‘•ÁÉ½©•Ğ°ÁÉ¥Ù…ä°Í•ÕÉ¥Ñä°ÑÉ½Õ‰±•Í¡½½Ñ¥¹œ°…Ñ…±½œ°…¹Ñ¡¥ÉµÁ…ÉÑä¹½Ñ¥•Ì‘½Õµ•¹Ñ…Ñ¥½¸¸()Q¡¥ÌÉ•±•…Í”‘½•Ì¹½Ğµ•…¸…±°…Ñ…±½œ•¹ÑÉ¥•ÌÁ…ÍÍ••¹µÑ¼µ•¹E¸M•”‘½Ì½Ñ½½°µÅ„¹µ‘€¸4((ŒŒ€À¸À¸ÌĞƒŠP]½É­ÍÁ…”™½¹Ğ™…±±‰…¬((´¥á•Ñ¡”ÍåÍÑ•´™½¹Ğ™…±±‰…¬¡…¥¸Í¼‘•Ù¥•Ìİ¥Ñ¡½ÕĞÑ¡”Í•±•Ñ•ÑåÁ•™…”­••À„±•…¸Í…¹ÌµÍ•É¥˜U$¸4(4(
+# Changelog
+
+## Unreleased â€” Web availability and platform status
+
+- Replaced unavailable platform download cards with the current web-availability message.
+- Clarified that Windows is planned and that no desktop or mobile app downloads are available.
+- Updated browser tool guidance and platform documentation to remove implied Windows availability.
+
+## 0.0.43 â€” Optional feedback and privacy-safe reporting
+
+- Added optional, off-by-default activity sharing with tool/platform/action metadata only.
+- Added a brief rating form with an optional note; skipping submits nothing and notes are screened for obvious spam.
+- Added metadata-only Vercel endpoints and a token-protected report; Redis storage remains disabled until configured in Vercel.
+- Updated privacy, deployment, environment, release-readiness, and security-reporting documentation.
+
+## 0.0.42 â€” Faster discovery and repeat work
+
+- Search now matches tool examples, descriptions, and supported workflow details.
+- Added local favorites, per-tool saved presets, and clearer capability notes on tool pages.
+- Added public roadmap and release-note links, and described preset storage in the interface.
+
+## 0.0.41 â€” Centered privacy and pricing sections
+
+- Centered the privacy and pricing sections within the page on wide screens.
+- Kept pricing cards aligned to the same centered grid.
+
+
+## 0.0.40 â€” Readable dark tool status
+
+- Improved ready-state contrast across workspace tool cards in dark and system themes.
+
+
+## 0.0.39 â€” Dark file-picker button contrast
+
+- Kept secondary file and feedback actions readable on dark surfaces.
+
+
+## 0.0.38 â€” Consistent dark tool modules and aligned plans
+
+- Fixed contrast and surface colors for file selection, privacy details, form labels, recovery, feedback, previews, and editor modules in dark and system themes.
+- Kept pricing cards on one shared grid with matching widths and action alignment.
+
+
+## 0.0.37 â€” Dark workspace contrast refinement
+
+- Increased contrast on headings, form labels, recovery panels, feedback actions, and status text inside dark tool modules.
+
+## 0.0.36 â€” Consistent dark theme across PRISM
+
+- Applied the neutral dark palette across workspace navigation, tool cards, file selection, editors, previews, notices, and controls.
+- Restyled search fields and focus states for readable text, caret, shortcut keys, and clear focus contrast.
+- Matched marketing sections, pricing cards, settings dialogs, and the automatic system-dark theme to the same surface tokens.
+- Kept the pricing cards on a shared grid width with consistent stretch and sizing.
+
+## 0.0.35 â€” More readable workspace and local PDF workflows
+
+- Added full workspace category navigation, local recent-tools history, and a working platform-appropriate Ctrl/Command+K search shortcut.
+- Added a visual crop frame that can be dragged and resized, with numeric crop fields and ratio presets kept in sync.
+- Expanded site-wide customization with line spacing, card style, sidebar width, page width, and focus-outline settings; increased default page text and control sizes.
+- Added local QPDF WebAssembly worker workflows for lossless PDF stream optimization, known-password unlocking, AES-256 protection, and direct embedded-JPEG extraction.
+- Kept password fields out of recovery storage, cleared them after processing, made PDF worker jobs cancellable, and documented each engine limit.
+- Added QPDF license notices and updated the public catalog count to 150 launchable workflows. The 150 workflows have not all passed individual end-to-end fixture QA.
+
+## 0.0.33 â€” Reliability, accessibility, and trust improvements
+
+- Added a selected-file drop zone with explicit formats/caps, thumbnails/icons, file type/size, reorder/remove/clear, and additive selection.
+- Added contextual privacy/safety notices, including acknowledgment gates for generated password/passphrase and QR-decoding workflows.
+- Added opt-in local draft recovery through IndexedDB. A page reload interrupts computation; inputs/settings are restored for rerunning.
+- Added cooperative cancellation checkpoints, larger control text, explicit input/caret colors, stronger keyboard focus, and high-contrast preference.
+- Added locally saved feedback drafts with an explicit GitHub submission link.
+- Expanded project, privacy, security, troubleshooting, catalog, and third-party notices documentation.
+
+This release does not mean all catalog entries passed end-to-end QA. See `docs/tool-qa.md`.
+
+## 0.0.34 â€” Workspace font fallback
+
+- Fixed the system font fallback chain so devices without the selected typeface keep a clean sans-serif UI.
+

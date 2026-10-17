@@ -1,4 +1,246 @@
-YªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×4Ù:-jZ.¶›­–)Ş³V–×÷'B²W6TVffV7BÂW6TÖVÖòÂW6U&VbÂW6U7FFRÒg&öÒ'&V7B#°¦–×÷'B²–çfö¶RÒg&öÒ$FW&’Ö2ö’ö6÷&R#°¦–×÷'B²÷VâÒg&öÒ$FW&’Ö2÷ÇVv–âÖF–Æör#°¦–×÷'B"âôæ772#°¦–×÷'B"âöÖ&¶WF–æræ772#°¦–×÷'B²FööÇ2ÂG—RFööÂÒg&öÒ"âö6FÆör#°¦–×÷'B²FööÅ'VææW"Òg&öÒ"âõFööÅ'VææW"#°Ğ¦–×÷'B²õdU%4”ôâÒg&öÒ"â÷fW'6–öâ#°¦–×÷'B²6V&6…FööÇ2Â6÷'EFööÇ4Ç†&WF–6ÆÇ’Òg&öÒ"â÷FööÅ6V&6‚#° §G—R–ÖvT–æfòÒ°¢æÖS¢7G&–æs°¢v–GFƒ¢çVÖ&W"ÂçVÆÃ°¢†V–v‡C¢çVÖ&W"ÂçVÆÃ°¢f÷&ÖC¢7G&–æs°¢6—¦Uö'—FW3¢çVÖ&W#°¢W'&÷#ó¢7G&–ærÂçVÆÃ°§Ó° §G—R–ÖvU&÷rÒ–ÖvT–æfòb²–C¢7G&–ærÓ°§G—R6—FU6WGF–æw2Ò²†–v„6öçG&7C¢&ööÆVã²W6vTæÇ—F–73¢&ööÆVã²F†VÖS¢&Æ–v‡B"Â&F&²"Â'7—7FVÒ#²66VçC¢&Æ–ÖR"Â&&ÇVR"Â&6÷&Â"Â'f–öÆWB#²föçC¢&Öç&÷R"Â&–çFW""Â'7—7FVÒ#²6—¦S¢&6ö×7B"Â&6öÖf÷'F&ÆR"Â&Æ&vR#²FVç6—G“¢&6öÖf÷'F&ÆR"Â&6ö×7B#²Ö÷F–öã¢&ööÆVã²Ö÷F–öå7G–ÆS¢'6ögB"Â'Æ–gVÂ#²6÷&æW'3¢'6ögB"Â&'V&&Ç’#²Æ–æU76–æs¢&6öÖf÷'F&ÆR"Â'76–÷W2#²6&E7G–ÆS¢'6ögB"Â&fÆB#²6–FV&%v–GFƒ¢&6öÖf÷'F&ÆR"Â'v–FR#²fö7W57G–ÆS¢'7FæF&B"Â&&öÆB#²6öçFVçEv–GFƒ¢&6öÖf÷'F&ÆR"Â'v–FR"Ó°¦6öç7BFVfVÇE6WGF–æw3¢6—FU6WGF–æw2Ò²†–v„6öçG&7C¢fÇ6RÂW6vTæÇ—F–73¢fÇ6RÂF†VÖS¢&Æ–v‡B"Â66VçC¢&Æ–ÖR"ÂföçC¢&Öç&÷R"Â6—¦S¢&6öÖf÷'F&ÆR"ÂFVç6—G“¢&6öÖf÷'F&ÆR"ÂÖ÷F–öã¢G'VRÂÖ÷F–öå7G–ÆS¢'Æ–gVÂ"Â6÷&æW'3¢'6ögB"ÂÆ–æU76–æs¢&6öÖf÷'F&ÆR"Â6&E7G–ÆS¢'6ögB"Â6–FV&%v–GFƒ¢&6öÖf÷'F&ÆR"Âfö7W57G–ÆS¢'7FæF&B"Â6öçFVçEv–GFƒ¢&6öÖf÷'F&ÆR"Ó° ¦6öç7MwÓM­¢G§²ÚîÆ­yÕint16(8, true), format: "GIF" };
+import { useEffect, useMemo, useRef, useState } from "react";
+import { invoke } from "@tauri-apps/api/core";
+import { open } from "@tauri-apps/plugin-dialog";
+import "./App.css";
+import "./marketing.css";
+import { tools, type Tool } from "./catalog";
+import { ToolRunner } from "./ToolRunner";
+import { APP_VERSION } from "./version";
+import { searchTools, sortToolsAlphabetically } from "./toolSearch";
+
+type ImageInfo = {
+  name: string;
+  width: number | null;
+  height: number | null;
+  format: string;
+  size_bytes: number;
+  error?: string | null;
+};
+
+type ImageRow = ImageInfo & { id: string };
+type SiteSettings = { highContrast: boolean; usageAnalytics: boolean; theme: "light" | "dark" | "system"; accent: "lime" | "blue" | "coral" | "violet"; font: "manrope" | "inter" | "system"; size: "compact" | "comfortable" | "large"; density: "comfortable" | "compact"; motion: boolean; motionStyle: "soft" | "playful"; corners: "soft" | "bubbly"; lineSpacing: "comfortable" | "spacious"; cardStyle: "soft" | "flat"; sidebarWidth: "comfortable" | "wide"; focusStyle: "standard" | "bold"; contentWidth: "comfortable" | "wide" };
+const defaultSettings: SiteSettings = { highContrast: false, usageAnalytics: false, theme: "light", accent: "lime", font: "manrope", size: "comfortable", density: "comfortable", motion: true, motionStyle: "playful", corners: "soft", lineSpacing: "comfortable", cardStyle: "soft", sidebarWidth: "comfortable", focusStyle: "standard", contentWidth: "comfortable" };
+
+const isDesktop = "__TAURI_INTERNALS__" in window;
+const WEB_MAX_FILES = 10;
+const WEB_MAX_FILE_BYTES = 20 * 1024 * 1024;
+
+
+
+function PrismMark({ small = false }: { small?: boolean }) {
+  return (
+    <span className={`prism-mark${small ? " prism-mark-small" : ""}`} aria-hidden="true">
+      <svg viewBox="0 0 114 114">
+        <path fill="currentColor" d="M54 32 31 66 54 84zM60 32l23 34-23 18z" />
+      </svg>
+    </span>
+  );
+}
+
+function App() {
+  const [activeTool, setActiveTool] = useState<string | null>(() => sessionStorage.getItem("prism-active-tool"));
+  const [screen, setScreen] = useState<"site" | "workspace">(isDesktop || !!sessionStorage.getItem("prism-active-tool") ? "workspace" : "site");
+  useEffect(() => { if (activeTool) sessionStorage.setItem("prism-active-tool", activeTool); else sessionStorage.removeItem("prism-active-tool"); }, [activeTool]);
+
+  if (screen === "workspace") {
+    return <Workspace onHome={() => { setActiveTool(null); sessionStorage.removeItem("prism-active-tool"); setScreen("site"); }} onTool={setActiveTool} activeTool={activeTool} />;
+  }
+
+  return <MarketingSite onOpen={(tool) => { setActiveTool(tool ?? null); if (tool) sessionStorage.setItem("prism-active-tool", tool); setScreen("workspace"); }} />;
+}
+
+function MarketingSite({ onOpen }: { onOpen: (tool?: string) => void }) {
+  const [query, setQuery] = useState("");
+  const [category, setCategory] = useState("All tools");
+  const [availability, setAvailability] = useState<"available" | "development" | "all">("available");
+  const [showAll, setShowAll] = useState(false);
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  const [selectedTool, setSelectedTool] = useState<Tool | null>(null);
+  const [mode, setMode] = useState<"beginner" | "advanced">("beginner");
+  const [settings, setSettings] = useState<SiteSettings>(() => {
+    try { return { ...defaultSettings, ...JSON.parse(localStorage.getItem("prism-site-settings") ?? "{}") }; } catch { return defaultSettings; }
+  });
+  useEffect(() => { localStorage.setItem("prism-site-settings", JSON.stringify(settings)); localStorage.setItem("prism-usage-analytics", settings.usageAnalytics ? "true" : "false"); }, [settings]);
+  const categories = ["All tools", ...Array.from(new Set(tools.map(tool => tool.category)))];
+  const filtered = useMemo(() => searchTools(tools.filter(tool =>
+    (category === "All tools" || tool.category === category) &&
+    (availability === "all" || (availability === "available" ? tool.status === "ready" || tool.status === "limited" : tool.status === "in-progress" || tool.status === "planned"))
+  ), query), [availability, category, query]);
+  const visible = showAll || query || category !== "All tools" ? filtered : filtered.slice(0, 12);
+  const readyCount = tools.filter(tool => tool.status === "ready" || tool.status === "limited").length;
+  const developmentCount = tools.length - readyCount;
+
+  const updateSetting = <K extends keyof SiteSettings>(key: K, value: SiteSettings[K]) => setSettings(current => ({ ...current, [key]: value }));
+  return <div className={`site-v2 theme-${settings.theme} accent-${settings.accent} font-${settings.font} size-${settings.size} density-${settings.density} motion-${settings.motionStyle} corners-${settings.corners} ${settings.motion ? "" : "reduce-motion"} ${settings.highContrast ? "high-contrast" : ""} line-${settings.lineSpacing} cards-${settings.cardStyle} sidebar-${settings.sidebarWidth} focus-${settings.focusStyle} content-${settings.contentWidth}`}>
+    <header className="site-v2-header"><a className="brand" href="#top"><PrismMark/><span>PRISM</span></a><nav aria-label="Main navigation"><a href="#tools">Tools</a><a href="#pricing">Plans</a><a href="#privacy">Privacy</a><a href="#apps">Apps</a></nav><button className="settings-trigger" onClick={() => setSettingsOpen(true)} aria-haspopup="dialog">âš™ <span>Settings</span></button><a className="v2-header-cta" href="#tools">Explore tools <span>â†˜</span></a></header>
+    <main id="top">
+      <section className="v2-hero"><div className="v2-hero-copy"><div className="v2-eyebrow"><span/> PRIVATE BY DESIGN <i/> BROWSER TRIAL</div><h1>Good tools.<br/>Your files.<br/><em>Your device.</em></h1><p>Get useful work done with {readyCount} browser tools across images, PDFs, documents, data, study, and everyday tasks. Every tool shown as available can be opened; tool cards state any limits. Your supported files stay on this device.</p><div className="v2-hero-actions"><a className="v2-button primary" href="#tools">Explore {readyCount} available tools <span>â†˜</span></a><a className="v2-button secondary" href="#privacy">How privacy works</a></div><div className="v2-hero-note"><span>â–£</span> No file uploads <b>Â·</b> Browser trial caps <b>Â·</b> Full apps planned</div></div>
+        <div className="v2-hero-art"><div className="v2-orbit orbit-a"/><div className="v2-orbit orbit-b"/><div className="v2-glass-card"><div className="v2-card-top"><PrismMark small/><span>PRISM TOOLBOX</span><i>LOCAL</i></div><div className="v2-card-title">A little less<br/>file busywork.</div><div className="v2-card-tools"><div><span>â–§</span> Images <b>{tools.filter(tool => tool.category === "Images" && (tool.status === "ready" || tool.status === "limited")).length}</b></div><div><span>â–¤</span> PDF <b>{tools.filter(tool => tool.category === "PDF" && (tool.status === "ready" || tool.status === "limited")).length}</b></div><div><span>â–±</span> Documents <b>{tools.filter(tool => tool.category === "Documents" && (tool.status === "ready" || tool.status === "limited")).length}</b></div><div><span>âœ³</span> More tools <b>{tools.filter(tool => !["Images", "PDF", "Documents"].includes(tool.category) && (tool.status === "ready" || tool.status === "limited")).length}</b></div></div><div className="v2-card-foot"><span><i/> {readyCount} tools available now</span><span>{developmentCount} in development</span></div></div><div className="v2-float-badge">Files stay here <span>â†—</span></div></div>
+      </section>
+      <div className="v2-trust"><span><b>01</b> Pick a tool</span><i/><span><b>02</b> Work in your browser</span><i/><span><b>03</b> Save your result</span><i/><span><b>04</b> Your file stays yours</span></div>
+      <section className="v2-tools" id="tools"><div className="v2-section-head"><div><span className="v2-overline">THE PRISM TOOLBOX</span><h2>Find your next<br/>small win.</h2></div><p>Each card shows its browser trial cap and current availability. Available tools process supported inputs on your device; limited workflows show their supported formats and behavior before you start.</p></div>
+        <div className="v2-controls"><label className="v2-search"><span aria-hidden="true">âŒ•</span><input value={query} onChange={e=>{setQuery(e.target.value);setShowAll(false);}} placeholder="Describe a task, e.g. make a photo smaller" aria-label="Search tools or describe a task"/><kbd>{readyCount}</kbd></label><p className="v2-search-note">Search by tool name or describe what you want done. Matching happens on this device.</p><div className="v2-filters" role="group" aria-label="Filter tools by category">{categories.map(item=><button key={item} className={category===item?"selected":""} onClick={()=>{setCategory(item);setShowAll(false);}}>{item}</button>)}</div><div className="v2-filters v2-availability-filters" role="group" aria-label="Filter tools by availability"><button className={availability==="available"?"selected":""} onClick={()=>{setAvailability("available");setShowAll(false);}}>Available now Â· {readyCount}</button><button className={availability==="development"?"selected":""} onClick={()=>{setAvailability("development");setShowAll(false);}}>In development Â· {developmentCount}</button><button className={availability==="all"?"selected":""} onClick={()=>{setAvailability("all");setShowAll(false);}}>All statuses</button></div></div>
+        <div className="v2-results"><span>{filtered.length} {availability === "available" ? "available tools" : availability === "development" ? "tools in development" : "catalog entries"}</span><span>{readyCount} available Â· {developmentCount} in development</span></div>
+        <div className="v2-tool-grid">{visible.map(tool=><article className="v2-tool-card" key={tool.id}><div className="v2-tool-card-top"><span className="v2-tool-number">{String(tool.id).padStart(3,"0")}</span><span className={`v2-status ${tool.status}`}>{tool.status === "ready" ? "READY TO TRY" : tool.status === "limited" ? "LIMITED TRIAL" : "IN DEVELOPMENT"}</span></div><div className="v2-tool-icon">{tool.category === "Images" ? "â–§" : tool.category === "PDF" ? "â–¤" : tool.category === "Documents" ? "â–±" : tool.category === "Calculators" ? "âˆ‘" : "âœ³"}</div><h3>{tool.name}</h3><span className="v2-tool-category">{tool.category}</span><div className="v2-limit"><small>{tool.status === "planned" ? "PLANNED TRIAL CAP" : "BROWSER TRIAL LIMIT"}</small><span>{tool.trialLimit}</span></div><button className="v2-tool-action" onClick={()=>tool.status === "ready" || tool.status === "limited" ? onOpen(tool.name) : (setSelectedTool(tool), setMode("beginner"))}>{tool.status === "limited" ? "Try with limits" : tool.status === "ready" ? "Try this tool" : "Explore design"} <span>â†—</span></button></article>)}</div>
+        {!showAll && !query && category === "All tools" && filtered.length > visible.length && <button className="v2-load-more" onClick={()=>setShowAll(true)}>Show all {filtered.length} {availability === "available" ? "available tools" : availability === "development" ? "development entries" : "catalog entries"} <span>â†“</span></button>}
+        {filtered.length===0&&<div className="v2-empty">No tools match that search. Try a different word or category.</div>}
+      </section>
+      <section className="v2-privacy" id="privacy"><div className="v2-privacy-copy"><span className="v2-overline">A SIMPLE PRIVACY PROMISE</span><h2>Your files stay<br/>on your device.</h2><p>PRISM processes selected files locally in your browser and does not upload their contents to PRISM servers. The website host may receive standard connection data when you visit. Browser preferences and trial counters are stored on this device.</p><div className="v2-privacy-points"><span><i>âœ“</i> No file-content uploads</span><span><i>âœ“</i> No third-party analytics or ad trackers</span><span><i>âœ“</i> Activity sharing is optional and off by default</span><span><i>âœ“</i> Limits shown before file selection</span></div><a className="privacy-details-link" href="/privacy.html">How PRISM handles files Â· network activity â†—</a></div><div className="v2-privacy-visual"><div className="v2-privacy-ring ring-1"/><div className="v2-privacy-ring ring-2"/><div className="v2-privacy-center"><PrismMark/><span>ON YOUR<br/>DEVICE</span></div><div className="v2-privacy-dot dot-1"/><div className="v2-privacy-dot dot-2"/></div></section>
+      <section className="v2-pricing" id="pricing"><div className="v2-pricing-heading"><span className="v2-overline">SIMPLE, HONEST PLANS</span><h2>Start free.<br/><em>Upgrade when youâ€™re ready.</em></h2><p>Try PRISM in your browser today. Windows is planned; weâ€™ll share details when work on that app begins.</p></div><div className="v2-plan-grid"><article className="v2-plan-card"><span className="v2-plan-label">BROWSER TRIAL</span><h3>Free</h3><p className="v2-plan-summary">A private way to try PRISM tools.</p><ul><li>{readyCount} available browser tools</li><li>{developmentCount} more tools in development</li><li>Browser trial caps shown up front</li><li>Files processed on your device</li></ul><a className="v2-button secondary" href="#tools">Explore the free trial <span>â†˜</span></a></article><article className="v2-plan-card featured"><span className="v2-plan-label">PLANNED</span><h3>PRISM for Windows</h3><p className="v2-plan-summary">A Windows app is planned after we focus on making the web experience useful and reliable.</p><ul><li>No Windows download is available yet</li><li>No release date has been announced</li></ul></article></div><p className="v2-pricing-note">No payment is collected on this site. Any future plans will be described before they launch.</p></section>
+      <section className="v2-apps" id="apps"><div className="v2-apps-heading"><div><span className="v2-overline">AVAILABLE TODAY</span><h2>PRISM is available<br/>on the web.</h2></div><p>Weâ€™re focused on making the browser experience useful and reliable. Weâ€™ll share news about other platforms when theyâ€™re ready.</p></div></section>
+      <section className="v2-final-cta"><div><span className="v2-overline">START WITH A SMALL WIN</span><h2>Browse the tools.<br/>Keep the files.</h2></div><a className="v2-button primary" href="#tools">Explore PRISM <span>â†—</span></a></section>
+    </main><footer className="v2-footer"><a className="brand" href="#top"><PrismMark/><span>PRISM</span></a><span>Private browser tools. Windows app planned.</span><div><a href="#tools">Tools</a><a href="#pricing">Plans</a><a href="#privacy">Privacy</a><a href="#apps">Apps</a><a href="https://github.com/nullinam/Prism/blob/main/prism/docs/roadmap.md" target="_blank" rel="noreferrer">Roadmap</a><a href="https://github.com/nullinam/Prism/blob/main/prism/CHANGELOG.md" target="_blank" rel="noreferrer">Release notes</a><a href="https://github.com/nullinam/Prism">GitHub</a><button onClick={() => setSettingsOpen(true)}>Settings Â· v{APP_VERSION}</button></div></footer>
+    {settingsOpen && <div className="prism-dialog-backdrop" onMouseDown={e=>{if(e.target===e.currentTarget)setSettingsOpen(false);}}><section className="prism-dialog settings-dialog" role="dialog" aria-modal="true" aria-labelledby="settings-title"><button className="dialog-close" onClick={()=>setSettingsOpen(false)} aria-label="Close settings">Ã—</button><span className="v2-overline">PERSONALIZE YOUR SPACE</span><h2 id="settings-title">Settings</h2><p className="dialog-intro">Make PRISM feel right for you. Preferences stay in this browser.</p><div className="settings-version"><span>Web trial</span><strong>Version {APP_VERSION}</strong></div><div className="settings-grid"><label>Appearance<select value={settings.theme} onChange={e=>updateSetting("theme",e.target.value as SiteSettings["theme"])}><option value="light">Light</option><option value="dark">Dark</option><option value="system">Use device setting</option></select></label><label>Accent color<select value={settings.accent} onChange={e=>updateSetting("accent",e.target.value as SiteSettings["accent"])}><option value="lime">Prism lime</option><option value="blue">Sky blue</option><option value="coral">Soft coral</option><option value="violet">Violet</option></select></label><label>Font<select value={settings.font} onChange={e=>updateSetting("font",e.target.value as SiteSettings["font"])}><option value="manrope">Manrope</option><option value="inter">Inter</option><option value="system">System font</option></select></label><label>Text size<select value={settings.size} onChange={e=>updateSetting("size",e.target.value as SiteSettings["size"])}><option value="compact">Compact</option><option value="comfortable">Comfortable</option><option value="large">Large</option></select></label><label>Layout density<select value={settings.density} onChange={e=>updateSetting("density",e.target.value as SiteSettings["density"])}><option value="comfortable">Comfortable</option><option value="compact">Compact</option></select></label><label>Motion style<select value={settings.motionStyle} onChange={e=>updateSetting("motionStyle",e.target.value as SiteSettings["motionStyle"])}><option value="soft">Soft float</option><option value="playful">Playful bounce</option></select></label><label>Card corners<select value={settings.corners} onChange={e=>updateSetting("corners",e.target.value as SiteSettings["corners"])}><option value="soft">Soft</option><option value="bubbly">Extra rounded</option></select></label><label>Line spacing<select value={settings.lineSpacing} onChange={e=>updateSetting("lineSpacing",e.target.value as SiteSettings["lineSpacing"])}><option value="comfortable">Comfortable</option><option value="spacious">Extra spacious</option></select></label><label>Card style<select value={settings.cardStyle} onChange={e=>updateSetting("cardStyle",e.target.value as SiteSettings["cardStyle"])}><option value="soft">Soft surfaces</option><option value="flat">Clean and flat</option></select></label><label>Sidebar width<select value={settings.sidebarWidth} onChange={e=>updateSetting("sidebarWidth",e.target.value as SiteSettings["sidebarWidth"])}><option value="comfortable">Comfortable</option><option value="wide">Extra wide</option></select></label><label>Page width<select value={settings.contentWidth} onChange={e=>updateSetting("contentWidth",e.target.value as SiteSettings["contentWidth"])}><option value="comfortable">Comfortable</option><option value="wide">Use more space</option></select></label><label>Keyboard focus<select value={settings.focusStyle} onChange={e=>updateSetting("focusStyle",e.target.value as SiteSettings["focusStyle"])}><option value="standard">Standard outline</option><option value="bold">Bold outline</option></select></label></div><label className="settings-switch"><span><strong>Motion effects</strong><small>Allow subtle movement and transitions</small></span><input type="checkbox" checked={settings.motion} onChange={e=>updateSetting("motion",e.target.checked)}/></label><label className="settings-switch"><span><strong>High contrast</strong><small>Strengthen text and control outlines</small></span><input type="checkbox" checked={settings.highContrast} onChange={e=>updateSetting("highContrast",e.target.checked)}/></label><label className="settings-switch"><span><strong>Share anonymous tool activity</strong><small>Optional and off by default. Sends platform, app version, tool, and action only. Never sends file data. You can turn it off at any time.</small></span><input type="checkbox" checked={settings.usageAnalytics} onChange={e=>updateSetting("usageAnalytics",e.target.checked)} aria-label="Share anonymous tool activity"/></label><p className="feedback-privacy-link"><a href="/privacy.html" target="_blank" rel="noreferrer">Read exactly what activity and feedback PRISM stores â†—</a></p><div className="dialog-actions"><button className="v2-button primary" onClick={()=>setSettingsOpen(false)}>Done</button><button className="text-button" onClick={()=>setSettings(defaultSettings)}>Reset to defaults</button></div></section></div>}
+    {selectedTool && <div className="prism-dialog-backdrop" onMouseDown={e=>{if(e.target===e.currentTarget)setSelectedTool(null);}}><section className="prism-dialog tool-design-dialog" role="dialog" aria-modal="true" aria-labelledby="tool-design-title"><button className="dialog-close" onClick={()=>setSelectedTool(null)} aria-label="Close tool design">Ã—</button><span className="v2-overline">{selectedTool.category.toUpperCase()} Â· TOOL {String(selectedTool.id).padStart(3,"0")}</span><h2 id="tool-design-title">{selectedTool.name}</h2><div className="design-tabs" role="tablist" aria-label="Tool experience level"><button role="tab" aria-selected={mode==="beginner"} className={mode==="beginner"?"selected":""} onClick={()=>setMode("beginner")}>Beginner</button><button role="tab" aria-selected={mode==="advanced"} className={mode==="advanced"?"selected":""} onClick={()=>setMode("advanced")}>Advanced</button></div><div className="design-description"><span>{mode === "beginner" ? "A SIMPLE START" : "MORE CONTROL"}</span><p>{selectedTool[mode]}</p></div><div className="design-example"><span>TRY THIS</span><p>{selectedTool.example}</p><span>PREVIEW BEFORE SAVING</span><p>{selectedTool.preview}</p></div><div className="design-options"><h3>{mode === "beginner" ? "Starter workflow" : "Advanced options"}</h3><ul>{selectedTool[mode].split(/,\s*|;\s*/).filter(Boolean).map((item,index)=><li key={`${item}-${index}`}><i>âœ“</i>{item.trim().replace(/\.$/,"")}</li>)}</ul></div><div className="design-cap"><span>Browser trial limit</span><strong>{selectedTool.trialLimit}</strong></div><div className="design-foot"><span>{selectedTool.status === "limited" ? "Limited by browser engine" : selectedTool.status === "ready" ? "Available to try" : "Design preview Â· This tool is not available yet"}</span>{(selectedTool.status === "ready" || selectedTool.status === "limited") && <button className="v2-button primary" onClick={()=>{const name=selectedTool.name;setSelectedTool(null);onOpen(name);}}>{selectedTool.status === "limited" ? "Try with limits â†—" : "Try this tool â†—"}</button>}</div></section></div>}
+  </div>;
+}
+function Workspace({ onHome, onTool, activeTool }: { onHome: () => void; onTool: (tool: string | null) => void; activeTool: string | null }) {
+  const [query, setQuery] = useState("");
+  const searchInput = useRef<HTMLInputElement>(null);
+  const [workspaceSettings] = useState<SiteSettings>(() => { try { return { ...defaultSettings, ...JSON.parse(localStorage.getItem("prism-site-settings") ?? "{}") }; } catch { return defaultSettings; } });
+  const [favorites, setFavorites] = useState<string[]>(() => { try { return JSON.parse(localStorage.getItem("prism-favorite-tools") ?? "[]") as string[]; } catch { return []; } });
+  const toggleFavorite = (name: string) => setFavorites(current => { const next = current.includes(name) ? current.filter(item => item !== name) : [...current, name]; try { localStorage.setItem("prism-favorite-tools", JSON.stringify(next)); } catch { /* Favorites are optional local preferences. */ } return next; });
+  const filteredTools = useMemo(() => searchTools(tools, query), [query]);
+  const activeCategory = tools.find((tool) => tool.name === activeTool)?.category;
+  const openTool = (tool: string) => onTool(tool);
+  const categories = Array.from(new Set(tools.map(tool => tool.category)));
+  useEffect(() => { const focusSearch = (event: KeyboardEvent) => { if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "k") { event.preventDefault(); searchInput.current?.focus(); } }; window.addEventListener("keydown", focusSearch); return () => window.removeEventListener("keydown", focusSearch); }, []);
+  useEffect(() => {
+    if (!activeTool || categories.includes(activeTool) || ["Recent tools", "Browse image tools", "PDF tools", "Document tools", "Everyday tools"].includes(activeTool)) return;
+    try { const prior = JSON.parse(localStorage.getItem("prism-recent-tools") ?? "[]") as string[]; localStorage.setItem("prism-recent-tools", JSON.stringify([activeTool, ...prior.filter(name => name !== activeTool)].slice(0, 8))); } catch { /* Recent tools are optional. */ }
+  }, [activeTool]);
+
+  const platformShortcut = /Mac|iPhone|iPad/.test(navigator.platform) ? "âŒ˜ K" : "Ctrl K";
+  return <div className={`app-shell theme-${workspaceSettings.theme} accent-${workspaceSettings.accent} font-${workspaceSettings.font} size-${workspaceSettings.size} density-${workspaceSettings.density} motion-${workspaceSettings.motionStyle} corners-${workspaceSettings.corners} ${workspaceSettings.motion ? "" : "reduce-motion"} ${workspaceSettings.highContrast ? "high-contrast" : ""} line-${workspaceSettings.lineSpacing} cards-${workspaceSettings.cardStyle} sidebar-${workspaceSettings.sidebarWidth} focus-${workspaceSettings.focusStyle} content-${workspaceSettings.contentWidth}`}>
+    <aside className="app-sidebar">
+      <a className="brand app-brand" href="#home" onClick={(event) => { event.preventDefault(); onTool(null); }}><PrismMark /><span>PRISM</span></a>
+      <div className="sidebar-label">Workspace</div>
+      <button className={`sidebar-item ${!activeTool ? "active" : ""}`} onClick={() => onTool(null)}><span>âŒ‚</span> Home</button>
+      <button className={`sidebar-item ${activeTool === "Recent tools" ? "active" : ""}`} onClick={() => onTool("Recent tools")}><span>â—·</span> Recent tools</button>
+      <button className={`sidebar-item ${activeTool === "Favorites" ? "active" : ""}`} onClick={() => onTool("Favorites")}><span>â˜†</span> Favorites{favorites.length ? ` Â· ${favorites.length}` : ""}</button>
+      <div className="sidebar-label">Toolbox</div>
+      {categories.map((item, index) => <button key={item} className={`sidebar-item ${activeCategory === item || activeTool === item || item === "Images" && activeTool === "Browse image tools" || item === "PDF" && activeTool === "PDF tools" || item === "Documents" && activeTool === "Document tools" ? "active" : ""}`} onClick={() => onTool(item)}><span>{["â–§", "â–¤", "â–±", "âœ³", "âŒ", "âˆ‘", "â—«", "âœ", "â—‰"][index % 9]}</span> {item}</button>)}
+      <div className="sidebar-bottom"><div className="privacy-badge"><i /> Files stay on this device</div><button onClick={onHome}>About PRISM â†—</button></div>
+    </aside>
+    <main className="workspace-main">
+      <header className="workspace-header"><div className="breadcrumb">PRISM <span>/</span> {activeTool ?? "Workspace"}</div><label className="search"><span aria-hidden="true">âŒ•</span><input ref={searchInput} value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Describe what you want to doâ€¦" aria-label="Search tools or describe a task" /><kbd>{platformShortcut}</kbd></label><div className="local-status"><i /> Local processing</div></header>
+      {(activeTool === "Inspect dimensions" || activeTool === "Inspect image dimensions") ? <ImageInspector /> : activeTool && ["Change text case", "Clean extra spaces and blank lines", "Remove duplicate lines", "Sort lines", "Find and replace text"].includes(activeTool) ? <TextUtility tool={activeTool} /> : activeTool && tools.find(tool => tool.name === activeTool) ? <ToolRunner key={activeTool} tool={tools.find(tool => tool.name === activeTool)!} onBack={() => onTool("")} /> : activeTool ? <ToolPicker tools={filteredTools} onTool={openTool} activeTool={activeTool} favorites={favorites} onFavorite={toggleFavorite} /> : <HomeWorkspace tools={filteredTools} query={query} onTool={openTool} favorites={favorites} onFavorite={toggleFavorite} />}
+    </main>
+  </div>;
+}
+
+function HomeWorkspace({ tools: visibleTools, query, onTool, favorites, onFavorite }: { tools: Tool[]; query: string; onTool: (tool: string) => void; favorites: string[]; onFavorite: (name: string) => void }) {
+  return <div className="workspace-content">
+    <div className="welcome-row"><div><span className="kicker">YOUR WORKSPACE</span><h1>A little more room<br />to get things done.</h1><p>Choose a tool and keep moving. Your files are processed locally in this workspace.</p></div><div className="welcome-mark"><PrismMark /></div></div>
+    <button className="drop-card" onClick={() => onTool("Browse image tools")}><span className="drop-card-icon">ï¼‹</span><strong>Choose a tool to begin</strong><small>Start with images, PDFs, documents, or everyday utilities</small></button>
+    <div className="tool-section-title"><div><h2>{query ? `Tools for â€œ${query}â€` : "Explore available tools"}</h2><p>{query ? "Ranked by matching task wording, examples, and descriptions. Search stays on this device." : "All tools are listed Aâ€“Z. Search by name or describe the job you need done."}</p></div><span>{visibleTools.length} matching tools</span></div>
+    {visibleTools.length ? <div className="tool-grid">{visibleTools.map((tool, index) => <ToolCard key={tool.id} tool={tool} index={index} onClick={() => onTool(tool.name)} favorite={favorites.includes(tool.name)} onFavorite={() => onFavorite(tool.name)} />)}</div> : <div className="workspace-footnote">No tools match that description. Try simpler wording such as â€œcompress imageâ€ or â€œmerge PDFsâ€.</div>}
+    <div className="workspace-footnote"><span>âœ³</span> Available tools have a local trial workflow. PDF compression, known-password unlocking, AES-256 protection, and JPEG extraction now run locally with clearly stated limits. File tools process selected files in your browser; saved work stays in this browser.</div>
+  </div>;
+}
+
+function ToolCard({ tool, index, onClick, favorite = false, onFavorite }: { tool: Tool; index: number; onClick: () => void; favorite?: boolean; onFavorite?: () => void }) {
+  const unavailable = tool.status === "in-progress" || tool.status === "planned";
+  return <article className="tool-card-wrap"><button className="tool-card" onClick={onClick} disabled={unavailable} aria-disabled={unavailable}><span className={`tool-icon tint-${index % 4}`}>{["â–§", "â–¤", "â–±", "âœ³"][index % 4]}</span><strong>{tool.name}</strong><small>{tool.category} Â· {tool.status === "limited" ? "Limited browser trial" : tool.status === "ready" ? "Ready to use" : "In development"}</small><span className={`tool-state ${tool.status}`}>{tool.status === "limited" ? "LIMITED" : tool.status === "ready" ? "READY" : "IN DEVELOPMENT"}</span></button>{onFavorite && <button className={`tool-favorite ${favorite ? "is-favorite" : ""}`} onClick={onFavorite} aria-label={`${favorite ? "Remove from" : "Add to"} favorites: ${tool.name}`} aria-pressed={favorite}>{favorite ? "â˜…" : "â˜†"}</button>}</article>;
+}
+
+function ToolPicker({ tools: visibleTools, onTool, activeTool, favorites, onFavorite }: { tools: Tool[]; onTool: (tool: string) => void; activeTool: string; favorites: string[]; onFavorite: (name: string) => void }) {
+  const categories: Record<string, string[]> = { "Browse image tools": ["Images"], "PDF tools": ["PDF"], "Document tools": ["Documents"], "Everyday tools": ["Text", "Data", "Files", "Calculators", "Study", "Work", "Utilities"] };
+  const selected = categories[activeTool] ?? (activeTool === "Recent tools" || activeTool === "Favorites" ? null : [activeTool]);
+  const [recentNames, setRecentNames] = useState<string[]>(() => { try { return JSON.parse(localStorage.getItem("prism-recent-tools") ?? "[]") as string[]; } catch { return []; } });
+  const items = activeTool === "Recent tools" ? recentNames.map(name => visibleTools.find(tool => tool.name === name)).filter((tool): tool is Tool => !!tool) : activeTool === "Favorites" ? favorites.map(name => visibleTools.find(tool => tool.name === name)).filter((tool): tool is Tool => !!tool) : sortToolsAlphabetically(selected ? visibleTools.filter(t => selected.includes(t.category)) : visibleTools);
+  const title = ["Browse image tools", "PDF tools", "Document tools", "Everyday tools"].includes(activeTool) ? activeTool.replace("Browse ", "") : activeTool;
+  return <div className="workspace-content"><div className="tool-page-heading"><span className="kicker">{items.filter(tool => tool.status === "ready" || tool.status === "limited").length} AVAILABLE Â· LOCAL FIRST</span><h1>{title}</h1><p>{activeTool === "Recent tools" ? "Your last opened tools are saved in this browser by tool name only. PRISM does not keep file names or paths in this list." : activeTool === "Favorites" ? "Favorites are saved in this browser by tool name only. Clear browser site data to remove them all." : "Tools are listed Aâ€“Z. Search by name, example, or describe a task in your own words. Matching stays on this device."}</p>{activeTool === "Recent tools" && recentNames.length > 0 && <button className="button button-light" onClick={() => { localStorage.removeItem("prism-recent-tools"); setRecentNames([]); }}>Clear recent tools</button>}</div>{items.length ? <div className="tool-grid">{items.map((tool, index) => <ToolCard key={tool.id} tool={tool} index={index} onClick={() => onTool(tool.name)} favorite={favorites.includes(tool.name)} onFavorite={() => onFavorite(tool.name)} />)}</div> : <div className="workspace-footnote">{activeTool === "Recent tools" ? "No recently opened tools yet. Recent-tool names stay only in this browser." : activeTool === "Favorites" ? "No favorites yet. Use the star on any tool card to save it here." : "No tools match that description. Try simpler wording such as â€œcompress imageâ€ or â€œmerge PDFsâ€."}</div>}</div>;
+}
+
+function TextUtility({ tool }: { tool: string }) {
+  const [text, setText] = useState(""); const [find, setFind] = useState(""); const [replace, setReplace] = useState(""); const [output, setOutput] = useState("");
+  function run() {
+    const lines = text.split(/\r?\n/); let result = text;
+    if (tool === "Change text case") result = text.toUpperCase();
+    if (tool === "Clean extra spaces and blank lines") result = lines.map(line => line.trim().replace(/\s+/g, " ")).filter(Boolean).join("\n");
+    if (tool === "Remove duplicate lines") result = [...new Set(lines)].join("\n");
+    if (tool === "Sort lines") result = lines.sort((a,b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: "base" })).join("\n");
+    if (tool === "Find and replace text") result = find ? text.split(find).join(replace) : text;
+    setOutput(result);
+  }
+  return <div className="workspace-content tool-workspace"><div className="tool-page-heading"><span className="kicker">TEXT TOOL Â· LOCAL</span><h1>{tool}</h1><p>Text is processed on this device. Browser trial limit: 20,000 input characters.</p></div>{tool === "Find and replace text" && <div className="text-options"><input aria-label="Find" placeholder="Find" value={find} onChange={e=>setFind(e.target.value)} /><input aria-label="Replace with" placeholder="Replace with" value={replace} onChange={e=>setReplace(e.target.value)} /></div>}<textarea className="text-work-area" maxLength={20000} value={text} onChange={e=>setText(e.target.value)} placeholder="Paste or type up to 20,000 charactersâ€¦" /><div className="text-actions"><button className="button button-dark" onClick={run}>Apply tool</button><span>{text.length.toLocaleString()} / 20,000 characters</span></div>{output && <><textarea className="text-work-area" readOnly value={output} aria-label="Result" /><button className="button button-light" onClick={()=>navigator.clipboard.writeText(output)}>Copy result</button></>}</div>;
+}
+
+function ImageInspector() {
+  const input = useRef<HTMLInputElement>(null);
+  const [rows, setRows] = useState<ImageRow[]>([]);
+  const [busy, setBusy] = useState(false);
+  const [message, setMessage] = useState("");
+
+  async function addFiles(files: FileList | File[]) {
+    const chosen = Array.from(files);
+    setMessage("");
+    if (!isDesktop && chosen.length > WEB_MAX_FILES) {
+      setMessage(`The web version accepts up to ${WEB_MAX_FILES} files at a time. Remove some files and try again.`);
+      return;
+    }
+    if (!isDesktop && chosen.some((file) => file.size > WEB_MAX_FILE_BYTES)) {
+      setMessage("One or more files exceed the web trial limit of 20 MB per file. Choose smaller files to continue.");
+      return;
+    }
+    setBusy(true);
+    try {
+      if (isDesktop) {
+        const paths = await open({ multiple: true, title: "Inspect image dimensions", filters: [{ name: "Images", extensions: ["png", "jpg", "jpeg", "webp", "gif", "bmp", "tif", "tiff"] }] });
+        const selected = Array.isArray(paths) ? paths : paths ? [paths] : [];
+        if (!selected.length) return;
+        const result = await invoke<ImageInfo[]>("inspect_images", { paths: selected });
+        setRows((current) => [...current, ...result.map((row) => ({ ...row, id: crypto.randomUUID() }))]);
+      } else {
+        const inspected: ImageRow[] = [];
+        for (const file of chosen) {
+          try {
+            const { width, height, format } = await readImageHeader(file);
+            inspected.push({ id: crypto.randomUUID(), name: file.name, width, height, format, size_bytes: file.size });
+          } catch (error) {
+            inspected.push({ id: crypto.randomUUID(), name: file.name, width: null, height: null, format: file.type.replace("image/", "").toUpperCase() || "IMAGE", size_bytes: file.size, error: error instanceof Error ? error.message : "Unsupported image format" });
+          }
+        }
+        setRows((current) => [...current, ...inspected]);
+      }
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : "Could not inspect those images.");
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  return <div className="workspace-content tool-workspace">
+    <div className="tool-page-heading"><span className="kicker">IMAGE TOOL Â· 01</span><h1>Inspect dimensions</h1><p>Check each supported imageâ€™s dimensions, format, and file size in your browser. Files stay on this device.</p></div>
+    <div className="limits-note"><span>â—‰</span> Browser preview: up to {WEB_MAX_FILES} files, {WEB_MAX_FILE_BYTES / 1024 / 1024} MB each. No file uploads.</div>
+    <button className="file-picker" onClick={() => isDesktop ? void addFiles([]) : input.current?.click()} disabled={busy}>
+      <span className="file-picker-icon">{busy ? "â—Œ" : "ï¼‹"}</span><strong>{busy ? "Inspecting imagesâ€¦" : "Choose images"}</strong><small>{isDesktop ? "PNG, JPEG, WebP, GIF, BMP, or TIFF" : "PNG, JPEG, WebP, GIF, or BMP Â· 20 MB per file"}</small>
+      {!isDesktop && <input ref={input} type="file" accept="image/png,image/jpeg,image/webp,image/gif,image/bmp" multiple onChange={(event) => { if (event.currentTarget.files) void addFiles(event.currentTarget.files); event.currentTarget.value = ""; }} />}
+    </button>
+    {message && <div className="inline-message" role="alert">{message}</div>}
+    {rows.length > 0 && <section className="results-panel"><div className="results-head"><div><strong>Image details</strong><span>{rows.length} file{rows.length === 1 ? "" : "s"}</span></div><button onClick={() => setRows([])}>Clear list</button></div><div className="result-list">{rows.map((row) => <div className="result-row" key={row.id}><div className="result-type">â–§</div><div className="result-name"><strong>{row.name}</strong><small>{row.format} Â· {formatBytes(row.size_bytes)}</small></div><div className="result-dimensions">{row.width && row.height ? `${row.width} Ã— ${row.height} px` : row.error ?? "Could not read dimensions"}</div></div>)}</div></section>}
+  </div>;
+}
+
+function formatBytes(bytes: number) {
+  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(0)} KB`;
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+}
+
+async function readImageHeader(file: File): Promise<{ width: number; height: number; format: string }> {
+  // Only inspect a bounded header slice. This avoids decoding large pixel buffers in the browser preview.
+  const bytes = new Uint8Array(await file.slice(0, 512 * 1024).arrayBuffer());
+  const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+  const ascii = (start: number, length: number) => String.fromCharCode(...bytes.subarray(start, start + length));
+  const readUInt24LE = (offset: number) => bytes[offset] | (bytes[offset + 1] << 8) | (bytes[offset + 2] << 16);
+
+  if (bytes.length >= 24 && ascii(1, 3) === "PNG" && ascii(12, 4) === "IHDR") {
+    return { width: view.getUint32(16, false), height: view.getUint32(20, false), format: "PNG" };
+  }
+  if (bytes.length >= 10 && (ascii(0, 6) === "GIF87a" || ascii(0, 6) === "GIF89a")) {
+    return { width: view.getUint16(6, true), height: view.getUint16(8, true), format: "GIF" };
   }
   if (bytes.length >= 26 && ascii(0, 2) === "BM") {
     return { width: Math.abs(view.getInt32(18, true)), height: Math.abs(view.getInt32(22, true)), format: "BMP" };
