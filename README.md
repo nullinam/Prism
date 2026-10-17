@@ -1,6 +1,6 @@
 # PRISM
 
-PRISM is a privacy-first file and productivity toolkit. The repository contains a Vercel-hosted browser trial and a shared React/TypeScript interface used by the Tauri desktop shell. The browser trial is designed to process supported inputs locally. It does not send selected file contents to a PRISM processing server; the website host may still process ordinary connection/request data to deliver the site.
+PRISM is a privacy-first file and productivity toolkit currently available on the web. The repository contains the Vercel-hosted browser experience and shared React/TypeScript interface code. Supported browser workflows process inputs locally; they do not send selected file contents to a PRISM processing server. The website host may still process ordinary connection/request data to deliver the site.
 
 ## Current release status
 
@@ -8,7 +8,7 @@ PRISM is a privacy-first file and productivity toolkit. The repository contains 
 - **QA:** Catalog and route audits do not prove that all 150 workflows passed individual end-to-end fixtures; see [tool QA](prism/docs/tool-qa.md).
 - **Browser features:** Per-tool limits and accepted formats, example-aware search, local favorites and presets, local file queues, preview-before-save flows, contextual safety notices, opt-in task recovery, and local feedback drafts.
 - **Task recovery:** When enabled, selected files and settings are stored in the browser's IndexedDB. Reloading stops active JavaScript work; PRISM restores the draft so a user can run it again. It cannot continue computation while the page is closed.
-- **Apps:** Download links stay disabled until real release artifacts exist. Windows is first; macOS and Linux follow, with Android and iOS planned.
+- **Platforms:** PRISM is currently available on the web. A Windows application is planned; there is no download or release date yet. macOS, Android, iOS, and Linux apps are not currently offered.
 - **Version:** `0.0.43` is intended to match the commit count after this release commit lands on `main`.
 
 ## Privacy and trust
@@ -20,7 +20,7 @@ Do not describe the site as collecting no data: the host can receive standard re
 ## Architecture
 
 - **React + TypeScript + Vite:** website and shared interface.
-- **Tauri 2:** native desktop wrapper; Rust command code and platform packaging live in `prism/src-tauri/`.
+- **Windows planning:** the repository includes Tauri desktop wrapper and Rust command code under `prism/src-tauri/`, but no desktop application is currently available to download. The web experience is the current product; Windows is planned for future work.
 - **Browser processing:** supported routes use browser APIs and local libraries; they create separate outputs and leave original files unchanged.
 - **Vercel:** Vite static site from the `prism/` project root plus metadata-only functions at `/api/activity`, `/api/feedback`, and protected `/api/admin`. Functions do not receive files.
 
