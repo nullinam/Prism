@@ -1,5 +1,35 @@
 # Changelog
 
+## Unreleased — PRISM 2 discovery and interface review
+
+- Changed default catalog and category ordering to zero-padded numeric tool IDs; local search keeps relevance ranking and uses IDs to break ties.
+- Added immediate, on-device hero suggestions for task searches. PDF image-removal queries explain that PRISM can export embedded JPEGs or remove whole pages, but cannot erase one image inside a page.
+- Added expandable, keyboard-accessible “What this tool does” guidance to catalog and workspace cards.
+- Replaced catalog “available/development” totals with an honest listing count and a note that QA verification is tracked separately.
+- Replaced the repeated closing catalog call to action with concise file-tool input and output guidance.
+- Isolated settings scrolling, locked background scrolling, added Escape closing, restored scroll styles and focus when settings closes, and contained overscroll.
+- Clarified output-name, extension, format, and browser-download controls in the local preview panel.
+- Full tool QA remains separate from this UI update.
+
+## Unreleased — Task-first tool discovery
+
+- Added a plain-language task search to the homepage hero, with common task examples that take visitors directly to matching tools.
+- Styled the entry point for light, dark, and system themes, with mobile sizing and visible keyboard focus.
+
+## Unreleased — Documents workflow corrections
+
+- Routed five document utilities through the shared tool runner so they use the same notices, limits, previews, and save flow.
+- Added missing case, duplicate, sorting, replacement, comparison, JSON output, and CSV delimiter controls.
+- Fixed title-case output, multiline comparison input, HTML block separation, and the malformed-JSON formatting error.
+- Marked Read text file as limited and aligned its description with its 20,000-character preview cap.
+
+## Unreleased — Text workflow improvements and honest limits
+
+- Fixed Lorem ipsum generation so it works without source text and distributes the exact requested word count across paragraphs.
+- Added Text options for paragraph count, slug length/separator, reverse mode, repeat separator, line-number formatting, split length, find match mode, and URL-safe Base64.
+- Removed duplicate Text controls and added clear UTF-8-only scope for Base64 decoding.
+- Marked Text tools Limited and corrected descriptions to match implemented behavior and missing advanced features.
+
 ## Unreleased — Web availability and platform status
 
 - Replaced unavailable platform download cards with the current web-availability message.

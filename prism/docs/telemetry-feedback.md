@@ -27,7 +27,7 @@ Clients send a small JSON `POST` to `https://prism-khaki-one.vercel.app/api/acti
 ```json
 {
   "platform": "windows",
-  "appVersion": "0.0.43",
+  "appVersion": "0.0.49",
   "toolId": 1,
   "toolName": "Crop image",
   "action": "completed"

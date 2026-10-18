@@ -4,9 +4,9 @@ PRISM is a browser-first toolbox for common image, PDF, document, text, data, st
 
 ## Product status
 
-- The catalog contains 150 launchable browser workflows. Several tools have explicit format or engine limits; see the catalog and per-tool notices.
-- Tool lists are alphabetical when no search is entered. Search accepts task descriptions such as “make a photo smaller”; matching runs locally against tool names, examples, and descriptions.
-- “Available” means a tool has a launchable browser workflow. It does not mean every file format or edge case has passed end-to-end QA. See [tool QA](docs/tool-qa.md).
+- The catalog lists 150 tools with numeric IDs 001–150. A listed route or a “Ready to try” label is not proof that every feature passed QA.
+- Catalogs and unfiltered category lists use tool ID order. Natural-language search ranks relevant tools as the user types and runs locally against names, examples, descriptions, and supported intent terms.
+- Tool status and browser limits are shown on tool cards. The public privacy page explains local processing and network behavior; tool readiness does not mean every workflow has been fully audited.
 - The trial imposes per-tool input, size, and run limits. The interface presents the relevant cap before selection.
 - PRISM is currently available on the web. A Windows application is planned; no Windows or other platform download is available. macOS, Android, iOS, and Linux apps are not currently offered.
 - Browser task recovery stores selected inputs and settings in IndexedDB when enabled. A reload interrupts JavaScript processing; the page restores the draft so the user can run it again. It cannot continue CPU work in the background.
@@ -27,7 +27,7 @@ npm run build
 npm run preview
 ```
 
-Run `npm run test:search` for local alphabetical and plain-language search assertions, and `npm run audit:tools` for catalog/route metadata. Neither command is a substitute for an end-to-end fixture run.
+Run `npm run test:search` for numeric catalog ordering and local intent-search assertions, and `npm run audit:tools` for catalog/route metadata. Neither command is a substitute for an end-to-end fixture run.
 
 ## Deploying to Vercel
 
@@ -40,6 +40,7 @@ Use the `prism` directory as the Vercel project root. Vite is the framework, `np
 - Appearance choices, recent tool names, and feedback drafts use local storage; recent history never stores selected file names or paths. Trial counters may use session storage.
 - Favorites and named per-tool presets use local storage in this browser. Presets can contain typed text and output settings, so the interface warns users not to save secrets or personal data in them.
 - PRISM has no third-party analytics SDK, ad tracker, account service, or file-processing upload route. Vercel and the browser make ordinary site requests; the host may receive connection/request data.
+- The public privacy page describes the intended local processing and the first-party activity and feedback endpoints. Tool-specific runtime coverage is incomplete; do not read the privacy promise as a certification of every possible file or input.
 - Optional first-party activity sharing is off by default. When enabled, it sends tool ID/name, platform, app version, and action to `/api/activity`. Submitted feedback sends tool ID/name, platform, app version, rating, and the optional note to `/api/feedback`. Neither endpoint receives files, filenames, paths, or tool inputs.
 - Accepted activity and feedback records are stored in Upstash Redis only after the Vercel environment is configured. Activity is capped at 2,000 records and feedback at 500; rate limiting uses a keyed IP hash, while stored app records exclude raw IP addresses. See [telemetry and feedback setup](docs/telemetry-feedback.md).
 
@@ -61,5 +62,5 @@ Open a GitHub issue at <https://github.com/nullinam/Prism/issues>. Include the t
 
 ## Release version
 
-The web/app version follows the pushed commit count. `0.0.43` matches the expected count after this release commit is pushed to `main`. Keep `package.json`, `package-lock.json`, `src/version.ts`, the Tauri app version, and release notes aligned. Update the count only after confirming the default-branch history.
+The web version follows the pushed commit count. `0.0.49` matches the expected count after this release commit is pushed to `main`. Keep `package.json`, `package-lock.json`, `src/version.ts`, and release notes aligned. Update the count only after confirming the default-branch history.
 

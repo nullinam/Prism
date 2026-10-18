@@ -239,6 +239,11 @@
   .theme-system .v2-search,.theme-system .v2-filters button,.theme-system .settings-trigger{background:var(--raised);border-color:var(--strong-border);color:var(--muted)}
   .theme-system .v2-search input{background:transparent!important;color:var(--ink)!important;caret-color:#c4e88c;color-scheme:dark}
   .theme-system .v2-search input::placeholder{color:var(--quiet);opacity:1}
+  .theme-system .v2-hero-search{background:var(--surface);border-color:var(--strong-border);color:var(--muted)}
+  .theme-system .v2-hero-search:focus-within{background:var(--raised);border-color:#9dbd72;box-shadow:0 0 0 3px #c4e88c2b}
+  .theme-system .v2-hero-search input{background:transparent!important;color:var(--ink)!important;caret-color:#c4e88c;color-scheme:dark}
+  .theme-system .v2-hero-search button{background:#c9ee83;color:#172119}
+  .theme-system .v2-hero-examples button{background:var(--raised);border-color:var(--hairline);color:var(--ink)}
   .theme-system .v2-privacy{background:var(--surface);border-color:var(--hairline);color:var(--ink)}
   .theme-system .v2-pricing{background:linear-gradient(180deg,var(--sidebar),var(--page))}
   .theme-system .v2-final-cta{background:linear-gradient(120deg,var(--surface),var(--sidebar));border-color:var(--hairline)}
@@ -373,3 +378,21 @@
 
 /* Additional user-adjustable workspace presentation settings. */
 
+.v2-hero-search{max-width:610px;min-height:60px;margin:26px 0 0;padding:6px 7px 6px 17px;display:flex;align-items:center;gap:12px;border:1px solid var(--hairline);border-radius:14px;background:var(--surface);box-shadow:0 8px 28px #17241b0d;color:var(--muted);transition:border-color .18s,box-shadow .18s,background .18s}
+.v2-hero-search:focus-within{border-color:#8eae65;box-shadow:0 0 0 4px #a2c87325}
+.v2-hero-search>span{font-size:24px;line-height:1}
+.v2-hero-search input{min-width:0;flex:1;border:0;outline:0;background:transparent;color:var(--ink);caret-color:var(--accent);font:inherit;font-size:15px}
+.v2-hero-search input::placeholder{color:var(--muted);opacity:1}
+.v2-hero-search button{min-height:44px;padding:0 15px;border:0;border-radius:9px;background:var(--ink);color:var(--page);font:inherit;font-size:13px;font-weight:750;cursor:pointer}
+.v2-hero-search button:hover{filter:brightness(1.15)}
+.v2-hero-search button:focus-visible,.v2-hero-examples button:focus-visible{outline:3px solid #97bd62;outline-offset:3px}
+.v2-hero-examples{display:flex;flex-wrap:wrap;align-items:center;gap:7px;margin:11px 0 4px;color:var(--muted);font-size:12px}
+.v2-hero-examples button{padding:6px 9px;border:1px solid var(--hairline);border-radius:999px;background:var(--surface);color:var(--ink);font:inherit;cursor:pointer}
+.v2-hero-examples button:hover{border-color:#a8c68b;background:var(--raised)}
+.theme-dark .v2-hero-search{background:var(--surface);border-color:var(--strong-border);color:var(--muted)}
+.theme-dark .v2-hero-search:focus-within{background:var(--raised);border-color:#9dbd72;box-shadow:0 0 0 3px #c4e88c2b}
+.theme-dark .v2-hero-search button{background:#c9ee83;color:#172119}
+.theme-dark .v2-hero-examples button{background:var(--raised);border-color:var(--hairline);color:var(--ink)}
+@media(max-width:640px){.v2-hero-search{min-height:54px;margin-top:20px;padding-left:12px;gap:8px}.v2-hero-search input{font-size:14px}.v2-hero-search button{min-height:40px;padding-inline:11px;font-size:12px}.v2-hero-examples{gap:6px}.v2-hero-examples button{font-size:11px}}
+
+.v2-card-tools .tool-category-icon{width:15px;height:15px;flex:0 0 15px;opacity:.8}

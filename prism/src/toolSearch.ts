@@ -55,13 +55,13 @@ function words(value: string): string[] {
     .match(/[\p{L}\p{N}]+/gu) ?? [];
 }
 
-export function sortToolsAlphabetically(items: Tool[]): Tool[] {
-  return [...items].sort((left, right) => left.name.localeCompare(right.name, undefined, { numeric: true, sensitivity: "base" }) || left.id - right.id);
+export function sortToolsById(items: Tool[]): Tool[] {
+  return [...items].sort((left, right) => left.id - right.id);
 }
 
 /** Local intent search. Expands common task wording and ranks titles above supporting copy. */
 export function searchTools(items: Tool[], query: string): Tool[] {
-  const sorted = sortToolsAlphabetically(items);
+  const sorted = sortToolsById(items);
   const input = words(query).filter((word) => !STOP_WORDS.has(word));
   if (input.length === 0) return sorted;
 
@@ -71,6 +71,14 @@ export function searchTools(items: Tool[], query: string): Tool[] {
   if (/\b(?:pdf|pdfs)\b.*\b(?:image|images|photo|photos|picture|pictures)\b/.test(normalizedQuery)
       && /\b(?:to|into|as|extract|export)\b/.test(normalizedQuery)) {
     boost("Extract PDF images", 100);
+  }
+  if (/\b(?:pdf|pdfs)\b/.test(normalizedQuery)
+      && /\b(?:remove|delete|take)\b/.test(normalizedQuery)
+      && /\b(?:image|images|photo|photos|picture|pictures)\b/.test(normalizedQuery)) {
+    // This tool can export embedded JPEGs, but cannot erase an image object from a page.
+    boost("Extract PDF images", 100);
+    // Offer page deletion as an explicit, broader alternative with its limitation explained in the UI.
+    boost("Delete PDF pages", 30);
   }
   if (/\b(?:image|images|photo|photos|picture|pictures)\b.*\b(?:pdf|pdfs)\b/.test(normalizedQuery)
       && /\b(?:to|into|as|convert|turn)\b/.test(normalizedQuery)) {
@@ -93,7 +101,7 @@ export function searchTools(items: Tool[], query: string): Tool[] {
     if (word.endsWith("ing") && word.length > 5) expanded.add(word.slice(0, -3));
   }
 
-  const ranked = sorted.map((tool, index) => {
+  const ranked = sorted.map((tool) => {
     const titleWords = new Set(words(tool.name));
     const detailWords = new Set(words(`${tool.category} ${tool.example} ${tool.beginner} ${tool.advanced} ${tool.preview}`));
     let score = intentBoost.get(tool.name) ?? 0;
@@ -103,14 +111,28 @@ export function searchTools(items: Tool[], query: string): Tool[] {
     }
     const phrase = input.join(" ");
     if (phrase.length > 2 && words(tool.name).join(" ").includes(phrase)) score += 10;
-    return { tool, index, score };
+    return { tool, score };
   });
 
   const topScore = Math.max(0, ...ranked.map(({ score }) => score));
   const hasSpecificIntent = intentBoost.size > 0;
   const matches = ranked.filter(({ score }) => score > 0 && (!hasSpecificIntent || score >= topScore * 0.25));
 
-  matches.sort((left, right) => right.score - left.score || left.index - right.index);
+  matches.sort((left, right) => right.score - left.score || left.tool.id - right.tool.id);
   return matches.map(({ tool }) => tool);
 }
 
+export function explainToolMatch(tool: Tool, query: string): string | null {
+  const normalizedQuery = words(query).join(" ");
+  const asksToRemovePdfImage = /\bpdfs?\b/.test(normalizedQuery)
+    && /\b(?:remove|delete|take)\b/.test(normalizedQuery)
+    && /\b(?:images?|photos?|pictures?)\b/.test(normalizedQuery);
+  if (!asksToRemovePdfImage) return null;
+  if (tool.name === "Extract PDF images") {
+    return "Exports embedded JPEG images from a PDF. It does not erase images from PDF pages.";
+  }
+  if (tool.name === "Delete PDF pages") {
+    return "Removes whole pages. It does not remove a single image from a page.";
+  }
+  return null;
+}
