@@ -124,10 +124,11 @@ function CropFrame({ file, width, height, x, y, ratio, onChange }: { file: File;
   return <section className="crop-editor" aria-label="Visual crop editor"><header><div><strong>Drag the frame to crop</strong><span>Move inside the frame, or drag its lower-right handle to resize. Pixel fields stay in sync. Use the fields below for precise keyboard adjustments.</span></div><span>{natural.width ? `${natural.width} × ${natural.height} px${ratio ? ` · ${ratio}` : ""}` : "Loading image…"}</span></header><div className="crop-editor-canvas"><div className="crop-stage"><img src={url || undefined} alt="Image to crop" onLoad={event => { const image = event.currentTarget; setNatural({ width: image.naturalWidth, height: image.naturalHeight }); onChange(width || String(Math.min(800, image.naturalWidth)), height || String(Math.min(600, image.naturalHeight)), x || "0", y || "0"); }} /><button type="button" aria-label="Crop frame. Drag to move; use lower right handle to resize. Use the crop width, height, X and Y fields for keyboard adjustment." className="crop-box" style={{ left: `${cropX / Math.max(1, natural.width) * 100}%`, top: `${cropY / Math.max(1, natural.height) * 100}%`, width: `${cropWidth / Math.max(1, natural.width) * 100}%`, height: `${cropHeight / Math.max(1, natural.height) * 100}%` }} onPointerDown={startDrag} onPointerMove={moveDrag} onPointerUp={event => { if (drag.current?.pointerId === event.pointerId) drag.current = null; }} onPointerCancel={() => { drag.current = null; }}><span>Crop area</span><i className="crop-resize" aria-hidden="true" /></button></div></div><p>Output uses the crop coordinates and dimensions below. The original stays unchanged.</p></section>;
 }
 
-export function ToolRunner({ tool, onBack }: { tool: Tool; onBack: () => void }) {
-  const [files, setFiles] = useState<File[]>([]); const [text, setText] = useState(""); const [result, setResult] = useState(""); const [message, setMessage] = useState(""); const [busy, setBusy] = useState(false); const [outputs, setOutputs] = useState<PendingOutput[]>([]); const [customName,setCustomName]=useState("");
+export function ToolRunner({ tool, onBack, initialFiles = [], onInitialFilesConsumed }: { tool: Tool; onBack: () => void; initialFiles?: File[]; onInitialFilesConsumed?: () => void }) {
+  const [files, setFiles] = useState<File[]>(() => initialFiles); const [text, setText] = useState(""); const [result, setResult] = useState(""); const [message, setMessage] = useState(""); const [busy, setBusy] = useState(false); const [outputs, setOutputs] = useState<PendingOutput[]>([]); const [customName,setCustomName]=useState("");
   const [a,setA]=useState(""),[b,setB]=useState(""),[c,setC]=useState(""),[d,setD]=useState(""); const [ratio,setRatio]=useState(""); const [pageStart,setPageStart]=useState("1"),[pageEnd,setPageEnd]=useState(""); const [saved,setSaved]=useState("");const [secondsLeft,setSecondsLeft]=useState(0);const [timerRunning,setTimerRunning]=useState(false);
   const fileInput = useRef<HTMLInputElement>(null);
+  const initialFilesOnMount = useRef(initialFiles);
   const cancelRequested = useRef(false);
   const pdfWorker = useRef<Worker|null>(null);
   const cancelPdfJob = useRef<(() => void)|null>(null);
@@ -154,6 +155,15 @@ export function ToolRunner({ tool, onBack }: { tool: Tool; onBack: () => void })
   useEffect(()=>{
     let current=true;
     setRecoveryReady(false);
+    const startupFiles=initialFilesOnMount.current;
+    if(startupFiles.length){
+      setFiles(startupFiles);
+      setRecoveryEnabled(true);
+      setRecoveryNotice(`${startupFiles.length} dropped file${startupFiles.length===1?" is":"s are"} ready. Choose your options, then process.`);
+      setRecoveryReady(true);
+      onInitialFilesConsumed?.();
+      return()=>{current=false;};
+    }
     setInterrupted(false);
     if(recoverySensitive){void clearTaskDraft(tool.id).catch(()=>{});setRecoveryReady(true);setRecoveryNotice("Passwords are never stored in task recovery.");return()=>{current=false;};}
     restoreTaskDraft(tool.id).then(draft=>{

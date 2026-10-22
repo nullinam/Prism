@@ -34,7 +34,31 @@ const isDesktop = "__TAURI_INTERNALS__" in window;
 const WEB_MAX_FILES = 10;
 const WEB_MAX_FILE_BYTES = 20 * 1024 * 1024;
 
-
+function getDroppedFileTools(files: File[]): Tool[] {
+  const extensions = files.map(file => file.name.split(".").pop()?.toLowerCase() ?? "");
+  const imageExt = ["png", "jpg", "jpeg", "webp", "gif", "bmp"];
+  const textExt = ["txt", "csv", "json", "xml", "md", "markdown"];
+  const all = (list: string[]) => extensions.every(extension => list.includes(extension));
+  const eligible = tools.filter(tool => tool.status === "ready" || tool.status === "limited").filter(tool => {
+    if (tool.category === "Images" && (files.length > 10 || files.some(file => file.size > 20 * 1024 * 1024))) return false;
+    if (tool.category === "PDF" && tool.id !== 21 && (files.length > 2 || files.reduce((sum, file) => sum + file.size, 0) > 10 * 1024 * 1024)) return false;
+    if (tool.category === "Documents" && (files.length > 2 || files.reduce((sum, file) => sum + file.size, 0) > 5 * 1024 * 1024)) return false;
+    if ([61, 62, 63, 64, 65].includes(tool.id) && (files.length > 1 || files[0]?.size > 5 * 1024 * 1024)) return false;
+    if (tool.id === 89 && (files.length > 1 || files[0]?.size > 20 * 1024 * 1024)) return false;
+    if (all(imageExt) && tool.category === "Images") return tool.id !== 14 && (tool.id !== 15 || files.length >= 2);
+    if (all(["pdf"]) && tool.category === "PDF") return tool.id !== 21;
+    if (all(textExt) && tool.category === "Documents") return true;
+    if (all(["html", "htm"]) && tool.id === 39) return true;
+    if (all(["json"]) && [61, 63].includes(tool.id)) return true;
+    if (all(["csv"]) && tool.id === 62) return true;
+    if (all(["yaml", "yml"]) && tool.id === 64) return true;
+    if (all(["xml"]) && tool.id === 65) return true;
+    if (all(["zip"]) && tool.id === 89) return true;
+    return false;
+  });
+  const order = [5, 20, 4, 29, 30, 45, 16, 17, 18, 19];
+  return eligible.sort((a, b) => (order.indexOf(a.id) < 0 ? 999 : order.indexOf(a.id)) - (order.indexOf(b.id) < 0 ? 999 : order.indexOf(b.id)) || a.id - b.id);
+}
 
 function PrismMark({ small = false }: { small?: boolean }) {
   return (
@@ -66,18 +90,19 @@ function ToolCategoryIcon({ category }: { category: string }) {
 
 function App() {
   const [activeTool, setActiveTool] = useState<string | null>(() => sessionStorage.getItem("prism-active-tool"));
+  const [droppedFiles, setDroppedFiles] = useState<File[]>([]);
   const [screen, setScreen] = useState<"site" | "workspace">(isDesktop || !!sessionStorage.getItem("prism-active-tool") ? "workspace" : "site");
   const [settingsRequested, setSettingsRequested] = useState(false);
   useEffect(() => { if (activeTool) sessionStorage.setItem("prism-active-tool", activeTool); else sessionStorage.removeItem("prism-active-tool"); }, [activeTool]);
 
   if (screen === "workspace") {
-    return <Workspace onHome={() => { setActiveTool(null); sessionStorage.removeItem("prism-active-tool"); setScreen("site"); }} onSettings={() => { setSettingsRequested(true); setScreen("site"); }} onTool={setActiveTool} activeTool={activeTool} />;
+    return <Workspace onHome={() => { setActiveTool(null); sessionStorage.removeItem("prism-active-tool"); setScreen("site"); }} onSettings={() => { setSettingsRequested(true); setScreen("site"); }} onTool={setActiveTool} activeTool={activeTool} droppedFiles={droppedFiles} onDroppedFiles={setDroppedFiles} onDroppedFilesConsumed={() => setDroppedFiles([])} />;
   }
 
-  return <MarketingSite initialSettingsOpen={settingsRequested} onSettingsClosed={() => setSettingsRequested(false)} onOpen={(tool) => { setActiveTool(tool ?? null); if (tool) sessionStorage.setItem("prism-active-tool", tool); setSettingsRequested(false); setScreen("workspace"); }} />;
+  return <MarketingSite initialSettingsOpen={settingsRequested} onSettingsClosed={() => setSettingsRequested(false)} onDropFiles={(files) => { setDroppedFiles(files); setActiveTool(null); sessionStorage.removeItem("prism-active-tool"); setSettingsRequested(false); setScreen("workspace"); }} onOpen={(tool) => { setActiveTool(tool ?? null); if (tool) sessionStorage.setItem("prism-active-tool", tool); setSettingsRequested(false); setScreen("workspace"); }} />;
 }
 
-function MarketingSite({ onOpen, initialSettingsOpen = false, onSettingsClosed }: { onOpen: (tool?: string) => void; initialSettingsOpen?: boolean; onSettingsClosed?: () => void }) {
+function MarketingSite({ onOpen, onDropFiles, initialSettingsOpen = false, onSettingsClosed }: { onOpen: (tool?: string) => void; onDropFiles: (files: File[]) => void; initialSettingsOpen?: boolean; onSettingsClosed?: () => void }) {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("All tools");
   const [showAll, setShowAll] = useState(false);
@@ -86,6 +111,8 @@ function MarketingSite({ onOpen, initialSettingsOpen = false, onSettingsClosed }
   const [selectedTool, setSelectedTool] = useState<Tool | null>(null);
   const [mode, setMode] = useState<"beginner" | "advanced">("beginner");
   const [settings, setSettings] = useState<SiteSettings>(readSiteSettings);
+  const [fileDrag, setFileDrag] = useState(false);
+  const fileInput = useRef<HTMLInputElement>(null);
   useEffect(() => { localStorage.setItem("prism-site-settings", JSON.stringify(settings)); localStorage.setItem("prism-usage-analytics", settings.usageAnalytics ? "true" : "false"); }, [settings]);
   useEffect(() => {
     if (!settingsOpen) return;
@@ -121,6 +148,7 @@ function MarketingSite({ onOpen, initialSettingsOpen = false, onSettingsClosed }
         <div className="v2-hero-art"><div className="v2-orbit orbit-a"/><div className="v2-orbit orbit-b"/><div className="v2-glass-card"><div className="v2-card-top"><PrismMark small/><span>PRISM TOOLBOX</span><i>LOCAL</i></div><div className="v2-card-title">A little less<br/>file busywork.</div><div className="v2-card-tools"><div><ToolCategoryIcon category="Images"/> Images <b>{tools.filter(tool => tool.category === "Images" && (tool.status === "ready" || tool.status === "limited")).length}</b></div><div><ToolCategoryIcon category="PDF"/> PDF <b>{tools.filter(tool => tool.category === "PDF" && (tool.status === "ready" || tool.status === "limited")).length}</b></div><div><ToolCategoryIcon category="Documents"/> Documents <b>{tools.filter(tool => tool.category === "Documents" && (tool.status === "ready" || tool.status === "limited")).length}</b></div><div><ToolCategoryIcon category="Utilities"/> More tools <b>{tools.filter(tool => !["Images", "PDF", "Documents"].includes(tool.category) && (tool.status === "ready" || tool.status === "limited")).length}</b></div></div><div className="v2-card-foot"><span><i/> {catalogCount} tools listed</span><span>Limits on each card</span></div></div><div className="v2-float-badge">Files stay here <span>↗</span></div></div>
       </section>
       <div className="v2-trust"><span><b>01</b> Pick a tool</span><i/><span><b>02</b> Work in your browser</span><i/><span><b>03</b> Save your result</span><i/><span><b>04</b> Your file stays yours</span></div>
+      <section className={`v2-quickdrop${fileDrag ? " is-dragging" : ""}`} aria-label="Drop a file to find actions" onDragOver={event => { event.preventDefault(); setFileDrag(true); }} onDragLeave={event => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setFileDrag(false); }} onDrop={event => { event.preventDefault(); setFileDrag(false); onDropFiles(Array.from(event.dataTransfer.files)); }}><input ref={fileInput} type="file" multiple hidden onChange={event => { if (event.currentTarget.files?.length) onDropFiles(Array.from(event.currentTarget.files)); event.currentTarget.value = ""; }} aria-label="Choose files to find matching actions"/><button className="v2-quickdrop-circle" type="button" onClick={() => fileInput.current?.click()} aria-label="Choose a file"><span>＋</span></button><div><span className="v2-overline">START WITH A FILE</span><h2>{fileDrag ? "Drop it to see your options." : "Drop a file. Choose what to do."}</h2><p>PRISM checks the file extension and shows matching tools. Files stay in your browser.</p></div><button type="button" className="v2-quickdrop-browse" onClick={() => fileInput.current?.click()}>Choose files <span>↗</span></button></section>
       <section className="v2-tools" id="tools"><div className="v2-section-head"><div><span className="v2-overline">THE PRISM TOOLBOX</span><h2>Find your next<br/>small win.</h2></div><p>Each card shows its workflow status, supported inputs, and browser trial cap. QA verification is tracked separately from catalog availability.</p></div>
         <div className="v2-controls"><label className="v2-search"><span aria-hidden="true">⌕</span><input value={query} onChange={e=>{setQuery(e.target.value);setShowAll(false);}} placeholder="Describe a task, e.g. make a photo smaller" aria-label="Search tools or describe a task"/><kbd>{catalogCount}</kbd></label><p className="v2-search-note">Search by name or describe the task. Results update as you type and stay on this device.</p><div className="v2-filters" role="group" aria-label="Filter tools by category">{categories.map(item=><button key={item} className={category===item?"selected":""} onClick={()=>{setCategory(item);setShowAll(false);}}>{item}</button>)}</div><div className="v2-filters v2-availability-filters" aria-label="Catalog information"><span>{catalogCount} tools in catalog</span><span>Limits and workflow status are shown on each card</span></div></div>
         <div className="v2-results"><span>{filtered.length} catalog {filtered.length === 1 ? "tool" : "tools"}</span><span>Tool status is separate from QA verification</span></div>
@@ -137,7 +165,7 @@ function MarketingSite({ onOpen, initialSettingsOpen = false, onSettingsClosed }
     {selectedTool && <div className="prism-dialog-backdrop" onMouseDown={e=>{if(e.target===e.currentTarget)setSelectedTool(null);}}><section className="prism-dialog tool-design-dialog" role="dialog" aria-modal="true" aria-labelledby="tool-design-title"><button className="dialog-close" onClick={()=>setSelectedTool(null)} aria-label="Close tool design">×</button><span className="v2-overline">{selectedTool.category.toUpperCase()} · TOOL {String(selectedTool.id).padStart(3,"0")}</span><h2 id="tool-design-title">{selectedTool.name}</h2><div className="design-tabs" role="tablist" aria-label="Tool experience level"><button role="tab" aria-selected={mode==="beginner"} className={mode==="beginner"?"selected":""} onClick={()=>setMode("beginner")}>Beginner</button><button role="tab" aria-selected={mode==="advanced"} className={mode==="advanced"?"selected":""} onClick={()=>setMode("advanced")}>Advanced</button></div><div className="design-description"><span>{mode === "beginner" ? "A SIMPLE START" : "MORE CONTROL"}</span><p>{selectedTool[mode]}</p></div><div className="design-example"><span>TRY THIS</span><p>{selectedTool.example}</p><span>PREVIEW BEFORE SAVING</span><p>{selectedTool.preview}</p></div><div className="design-options"><h3>{mode === "beginner" ? "Starter workflow" : "Advanced options"}</h3><ul>{selectedTool[mode].split(/,\s*|;\s*/).filter(Boolean).map((item,index)=><li key={`${item}-${index}`}><i>✓</i>{item.trim().replace(/\.$/,"")}</li>)}</ul></div><div className="design-cap"><span>Browser trial limit</span><strong>{selectedTool.trialLimit}</strong></div><div className="design-foot"><span>{selectedTool.status === "limited" ? "Limited by browser engine" : selectedTool.status === "ready" ? "Available to try" : "Design preview · This tool is not available yet"}</span>{(selectedTool.status === "ready" || selectedTool.status === "limited") && <button className="v2-button primary" onClick={()=>{const name=selectedTool.name;setSelectedTool(null);onOpen(name);}}>{selectedTool.status === "limited" ? "Try with limits ↗" : "Try this tool ↗"}</button>}</div></section></div>}
   </div>;
 }
-function Workspace({ onHome, onSettings, onTool, activeTool }: { onHome: () => void; onSettings: () => void; onTool: (tool: string | null) => void; activeTool: string | null }) {
+function Workspace({ onHome, onSettings, onTool, activeTool, droppedFiles, onDroppedFiles, onDroppedFilesConsumed }: { onHome: () => void; onSettings: () => void; onTool: (tool: string | null) => void; activeTool: string | null; droppedFiles: File[]; onDroppedFiles: (files: File[]) => void; onDroppedFilesConsumed: () => void }) {
   const [query, setQuery] = useState("");
   const searchInput = useRef<HTMLInputElement>(null);
   const [workspaceSettings] = useState<SiteSettings>(readSiteSettings);
@@ -167,15 +195,41 @@ function Workspace({ onHome, onSettings, onTool, activeTool }: { onHome: () => v
     </aside>
     <main className="workspace-main">
       <header className="workspace-header"><div className="breadcrumb">PRISM <span>/</span> {activeTool ?? "Workspace"}</div><label className="search"><span aria-hidden="true">⌕</span><input ref={searchInput} value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Describe what you want to do…" aria-label="Search tools or describe a task" /><kbd>{platformShortcut}</kbd></label><div className="local-status"><i /> Local processing</div></header>
-      {(activeTool === "Inspect dimensions" || activeTool === "Inspect image dimensions") ? <ImageInspector /> : activeTool && tools.find(tool => tool.name === activeTool) ? <ToolRunner key={activeTool} tool={tools.find(tool => tool.name === activeTool)!} onBack={() => onTool("")} /> : activeTool ? <ToolPicker tools={filteredTools} onTool={openTool} activeTool={activeTool} favorites={favorites} onFavorite={toggleFavorite} /> : <HomeWorkspace tools={filteredTools} query={query} onTool={openTool} favorites={favorites} onFavorite={toggleFavorite} />}
+      {(activeTool === "Inspect dimensions" || activeTool === "Inspect image dimensions") ? <ImageInspector /> : activeTool && tools.find(tool => tool.name === activeTool) ? <ToolRunner key={activeTool} tool={tools.find(tool => tool.name === activeTool)!} initialFiles={droppedFiles} onInitialFilesConsumed={onDroppedFilesConsumed} onBack={() => onTool("")} /> : activeTool ? <ToolPicker tools={filteredTools} onTool={openTool} activeTool={activeTool} favorites={favorites} onFavorite={toggleFavorite} /> : <HomeWorkspace tools={filteredTools} query={query} onTool={openTool} favorites={favorites} onFavorite={toggleFavorite} droppedFiles={droppedFiles} onDroppedFiles={onDroppedFiles} onDroppedFilesConsumed={onDroppedFilesConsumed} onOpenTool={openTool} />}
     </main>
   </div>;
 }
 
-function HomeWorkspace({ tools: visibleTools, query, onTool, favorites, onFavorite }: { tools: Tool[]; query: string; onTool: (tool: string) => void; favorites: string[]; onFavorite: (name: string) => void }) {
+function HomeWorkspace({ tools: visibleTools, query, onTool, favorites, onFavorite, droppedFiles, onDroppedFiles, onDroppedFilesConsumed, onOpenTool }: { tools: Tool[]; query: string; onTool: (tool: string) => void; favorites: string[]; onFavorite: (name: string) => void; droppedFiles: File[]; onDroppedFiles: (files: File[]) => void; onDroppedFilesConsumed: () => void; onOpenTool: (tool: string) => void }) {
+  const [isDragging, setIsDragging] = useState(false);
+  const [fileError, setFileError] = useState("");
+  const fileInput = useRef<HTMLInputElement>(null);
+  const actionTools = useMemo(() => getDroppedFileTools(droppedFiles), [droppedFiles]);
+  const acceptFiles = (incoming: FileList | File[]) => {
+    const next = Array.from(incoming);
+    setFileError("");
+    if (!next.length) return;
+    if (next.length > WEB_MAX_FILES) { setFileError(`Choose up to ${WEB_MAX_FILES} files per batch.`); return; }
+    if (next.some(file => file.size > WEB_MAX_FILE_BYTES)) { setFileError("A file is larger than the 20 MB web trial limit. Choose a smaller file."); return; }
+    onDroppedFiles(next);
+  };
+  const chooseAction = (tool: Tool) => { onOpenTool(tool.name); };
+  useEffect(() => {
+    if (!droppedFiles.length) return;
+    const close = (event: KeyboardEvent) => { if (event.key === "Escape") onDroppedFilesConsumed(); };
+    window.addEventListener("keydown", close);
+    return () => window.removeEventListener("keydown", close);
+  }, [droppedFiles, onDroppedFilesConsumed]);
   return <div className="workspace-content">
     <div className="welcome-row"><div><span className="kicker">YOUR WORKSPACE</span><h1>A little more room<br />to get things done.</h1><p>Choose a tool and keep moving. Your files are processed locally in this workspace.</p></div><div className="welcome-mark"><PrismMark /></div></div>
-    <button className="drop-card" onClick={() => onTool("Browse image tools")}><span className="drop-card-icon">＋</span><strong>Choose a tool to begin</strong><small>Start with images, PDFs, documents, or everyday utilities</small></button>
+    <div className={`quick-drop-zone${isDragging ? " is-dragging" : ""}`} onDragOver={event => { event.preventDefault(); setIsDragging(true); }} onDragLeave={event => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setIsDragging(false); }} onDrop={event => { event.preventDefault(); setIsDragging(false); acceptFiles(event.dataTransfer.files); }}>
+      <input ref={fileInput} type="file" multiple hidden onChange={event => { acceptFiles(event.currentTarget.files ?? []); event.currentTarget.value = ""; }} aria-label="Choose files for a suggested action" />
+      <button className="quick-drop-circle" type="button" onClick={() => fileInput.current?.click()} aria-label="Choose a file to see actions"><span aria-hidden="true">＋</span></button>
+      <div className="quick-drop-copy"><strong>{isDragging ? "Drop to see what PRISM can do" : "Drop a file. Pick an action. Done."}</strong><span>PRISM checks the file type and shows matching browser tools. Your file stays on this device.</span><button type="button" className="quick-drop-browse" onClick={() => fileInput.current?.click()}>Choose files <span>↗</span></button></div>
+      <div className="quick-drop-hint"><span>PDF</span><span>IMAGE</span><span>TEXT</span><span>DATA</span></div>
+    </div>
+    {fileError && <p className="quick-drop-error" role="alert">{fileError}</p>}
+    {droppedFiles.length > 0 && <div className="drop-action-backdrop" role="presentation" onMouseDown={event => { if (event.target === event.currentTarget) onDroppedFilesConsumed(); }}><section className="drop-action-dialog" role="dialog" aria-modal="true" aria-labelledby="drop-action-title"><header><div><span className="kicker">FILE DETECTED BY EXTENSION</span><h2 id="drop-action-title">What should PRISM do?</h2><p>Choose an action to open it with your file already selected.</p></div><button className="drop-action-close" type="button" aria-label="Close file actions" onClick={onDroppedFilesConsumed}>×</button></header><div className="drop-detected-files">{droppedFiles.map((file, index) => <div className="drop-detected-file" key={`${file.name}-${index}`}><span className="drop-file-badge">{file.name.split(".").pop()?.slice(0,4).toUpperCase() || "FILE"}</span><strong title={file.name}>{file.name}</strong><small>{formatBytes(file.size)}</small></div>)}</div>{actionTools.length ? <div className="drop-action-grid" aria-label="Available actions">{actionTools.map((tool, index) => <button key={tool.id} className={`drop-action-option${index === 0 ? " recommended" : ""}`} type="button" onClick={() => chooseAction(tool)}><span className="drop-action-icon"><ToolCategoryIcon category={tool.category}/></span><span><strong>{tool.name}</strong><small>{tool.trialLimit} · {tool.status === "limited" ? "Limited trial" : "Ready to try"}</small></span><i aria-hidden="true">↗</i></button>)}</div> : <div className="drop-no-actions"><strong>No matching action is available in this web trial yet.</strong><p>The file has not been uploaded. Browse the toolbox to see supported inputs and formats.</p><button type="button" className="button button-light" onClick={onDroppedFilesConsumed}>Back to toolbox</button></div>}<footer><span>Processed on this device</span><button type="button" onClick={onDroppedFilesConsumed}>Cancel</button></footer></section></div>}
     <div className="tool-section-title"><div><h2>{query ? `Tools for “${query}”` : "Explore tools"}</h2><p>{query ? "Ranked by task wording and relevance. Results update locally as you type." : "Tools are listed by ID, from 001 to 150. Search by name or describe the job you need done."}</p></div><span>{visibleTools.length} matching tools</span></div>
     {visibleTools.length ? <div className="tool-grid">{visibleTools.map((tool, index) => <ToolCard key={tool.id} tool={tool} index={index} onClick={() => onTool(tool.name)} favorite={favorites.includes(tool.name)} onFavorite={() => onFavorite(tool.name)} />)}</div> : <div className="workspace-footnote">No tools match that description. Try simpler wording such as “compress image” or “merge PDFs”.</div>}
     <div className="workspace-footnote"><span>✳</span> Available tools have a local trial workflow. PDF compression, known-password unlocking, AES-256 protection, and JPEG extraction now run locally with clearly stated limits. File tools process selected files in your browser; saved work stays in this browser.</div>
