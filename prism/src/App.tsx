@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { invoke } from "@tauri-apps/api/core";
 import { open } from "@tauri-apps/plugin-dialog";
 import "./App.css";
@@ -33,6 +33,8 @@ function readSiteSettings(): SiteSettings {
 const isDesktop = "__TAURI_INTERNALS__" in window;
 const WEB_MAX_FILES = 10;
 const WEB_MAX_FILE_BYTES = 20 * 1024 * 1024;
+type QuickSaveDirectory = { getFileHandle(name: string, options: { create: true }): Promise<{ createWritable(): Promise<{ write(data: Blob): Promise<void>; close(): Promise<void> }> }> };
+type DirectoryPickerWindow = Window & { showDirectoryPicker?: (options?: { mode?: "readwrite" }) => Promise<QuickSaveDirectory> };
 
 function getDroppedFileTools(files: File[]): Tool[] {
   const extensions = files.map(file => file.name.split(".").pop()?.toLowerCase() ?? "");
@@ -40,6 +42,8 @@ function getDroppedFileTools(files: File[]): Tool[] {
   const textExt = ["txt", "csv", "json", "xml", "md", "markdown"];
   const all = (list: string[]) => extensions.every(extension => list.includes(extension));
   const eligible = tools.filter(tool => tool.status === "ready" || tool.status === "limited").filter(tool => {
+    if ([7, 8, 17, 25, 26, 27, 28].includes(tool.id)) return false;
+    if (tool.id === 16 && files.length < 2) return false;
     if (tool.category === "Images" && (files.length > 10 || files.some(file => file.size > 20 * 1024 * 1024))) return false;
     if (tool.category === "PDF" && tool.id !== 21 && (files.length > 2 || files.reduce((sum, file) => sum + file.size, 0) > 10 * 1024 * 1024)) return false;
     if (tool.category === "Documents" && (files.length > 2 || files.reduce((sum, file) => sum + file.size, 0) > 5 * 1024 * 1024)) return false;
@@ -195,20 +199,19 @@ function Workspace({ onHome, onSettings, onTool, activeTool, droppedFiles, onDro
     </aside>
     <main className="workspace-main">
       <header className="workspace-header"><div className="breadcrumb">PRISM <span>/</span> {activeTool ?? "Workspace"}</div><label className="search"><span aria-hidden="true">⌕</span><input ref={searchInput} value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Describe what you want to do…" aria-label="Search tools or describe a task" /><kbd>{platformShortcut}</kbd></label><div className="local-status"><i /> Local processing</div></header>
-      {(activeTool === "Inspect dimensions" || activeTool === "Inspect image dimensions") ? <ImageInspector /> : activeTool && tools.find(tool => tool.name === activeTool) ? <ToolRunner key={activeTool} tool={tools.find(tool => tool.name === activeTool)!} initialFiles={droppedFiles} onInitialFilesConsumed={onDroppedFilesConsumed} onBack={() => onTool("")} /> : activeTool ? <ToolPicker tools={filteredTools} onTool={openTool} activeTool={activeTool} favorites={favorites} onFavorite={toggleFavorite} /> : <HomeWorkspace tools={filteredTools} query={query} onTool={openTool} favorites={favorites} onFavorite={toggleFavorite} droppedFiles={droppedFiles} onDroppedFiles={onDroppedFiles} onDroppedFilesConsumed={onDroppedFilesConsumed} onOpenTool={openTool} />}
+      {(activeTool === "Inspect dimensions" || activeTool === "Inspect image dimensions") ? <ImageInspector /> : activeTool && tools.find(tool => tool.name === activeTool) ? <ToolRunner key={activeTool} tool={tools.find(tool => tool.name === activeTool)!} initialFiles={droppedFiles} onInitialFilesConsumed={onDroppedFilesConsumed} onBack={() => onTool("")} /> : activeTool ? <ToolPicker tools={filteredTools} onTool={openTool} activeTool={activeTool} favorites={favorites} onFavorite={toggleFavorite} /> : <HomeWorkspace tools={filteredTools} query={query} onTool={openTool} favorites={favorites} onFavorite={toggleFavorite} droppedFiles={droppedFiles} onDroppedFiles={onDroppedFiles} onDroppedFilesConsumed={onDroppedFilesConsumed} />}
     </main>
   </div>;
 }
 
-function HomeWorkspace({ tools: visibleTools, query, onTool, favorites, onFavorite, droppedFiles, onDroppedFiles, onDroppedFilesConsumed, onOpenTool }: { tools: Tool[]; query: string; onTool: (tool: string) => void; favorites: string[]; onFavorite: (name: string) => void; droppedFiles: File[]; onDroppedFiles: (files: File[]) => void; onDroppedFilesConsumed: () => void; onOpenTool: (tool: string) => void }) {
+function HomeWorkspace({ tools: visibleTools, query, onTool, favorites, onFavorite, droppedFiles, onDroppedFiles, onDroppedFilesConsumed }: { tools: Tool[]; query: string; onTool: (tool: string) => void; favorites: string[]; onFavorite: (name: string) => void; droppedFiles: File[]; onDroppedFiles: (files: File[]) => void; onDroppedFilesConsumed: () => void }) {
   const [isDragging, setIsDragging] = useState(false);
-  const [actionPage, setActionPage] = useState(0);
+  const [quickActionTool, setQuickActionTool] = useState<Tool | null>(null);
+  const [saveDirectory, setSaveDirectory] = useState<QuickSaveDirectory | null>(null);
+  const [quickRunBusy, setQuickRunBusy] = useState(false);
   const [fileError, setFileError] = useState("");
   const fileInput = useRef<HTMLInputElement>(null);
   const actionTools = useMemo(() => getDroppedFileTools(droppedFiles), [droppedFiles]);
-  const actionPageSize = 6;
-  const actionPageCount = Math.ceil(actionTools.length / actionPageSize);
-  const visibleActionTools = actionTools.slice(actionPage * actionPageSize, (actionPage + 1) * actionPageSize);
   const acceptFiles = (incoming: FileList | File[]) => {
     const next = Array.from(incoming);
     setFileError("");
@@ -217,14 +220,21 @@ function HomeWorkspace({ tools: visibleTools, query, onTool, favorites, onFavori
     if (next.some(file => file.size > WEB_MAX_FILE_BYTES)) { setFileError("A file is larger than the 20 MB web trial limit. Choose a smaller file."); return; }
     onDroppedFiles(next);
   };
-  const chooseAction = (tool: Tool) => { onOpenTool(tool.name); };
+  const chooseAction = async (tool: Tool) => {
+    const picker = (window as DirectoryPickerWindow).showDirectoryPicker;
+    if (picker) {
+      try { setSaveDirectory(await picker.call(window, { mode: "readwrite" })); }
+      catch (error) { if (error instanceof DOMException && error.name === "AbortError") return; setSaveDirectory(null); }
+    } else setSaveDirectory(null);
+    setQuickActionTool(tool);
+  };
   useEffect(() => {
-    if (!droppedFiles.length) return;
+    if (!droppedFiles.length || quickRunBusy) return;
     const close = (event: KeyboardEvent) => { if (event.key === "Escape") onDroppedFilesConsumed(); };
     window.addEventListener("keydown", close);
     return () => window.removeEventListener("keydown", close);
-  }, [droppedFiles, onDroppedFilesConsumed]);
-  useEffect(() => setActionPage(0), [droppedFiles]);
+  }, [droppedFiles, onDroppedFilesConsumed, quickRunBusy]);
+  useEffect(() => { if (!droppedFiles.length) setQuickActionTool(null); }, [droppedFiles.length]);
   return <div className="workspace-content">
     <div className="welcome-row"><div><span className="kicker">YOUR WORKSPACE</span><h1>A little more room<br />to get things done.</h1><p>Choose a tool and keep moving. Your files are processed locally in this workspace.</p></div><div className="welcome-mark"><PrismMark /></div></div>
     <div className={`quick-drop-zone${isDragging ? " is-dragging" : ""}`} onDragOver={event => { event.preventDefault(); setIsDragging(true); }} onDragLeave={event => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setIsDragging(false); }} onDrop={event => { event.preventDefault(); setIsDragging(false); acceptFiles(event.dataTransfer.files); }}>
@@ -234,7 +244,7 @@ function HomeWorkspace({ tools: visibleTools, query, onTool, favorites, onFavori
       <div className="quick-drop-hint"><span>PDF</span><span>IMAGE</span><span>TEXT</span><span>DATA</span></div>
     </div>
     {fileError && <p className="quick-drop-error" role="alert">{fileError}</p>}
-    {droppedFiles.length > 0 && <div className="drop-action-backdrop" role="presentation" onMouseDown={event => { if (event.target === event.currentTarget) onDroppedFilesConsumed(); }}><section className="drop-action-dialog" role="dialog" aria-modal="true" aria-labelledby="drop-action-title"><header><div><span className="kicker">FILE DETECTED BY EXTENSION</span><h2 id="drop-action-title">What should PRISM do?</h2><p>Choose an action to open it with your file already selected.</p></div><button className="drop-action-close" type="button" aria-label="Close file actions" onClick={onDroppedFilesConsumed}>×</button></header><div className="drop-detected-files">{droppedFiles.map((file, index) => <div className="drop-detected-file" key={`${file.name}-${index}`}><span className="drop-file-badge">{file.name.split(".").pop()?.slice(0,4).toUpperCase() || "FILE"}</span><strong title={file.name}>{file.name}</strong><small>{formatBytes(file.size)}</small></div>)}</div>{actionTools.length ? <><div className="drop-action-wheel" aria-label="Available actions"><div className="drop-wheel-ring"/><div className="drop-wheel-center"><span>{new Set(droppedFiles.map(file => file.name.split(".").pop()?.toUpperCase())).size === 1 ? droppedFiles[0].name.split(".").pop()?.toUpperCase() : `${droppedFiles.length} FILES`}</span><small>{formatBytes(droppedFiles.reduce((total, file) => total + file.size, 0))} · LOCAL</small></div>{visibleActionTools.map((tool, index) => { const angle = -90 + index * (360 / visibleActionTools.length); return <button key={tool.id} className={`drop-action-option${index === 0 && actionPage === 0 ? " recommended" : ""}`} style={{ "--angle": `${angle}deg` } as CSSProperties} type="button" onClick={() => chooseAction(tool)} aria-label={`${tool.name}, ${tool.trialLimit}`}><span className="drop-action-icon"><ToolCategoryIcon category={tool.category}/></span><strong>{tool.name}</strong><small>{tool.status === "limited" ? "Limited" : "Ready"}</small></button>; })}</div>{actionPageCount > 1 && <nav className="drop-wheel-pagination" aria-label="More actions"><button type="button" onClick={() => setActionPage(page => (page - 1 + actionPageCount) % actionPageCount)} aria-label="Previous actions">←</button><span>{actionPage + 1} / {actionPageCount} · {actionTools.length} actions</span><button type="button" onClick={() => setActionPage(page => (page + 1) % actionPageCount)} aria-label="Next actions">→</button></nav>}</> : <div className="drop-no-actions"><strong>No matching action is available in this web trial yet.</strong><p>The file has not been uploaded. Browse the toolbox to see supported inputs and formats.</p><button type="button" className="button button-light" onClick={onDroppedFilesConsumed}>Back to toolbox</button></div>}<footer><span>Processed on this device</span><button type="button" onClick={onDroppedFilesConsumed}>Cancel</button></footer></section></div>}
+    {(droppedFiles.length > 0 || quickActionTool) && <div className="drop-action-backdrop" role="presentation" onMouseDown={event => { if (event.target === event.currentTarget && !quickActionTool) onDroppedFilesConsumed(); }}><section className="drop-action-dialog" role="dialog" aria-modal="true" aria-labelledby="drop-action-title"><header><div><span className="kicker">FILE DETECTED BY EXTENSION</span><h2 id="drop-action-title">{quickActionTool ? quickActionTool.name : "What should PRISM do?"}</h2><p>{quickActionTool ? "Processing a local copy. Your original file stays unchanged." : "Choose an action. PRISM will process it here and save the result."}</p></div><button className="drop-action-close" type="button" disabled={quickRunBusy} aria-label="Close file actions" onClick={() => { setQuickActionTool(null); setSaveDirectory(null); onDroppedFilesConsumed(); }}>×</button></header><div className="drop-detected-files">{droppedFiles.map((file, index) => <div className="drop-detected-file" key={`${file.name}-${index}`}><span className="drop-file-badge">{file.name.split(".").pop()?.slice(0,4).toUpperCase() || "FILE"}</span><strong title={file.name}>{file.name}</strong><small>{formatBytes(file.size)}</small></div>)}</div>{quickActionTool ? <><div className="quick-run-stage"><ToolRunner key={`quick-${quickActionTool.id}`} tool={quickActionTool} initialFiles={droppedFiles} quickRun saveDirectory={saveDirectory ?? undefined} onQuickRunClose={() => { setQuickActionTool(null); setSaveDirectory(null); setQuickRunBusy(false); onDroppedFilesConsumed(); }} onQuickRunBusyChange={setQuickRunBusy} /></div>{!quickRunBusy && <button type="button" className="quick-run-back" onClick={() => { setQuickActionTool(null); setSaveDirectory(null); }}>Choose another action</button>}</> : actionTools.length ? <div className="drop-action-list" role="group" aria-label="Available actions">{actionTools.map((tool, index) => <button key={tool.id} className={`drop-action-row${index === 0 ? " recommended" : ""}`} type="button" onClick={() => { void chooseAction(tool); }}><span className="drop-action-icon"><ToolCategoryIcon category={tool.category}/></span><span className="drop-action-row-copy"><strong>{tool.name}</strong><small>{tool.beginner} · {tool.trialLimit}</small></span>{index === 0 && <span className="drop-action-best">Suggested</span>}<span className="drop-action-arrow" aria-hidden="true">↗</span></button>)}</div> : <div className="drop-no-actions"><strong>No matching action is available in this web trial yet.</strong><p>The file has not been uploaded. Browse the toolbox to see supported inputs and formats.</p><button type="button" className="button button-light" onClick={onDroppedFilesConsumed}>Back to toolbox</button></div>}<p className="drop-save-note">{quickActionTool ? saveDirectory ? "Saving results in the folder you selected." : "Your browser controls the download location. Enable “Ask where to save” in browser settings to choose a location." : "Quick actions use defaults. Password, text-overlay, and custom page-selection workflows remain in the full toolbox. On supported browsers, you’ll choose an output folder first."}</p><footer><span>Processed on this device</span><button type="button" disabled={quickRunBusy} onClick={() => { setQuickActionTool(null); setSaveDirectory(null); setQuickRunBusy(false); onDroppedFilesConsumed(); }}>Cancel</button></footer></section></div>}
     <div className="tool-section-title"><div><h2>{query ? `Tools for “${query}”` : "Explore tools"}</h2><p>{query ? "Ranked by task wording and relevance. Results update locally as you type." : "Tools are listed by ID, from 001 to 150. Search by name or describe the job you need done."}</p></div><span>{visibleTools.length} matching tools</span></div>
     {visibleTools.length ? <div className="tool-grid">{visibleTools.map((tool, index) => <ToolCard key={tool.id} tool={tool} index={index} onClick={() => onTool(tool.name)} favorite={favorites.includes(tool.name)} onFavorite={() => onFavorite(tool.name)} />)}</div> : <div className="workspace-footnote">No tools match that description. Try simpler wording such as “compress image” or “merge PDFs”.</div>}
     <div className="workspace-footnote"><span>✳</span> Available tools have a local trial workflow. PDF compression, known-password unlocking, AES-256 protection, and JPEG extraction now run locally with clearly stated limits. File tools process selected files in your browser; saved work stays in this browser.</div>
@@ -358,6 +368,7 @@ async function readImageHeader(file: File): Promise<{ width: number; height: num
 }
 
 export default App;
+
 
 
 
